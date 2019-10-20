@@ -1,0 +1,9 @@
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+
+# for Rubymine
+.idea
+
+# Ignore vendor/bundle
+task_management/vendor/bundle
