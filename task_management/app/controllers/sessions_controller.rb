@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   before_action :set_user, only: %i(create)
+  skip_before_action :require_sign_in!
 
   def new
   end
