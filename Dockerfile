@@ -4,7 +4,8 @@ FROM ruby:2.6.5
 RUN apt-get update -qq && \
     apt-get install -y build-essential \ 
     libpq-dev \ 
-    default-mysql-client \       
+    default-mysql-client \
+    yarn \
     nodejs           
 
 # 作業ディレクトリの作成、設定
