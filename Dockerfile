@@ -3,7 +3,9 @@ FROM ruby:2.6.5
 # 必要なパッケージのインストール（基本的に必要になってくるものだと思うので削らないこと）
 RUN apt-get update -qq && \
     apt-get install -y build-essential \ 
-    libpq-dev \        
+    libpq-dev \ 
+    default-mysql-client \
+    yarn \
     nodejs           
 
 # 作業ディレクトリの作成、設定
