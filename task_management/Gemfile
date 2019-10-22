@@ -29,6 +29,10 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 # template engine
 gem 'slim-rails'
+# for use react
+gem 'react_on_rails'
+gem 'foreman'
+gem 'mini_racer', platforms: :ruby
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
