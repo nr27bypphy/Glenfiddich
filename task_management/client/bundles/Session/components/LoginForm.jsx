@@ -6,7 +6,12 @@ import SessionFormCard from "./SessionFormCard";
 import SessionFormHeader from "./SessionFormHeader";
 import SubmitButton from "./SubmitButton";
 
-const useStyles = makeStyles(theme => ({}));
+const useStyles = makeStyles(theme => ({
+  formContentWrapper: {
+    width: "260px",
+    margin: "0 auto"
+  }
+}));
 
 function LoginForm() {
   const classes = useStyles();
@@ -14,13 +19,17 @@ function LoginForm() {
   return (
     <SessionFormCard>
       <SessionFormHeader />
-      <FormElementItem>
-        <SessionTextField label="メールアドレスす" name="session[mail]" />
-      </FormElementItem>
-      <FormElementItem>
-        <SessionTextField label="パスワード" name="session[password]" />
-      </FormElementItem>
-      <SubmitButton />
+      <div className={classes.formContentWrapper}>
+        <FormElementItem>
+          <SessionTextField label="メールアドレス" name="session[mail]" />
+        </FormElementItem>
+        <FormElementItem>
+          <SessionTextField label="パスワード" name="session[password]" />
+        </FormElementItem>
+        <div>
+          <SubmitButton />
+        </div>
+      </div>
     </SessionFormCard>
   );
 }

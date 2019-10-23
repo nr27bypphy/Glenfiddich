@@ -5,7 +5,10 @@ const useStyles = makeStyles(theme => ({
   sessionHeaderLabel: {
     height: "60px",
     color: "rgb(255, 255, 255)",
-    fontSize: "14px"
+    fontSize: "14px",
+    margin: "0",
+    padding: "0",
+    lineHeight: "100px"
   }
 }));
 

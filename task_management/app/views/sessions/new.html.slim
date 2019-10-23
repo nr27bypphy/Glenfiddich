@@ -1,5 +1,1 @@
-= form_for :session, url: login_path do |f|
-  = f.text_field :mail
-  = f.password_field :password
-  = react_component("LoginForm", prerender: false)
-  = f.submit 'ログイン'
+= react_component("LoginContents", prerender: false)

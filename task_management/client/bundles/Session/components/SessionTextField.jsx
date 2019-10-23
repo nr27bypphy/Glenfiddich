@@ -4,10 +4,10 @@ import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles(theme => ({
   textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
     lineHeight: "80px",
-    width: "100%"
+    width: "100%",
+    boxSizing: "border-box",
+    padding: "0px"
   }
 }));
 
