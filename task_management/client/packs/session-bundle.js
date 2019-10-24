@@ -1,7 +1,7 @@
 import ReactOnRails from "react-on-rails";
 
-import LoginForm from "../bundles/Session/components/LoginForm";
+import LoginContents from "../bundles/Session/components/LoginContents";
 
 ReactOnRails.register({
-  LoginForm
+  LoginContents
 });
