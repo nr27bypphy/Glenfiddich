@@ -5,6 +5,7 @@ import FormElementItem from "./FormElementItem";
 import SessionFormCard from "./SessionFormCard";
 import SessionFormHeader from "./SessionFormHeader";
 import SubmitButton from "./SubmitButton";
+import useForm from "react-hook-form";
 
 const useStyles = makeStyles(theme => ({
   formContentWrapper: {
@@ -15,17 +16,26 @@ const useStyles = makeStyles(theme => ({
 
 function LoginForm(props) {
   const classes = useStyles();
+  const { register, handleSubmit, watch, errors, setValue } = useForm();
+  const onSubmit = data => {};
 
   return (
     <SessionFormCard>
       <SessionFormHeader />
-      <form action="/login" method="post">
+      <form onSubmit={handleSubmit(onSubmit)} method="post">
         <div className={classes.formContentWrapper}>
           <FormElementItem>
-            <SessionTextField label="メールアドレス" name="session[mail]" />
+            <SessionTextField
+              label="メールアドレス"
+              name="session_mail"
+              hello="hoge"
+              inputRef={register({ required: true, minLength: 10 })}
+            />
+            {errors.session_mail && <span>This field is required</span>}
           </FormElementItem>
           <FormElementItem>
             <SessionTextField label="パスワード" name="session[password]" />
+            {/* {errors.session[password] && <spa>Thie field is required</spa>} */}
           </FormElementItem>
           <div>
             <SubmitButton />

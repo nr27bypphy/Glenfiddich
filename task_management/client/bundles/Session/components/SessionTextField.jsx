@@ -22,6 +22,7 @@ export default function SessionTextField(props) {
       defaultValue=""
       margin="normal"
       variant="outlined"
+      inputRef={props.inputRef}
     />
   );
 }
