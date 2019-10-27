@@ -7,3 +7,6 @@ html
     = javascript_pack_tag 'session-bundle'
   body
     = yield
+    / flash メッセージを表示する
+    - unless flash[:success].nil?
+      = react_component("Flash", props: { initialState: true, message: flash[:success], variant: :success }, prerender: false) 
