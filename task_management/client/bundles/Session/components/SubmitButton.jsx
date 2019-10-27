@@ -20,7 +20,7 @@ export default function SubmitButton() {
   const classes = useStyles();
 
   return (
-    <Button variant="contained" className={classes.button}>
+    <Button variant="contained" className={classes.button} type="submit">
       Submit
     </Button>
   );

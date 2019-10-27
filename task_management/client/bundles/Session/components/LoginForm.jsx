@@ -19,17 +19,19 @@ function LoginForm() {
   return (
     <SessionFormCard>
       <SessionFormHeader />
-      <div className={classes.formContentWrapper}>
-        <FormElementItem>
-          <SessionTextField label="メールアドレス" name="session[mail]" />
-        </FormElementItem>
-        <FormElementItem>
-          <SessionTextField label="パスワード" name="session[password]" />
-        </FormElementItem>
-        <div>
-          <SubmitButton />
+      <form action="/login" method="post">
+        <div className={classes.formContentWrapper}>
+          <FormElementItem>
+            <SessionTextField label="メールアドレス" name="session[mail]" />
+          </FormElementItem>
+          <FormElementItem>
+            <SessionTextField label="パスワード" name="session[password]" />
+          </FormElementItem>
+          <div>
+            <SubmitButton />
+          </div>
         </div>
-      </div>
+      </form>
     </SessionFormCard>
   );
 }
