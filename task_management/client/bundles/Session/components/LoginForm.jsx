@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function LoginForm() {
+function LoginForm(props) {
   const classes = useStyles();
 
   return (
@@ -31,9 +31,15 @@ function LoginForm() {
             <SubmitButton />
           </div>
         </div>
+        {/* CSRFトークン対策 */}
+        <input
+          type="hidden"
+          name="authenticity_token"
+          value={props.authenticity_token}
+        />
       </form>
     </SessionFormCard>
   );
 }
 
-export default _ => <LoginForm />;
+export default props => <LoginForm {...props} />;

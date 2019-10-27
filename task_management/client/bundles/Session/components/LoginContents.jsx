@@ -14,9 +14,9 @@ function LoginContents(props) {
 
   return (
     <div className={classes.loginContens}>
-      <LoginForm />
+      <LoginForm authenticity_token={props.authenticity_token} />
     </div>
   );
 }
 
-export default _ => <LoginContents />;
+export default props => <LoginContents {...props} />;

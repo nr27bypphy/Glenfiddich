@@ -8,9 +8,10 @@ class SessionsController < ApplicationController
   def create
     if @user.authenticate(session_params[:password])
       sign_in(@user)
+      flash[:success] = "ログインしました"
       redirect_to root_path
     else
-      flash.now[:danger] = t('.flash.invalid_password')
+      flash.now[:error] = @user.errors.full_messages
       render 'new'
     end
   end
@@ -23,10 +24,10 @@ class SessionsController < ApplicationController
   private
 
   def set_user
-    @user = User.find_by(mail: session_params[:mail])
-  rescue
-    flash.now[:danger] = t('.flash.invalid_mail')
-    render action: 'new'
+    @user = User.find_by!(mail: session_params[:mail])
+  rescue ActiveRecord::RecordNotFound
+    flash[:error] = 'ユーザーが存在しません'
+    render :new
   end
 
   # 許可するパラメータ
