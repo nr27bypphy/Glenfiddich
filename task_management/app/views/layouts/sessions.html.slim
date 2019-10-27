@@ -8,5 +8,5 @@ html
   body
     = yield
     / flash メッセージを表示する
-    - unless flash[:success].nil?
-      = react_component("Flash", props: { initialState: true, message: flash[:success], variant: :success }, prerender: false) 
+    - unless flash[:notice].nil?
+      = react_component("Flash", props: { initialState: true, message: flash[:notice], variant: :success }, prerender: false) 
