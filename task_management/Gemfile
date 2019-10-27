@@ -41,6 +41,7 @@ group :development, :test do
   gem "rubocop"
   # introduce rubocop setting
   gem "rubocop-rails_config"
+  gem "pry-byebug"
 end
 
 group :development do
