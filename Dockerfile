@@ -1,5 +1,7 @@
 FROM ruby:2.6.5
 
+ENV LANG C.UTF-8
+
 # Additional packages : we are adding the netcat package so we can
 # make pings to the database service
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
