@@ -12,6 +12,8 @@ services:
   web: &app_base
     build: .
     command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b 0.0.0.0"
+    tty: true
+    stdin_open: true
     volumes:
       - ./task_management:/task_management
     ports:
