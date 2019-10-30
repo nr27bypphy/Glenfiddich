@@ -8,12 +8,13 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 
 # 必要なパッケージのインストール（基本的に必要になってくるものだと思うので削らないこと）
 RUN apt-get update -qq && \
-    apt-get install -y build-essential \ 
+    apt-get install -y \
+    build-essential \ 
     libpq-dev \ 
-    default-mysql-client
-RUN apt-get install -y yarn
-RUN apt-get install -y tzdata
-RUN apt-get install -y nodejs
+    default-mysql-client \ 
+    yarn \ 
+    tzdata \ 
+    nodejs
 
 # 作業ディレクトリの作成、設定
 RUN mkdir /task_management 
@@ -28,5 +29,4 @@ ADD ./task_management/Gemfile.lock $APP_ROOT/Gemfile.lock
 # Gemfileのbundle install
 RUN bundle install
 ADD ./task_management/ $APP_ROOT
-RUN bundle install
 RUN yarn
