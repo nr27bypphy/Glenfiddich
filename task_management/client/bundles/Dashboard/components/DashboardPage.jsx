@@ -5,7 +5,6 @@ function DashboardPage() {
   return (
     <>
       <DashboardHeader />
-      <div>hello this is dashbaord</div>
     </>
   );
 }
