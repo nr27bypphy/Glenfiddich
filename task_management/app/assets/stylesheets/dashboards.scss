@@ -7,34 +7,41 @@ $afford_color: #2BCA40;
   position: relative;
   width: 100%;
   background-color: #FFF;
-  overflow: hidden;
 
   .BackgroundThema{
     position: absolute;
-    top: 0;
-    bottom: 56vh;
-    width: 100%;
-    background: $main_color;
+    width: 82%;
+    border-top: 23vh solid #5761CD;
+    border-left: 30vw solid transparent;
+    border-right: 30vw solid transparent;
+    margin-left: -21%;
   }
 
   .Content{
-    position: relative;
+    z-index: 105;
+    position: absolute;
+    width: 100%;
 
     .SearchBox{
       margin-top: 6.5vh;
-      width: 100%;
+      background-color: #FFF;
+      width: 83.5%;
+      margin-left: 7.5%;
       text-align: center;
+      overflow: hidden;
 
       .fa-search{
-        position: absolute;
-        font-size: 4vh;
-        left: 8%;
-        top: 1%;
+        float: left;
+        font-size: 2.5vw;
+        margin-top: 1vh;
+        margin-left: 0.7vw;
       }
 
       .SearchInput{
         height: 5vh;
-        width: 85%;
+        width: 79vw;
+        font-size: 2rem;
+        float: right;
       }
     }
 
@@ -45,10 +52,11 @@ $afford_color: #2BCA40;
 
       .ProjectBox{
         background-color: #FFF;
-        width:45%;
+        width: 40%;
         float: left;
         height: 60vh;
-        box-shadow:5px 5px 5px rgba(0,0,0,0.4);
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+        position: absolute;;
 
 
         .TitleBox{
@@ -137,10 +145,12 @@ $afford_color: #2BCA40;
 
       .MemberBox{
         background-color: #FFF;
-        width:45%;
+        position: absolute;
+        left: 51%;
+        width: 40%;
         float: right;
         height: 60vh;
-        box-shadow:5px 5px 5px rgba(0,0,0,0.4);
+        box-shadow: 5px 5px 5px rgba(0, 0, 0,0.4);
 
         .TitleBox{
           overflow:hidden;
