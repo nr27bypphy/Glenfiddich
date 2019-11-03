@@ -17,6 +17,7 @@
     "react-dom": "^16.10.2",
     "react-hook-form": "^3.26.2",
     "react-on-rails": "11.3.0",
+    "styled-components": "^4.4.1",
     "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",
