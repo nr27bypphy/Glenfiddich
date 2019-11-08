@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import DescriptionIcon from "@material-ui/icons/Description";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -24,8 +23,8 @@ export const PaperHeader = props => {
 
   return (
     <Wrapper>
-      <DescriptionIcon className={classes.Icon} />
-      <Title className={classes.Title}>Project</Title>
+      {props.children}
+      <Title className={classes.Title}>{props.title}</Title>
       <MoreHorizIcon className={classes.Option} />
     </Wrapper>
   );
