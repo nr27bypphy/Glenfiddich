@@ -17,7 +17,13 @@ export const AddButton = props => {
   const classes = useStyles();
 
   return (
-    <Button color="primary" className={classes.button}>
+    <Button
+      color="primary"
+      className={classes.button}
+      onClick={() => {
+        props.handleClick();
+      }}
+    >
       <AddIcon className={classes.centered} />
       <span className={classes.centered}>{props.message}</span>
     </Button>
