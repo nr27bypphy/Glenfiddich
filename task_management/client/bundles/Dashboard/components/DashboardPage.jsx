@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import DashboardHeader from "./DashbboardHeader";
+import { DashboardHeader } from "./DashbboardHeader";
 import DashboardContainer from "./DashboardContainer";
 
 function DashboardPage() {

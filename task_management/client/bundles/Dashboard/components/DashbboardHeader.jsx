@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function DashboardHeader() {
+export const DashboardHeader = () => {
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -92,6 +92,4 @@ function DashboardHeader() {
       </AppBar>
     </div>
   );
-}
-
-export default _ => <DashboardHeader />;
+};
