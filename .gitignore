@@ -7,3 +7,6 @@
 
 # Ignore vendor/bundle
 task_management/vendor/bundle
+
+# mysql data volume
+mysql-datavolume/
