@@ -2,13 +2,13 @@ import React, { Fragment } from "react";
 import { DashboardHeader } from "./DashbboardHeader";
 import DashboardContainer from "./DashboardContainer";
 
-function DashboardPage() {
+const DashboardPage = props => {
   return (
     <>
-      <DashboardHeader />
+      <DashboardHeader user={props.user} />
       <DashboardContainer />
     </>
   );
-}
+};
 
-export default _ => <DashboardPage />;
+export default props => <DashboardPage {...props} />;
