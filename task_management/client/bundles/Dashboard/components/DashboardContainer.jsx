@@ -29,48 +29,46 @@ export default function DashboardContainer() {
   const classes = useStyles();
 
   return (
-    <>
-      <BackgroundThema>
-        <Content>
-          <SearchContent />
-          <Grid container spacing={3}>
-            <Grid item xs={6}>
-              <GrPaper className={classes.projectPaper}>
-                <PaperHeader title="Project">
-                  <DescriptionIcon className={classes.icon} />
-                </PaperHeader>
-                <PaperSearchContent />
-                <PaperBody>
-                  <AddButton message="プロジェクトを追加する" />
-                  <DashboardTable>
-                    <ProjectThead />
-                    <tbody>
-                      <ProjectTableTr />
-                    </tbody>
-                  </DashboardTable>
-                </PaperBody>
-              </GrPaper>
-            </Grid>
-            <Grid item xs={6}>
-              <GrPaper>
-                <PaperHeader title="Member">
-                  <PeopleIcon className={classes.icon} />
-                </PaperHeader>
-                <PaperSearchContent />
-                <PaperBody>
-                  <AddButton message="メンバーを追加する" />
-                  <DashboardTable>
-                    <tbody>
-                      <MemberTableTr />
-                    </tbody>
-                  </DashboardTable>
-                </PaperBody>
-              </GrPaper>
-            </Grid>
+    <BackgroundThema>
+      <Content>
+        <SearchContent />
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
+            <GrPaper className={classes.projectPaper}>
+              <PaperHeader title="Project">
+                <DescriptionIcon className={classes.icon} />
+              </PaperHeader>
+              <PaperSearchContent />
+              <PaperBody>
+                <AddButton message="プロジェクトを追加する" />
+                <DashboardTable>
+                  <ProjectThead />
+                  <tbody>
+                    <ProjectTableTr />
+                  </tbody>
+                </DashboardTable>
+              </PaperBody>
+            </GrPaper>
           </Grid>
-        </Content>
-      </BackgroundThema>
-    </>
+          <Grid item xs={6}>
+            <GrPaper>
+              <PaperHeader title="Member">
+                <PeopleIcon className={classes.icon} />
+              </PaperHeader>
+              <PaperSearchContent />
+              <PaperBody>
+                <AddButton message="メンバーを追加する" />
+                <DashboardTable>
+                  <tbody>
+                    <MemberTableTr />
+                  </tbody>
+                </DashboardTable>
+              </PaperBody>
+            </GrPaper>
+          </Grid>
+        </Grid>
+      </Content>
+    </BackgroundThema>
   );
 }
 
