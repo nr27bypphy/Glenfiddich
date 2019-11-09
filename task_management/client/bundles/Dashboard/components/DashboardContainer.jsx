@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function DashboardContainer() {
+export const DashboardContainer = props => {
   const classes = useStyles();
 
   return (
@@ -70,7 +70,7 @@ export default function DashboardContainer() {
       </Content>
     </BackgroundThema>
   );
-}
+};
 
 const BackgroundThema = styled.div`
   background-image: url("../../assets/dashboard-background.png");
