@@ -47,7 +47,7 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(191) NOT NULL,
+  `name` varchar(255) NOT NULL DEFAULT 'no name',
   `mail` varchar(191) NOT NULL,
   `password_digest` varchar(191) NOT NULL,
   `remember_token` varchar(191) DEFAULT NULL,
@@ -69,6 +69,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `schema_migrations` (version) VALUES
 ('20191020011038'),
-('20191109014147');
+('20191109014147'),
+('20191109051021');
 
 
