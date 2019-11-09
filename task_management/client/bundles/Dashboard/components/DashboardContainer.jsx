@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 
 export const DashboardContainer = props => {
   const classes = useStyles();
-  const tasks = props.tasks;
+  const [tasks, setTasks] = useState(props.tasks);
 
   return (
     <BackgroundThema>
