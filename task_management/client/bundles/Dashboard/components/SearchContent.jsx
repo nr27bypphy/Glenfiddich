@@ -39,4 +39,5 @@ const SearchBox = styled.div`
   width: 100%;
   display: flex;
   height: 3rem;
+  background-color: #ffffff;
 `;
