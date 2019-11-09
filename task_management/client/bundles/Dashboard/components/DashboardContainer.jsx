@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => ({
 
 export const DashboardContainer = props => {
   const classes = useStyles();
+  const tasks = props.tasks;
 
   return (
     <BackgroundThema>
@@ -44,7 +45,9 @@ export const DashboardContainer = props => {
                 <DashboardTable>
                   <ProjectThead />
                   <tbody>
-                    <ProjectTableTr />
+                    {tasks.map(task => {
+                      return <ProjectTableTr task={task} />;
+                    })}
                   </tbody>
                 </DashboardTable>
               </PaperBody>

@@ -2,11 +2,13 @@ import React from "react";
 import { AlertTd } from "./AlertTd";
 
 export const ProjectTableTr = props => {
+  const task = props.task;
+
   return (
     <tr>
-      <td>CD</td>
-      <td># 表彰制度の設定</td>
-      <td>PM</td>
+      <td>{task.title}</td>
+      <td>{task.description}</td>
+      <td></td>
       <AlertTd />
     </tr>
   );
