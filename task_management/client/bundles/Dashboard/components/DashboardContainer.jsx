@@ -39,6 +39,11 @@ export const DashboardContainer = props => {
     setOpen(false);
   };
 
+  const addNewTasks = (title, description) => {
+    const newTasks = tasks.concat({ title: title, description: description });
+    setTasks(newTasks);
+  };
+
   return (
     <>
       <BackgroundThema>
@@ -87,7 +92,11 @@ export const DashboardContainer = props => {
         </Content>
       </BackgroundThema>
       {/* プロジェクト追加モーダル */}
-      <AddProjectModal open={open} handleClose={() => handleClose()} />
+      <AddProjectModal
+        open={open}
+        handleClose={() => handleClose()}
+        addNewTasks={(title, description) => addNewTasks(title, description)}
+      />
     </>
   );
 };

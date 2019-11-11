@@ -14,10 +14,8 @@ export const AddProjectModal = props => {
   const [userName, setUserName] = useState("");
 
   const handleAddProject = () => {
-    console.log(title);
-    console.log(description);
-    console.log(userName);
-    // props.handleClose();
+    props.addNewTasks(title, description);
+    props.handleClose();
   };
 
   return (
