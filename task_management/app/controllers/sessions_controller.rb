@@ -24,7 +24,8 @@ class SessionsController < ApplicationController
   def set_user
     @user = User.find_by!(mail: session_params[:mail])
   rescue ActiveRecord::RecordNotFound
-    render :new, alert: "ユーザーが存在しません"
+    flash.now[:alert] = "ユーザーが存在しません"
+    render :new
   end
 
   # 許可するパラメータ
