@@ -5,6 +5,7 @@ import FormElementItem from "./FormElementItem";
 import SessionFormCard from "./SessionFormCard";
 import SessionFormHeader from "./SessionFormHeader";
 import SubmitButton from "./SubmitButton";
+import styled from "styled-components";
 
 const useStyles = makeStyles(theme => ({
   formContentWrapper: {
@@ -34,6 +35,7 @@ export const LoginForm = props => {
           <div>
             <SubmitButton />
           </div>
+          <NewUserLink href="/users/new">新規登録はこちらから</NewUserLink>
         </div>
         {/* CSRFトークン対策 */}
         <input
@@ -45,3 +47,10 @@ export const LoginForm = props => {
     </SessionFormCard>
   );
 };
+
+const NewUserLink = styled.a`
+  display: block;
+  width: 50%;
+  font-size: 0.5rem;
+  margin: 0.5rem auto;
+`;
