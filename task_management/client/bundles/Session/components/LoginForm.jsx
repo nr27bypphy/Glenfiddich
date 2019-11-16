@@ -19,12 +19,12 @@ export const LoginForm = props => {
   return (
     <SessionFormCard>
       <SessionFormHeader />
-      <form method="post">
+      <form action="/login" method="post">
         <div className={classes.formContentWrapper}>
           <FormElementItem>
             <SessionTextField
               label="メールアドレス"
-              name="session_mail"
+              name="session[mail]"
               hello="hoge"
             />
           </FormElementItem>
