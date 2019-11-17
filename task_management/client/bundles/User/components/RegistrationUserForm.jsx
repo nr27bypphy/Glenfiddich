@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { FormHeader } from "../../Shared/components/forms/FormHeader";
 import { FormElementWrapper } from "../../Shared/components/forms/FormElementWrapper";
 import { LinkText } from "../../Shared/components/forms/LinkText";
@@ -7,12 +6,13 @@ import SubmitButton from "../../Shared/components/forms/SubmitButton";
 import SessionTextField from "../../Session/components/SessionTextField";
 import { FormBodyWrapper } from "../../Shared/components/forms/FormBodyWrapper";
 import { FormCard } from "../../Shared/components/forms/FormCard";
+import { Form } from "../../Shared/components/forms/Form";
 
 const RegistrationUserForm = props => {
   return (
     <FormCard height="550px">
       <FormHeader>新規ユーザー登録</FormHeader>
-      <form action="/users" method="post">
+      <Form action="/users" method="post">
         <FormBodyWrapper>
           <FormElementWrapper>
             <SessionTextField
@@ -35,13 +35,7 @@ const RegistrationUserForm = props => {
           </div>
           <LinkText href="/login">ログインはこちらから</LinkText>
         </FormBodyWrapper>
-        {/* CSRFトークン対策 */}
-        <input
-          type="hidden"
-          name="authenticity_token"
-          value={props.authenticity_token}
-        />
-      </form>
+      </Form>
     </FormCard>
   );
 };

@@ -7,6 +7,7 @@ import { FormHeader } from "../../Shared/components/forms/FormHeader";
 import { FormElementWrapper } from "../../Shared/components/forms/FormElementWrapper";
 import { FormBodyWrapper } from "../../Shared/components/forms/FormBodyWrapper";
 import { FormCard } from "../../Shared/components/forms/FormCard";
+import { Form } from "../../Shared/components/forms/Form";
 
 const useStyles = makeStyles(theme => ({
   formContentWrapper: {
@@ -21,7 +22,7 @@ export const LoginForm = props => {
   return (
     <FormCard height="420px">
       <FormHeader>ログインフォーム</FormHeader>
-      <form action="/login" method="post">
+      <Form action="/login" method="post">
         <FormBodyWrapper>
           <FormElementWrapper>
             <SessionTextField
@@ -38,13 +39,7 @@ export const LoginForm = props => {
           </div>
           <LinkText href="/users/new">新規登録はこちらから</LinkText>
         </FormBodyWrapper>
-        {/* CSRFトークン対策 */}
-        <input
-          type="hidden"
-          name="authenticity_token"
-          value={props.authenticity_token}
-        />
-      </form>
+      </Form>
     </FormCard>
   );
 };
