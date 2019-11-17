@@ -1,27 +1,18 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import SessionTextField from "./SessionTextField";
-import SubmitButton from "../../Shared/components/forms/SubmitButton";
-import { LinkText } from "../../Shared/components/forms/LinkText";
+import styled from "styled-components";
 import { FormHeader } from "../../Shared/components/forms/FormHeader";
 import { FormElementWrapper } from "../../Shared/components/forms/FormElementWrapper";
+import { LinkText } from "../../Shared/components/forms/LinkText";
+import SubmitButton from "../../Shared/components/forms/SubmitButton";
+import SessionTextField from "../../Session/components/SessionTextField";
 import { FormBodyWrapper } from "../../Shared/components/forms/FormBodyWrapper";
 import { FormCard } from "../../Shared/components/forms/FormCard";
 
-const useStyles = makeStyles(theme => ({
-  formContentWrapper: {
-    width: "260px",
-    margin: "0 auto"
-  }
-}));
-
-export const LoginForm = props => {
-  const classes = useStyles();
-
+const RegistrationUserForm = props => {
   return (
-    <FormCard height="420px">
-      <FormHeader>ログインフォーム</FormHeader>
-      <form action="/login" method="post">
+    <FormCard height="550px">
+      <FormHeader>新規ユーザー登録</FormHeader>
+      <form action="/users" method="post">
         <FormBodyWrapper>
           <FormElementWrapper>
             <SessionTextField
@@ -33,10 +24,16 @@ export const LoginForm = props => {
           <FormElementWrapper>
             <SessionTextField label="パスワード" name="session[password]" />
           </FormElementWrapper>
+          <FormElementWrapper>
+            <SessionTextField
+              label="パスワード(確認)"
+              name="session[password_confirmation"
+            />
+          </FormElementWrapper>
           <div>
             <SubmitButton />
           </div>
-          <LinkText href="/users/new">新規登録はこちらから</LinkText>
+          <LinkText href="/login">ログインはこちらから</LinkText>
         </FormBodyWrapper>
         {/* CSRFトークン対策 */}
         <input
@@ -48,3 +45,5 @@ export const LoginForm = props => {
     </FormCard>
   );
 };
+
+export default props => <RegistrationUserForm {...props} />;
