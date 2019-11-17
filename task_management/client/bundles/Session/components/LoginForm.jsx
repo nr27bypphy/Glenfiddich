@@ -3,9 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import SessionTextField from "./SessionTextField";
 import FormElementItem from "./FormElementItem";
 import SessionFormCard from "./SessionFormCard";
-import SessionFormHeader from "./SessionFormHeader";
 import SubmitButton from "./SubmitButton";
 import styled from "styled-components";
+import { FromHeader } from "../../Shared/components/FormHeader";
 
 const useStyles = makeStyles(theme => ({
   formContentWrapper: {
@@ -19,7 +19,7 @@ export const LoginForm = props => {
 
   return (
     <SessionFormCard>
-      <SessionFormHeader />
+      <FromHeader>ログインフォーム</FromHeader>
       <form action="/login" method="post">
         <div className={classes.formContentWrapper}>
           <FormElementItem>
