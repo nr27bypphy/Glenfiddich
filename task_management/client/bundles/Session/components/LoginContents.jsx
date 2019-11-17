@@ -1,20 +1,12 @@
-import React, { Fragment } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
 import { LoginForm } from "./LoginForm";
-
-const useStyles = makeStyles(theme => ({
-  loginContens: {
-    paddingTop: "10rem"
-  }
-}));
+import { PaddingTopWrapper } from "../../Shared/components/PaddingTopWrapper";
 
 function LoginContents(props) {
-  const classes = useStyles();
-
   return (
-    <div className={classes.loginContens}>
+    <PaddingTopWrapper>
       <LoginForm authenticity_token={props.authenticity_token} />
-    </div>
+    </PaddingTopWrapper>
   );
 }
 
