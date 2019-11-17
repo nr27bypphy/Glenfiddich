@@ -11,10 +11,16 @@ module GlenfiddichManagement
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
     config.active_record.schema_format = :sql
+    config.generators.template_engine = :slim
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+    config.generators do |g|
+      g.test_framework :rspec,
+        controller_specs: false
+      g.fixture_replacement :factory_bot, dir: "spec/factories"
+    end
   end
 end
