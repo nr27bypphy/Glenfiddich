@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import SessionTextField from "./SessionTextField";
-import SubmitButton from "../../Shared/components/forms/SubmitButton";
+import { SessionTextField } from "./SessionTextField";
+import { SubmitButton } from "../../Shared/components/forms/SubmitButton";
 import { LinkText } from "../../Shared/components/forms/LinkText";
 import { FormHeader } from "../../Shared/components/forms/FormHeader";
 import { FormElementWrapper } from "../../Shared/components/forms/FormElementWrapper";

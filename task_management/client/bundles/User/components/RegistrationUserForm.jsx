@@ -2,13 +2,13 @@ import React from "react";
 import { FormHeader } from "../../Shared/components/forms/FormHeader";
 import { FormElementWrapper } from "../../Shared/components/forms/FormElementWrapper";
 import { LinkText } from "../../Shared/components/forms/LinkText";
-import SubmitButton from "../../Shared/components/forms/SubmitButton";
-import SessionTextField from "../../Session/components/SessionTextField";
+import { SubmitButton } from "../../Shared/components/forms/SubmitButton";
+import { SessionTextField } from "../../Session/components/SessionTextField";
 import { FormBodyWrapper } from "../../Shared/components/forms/FormBodyWrapper";
 import { FormCard } from "../../Shared/components/forms/FormCard";
 import { Form } from "../../Shared/components/forms/Form";
 
-const RegistrationUserForm = props => {
+export const RegistrationUserForm = _ => {
   return (
     <FormCard height="550px">
       <FormHeader>新規ユーザー登録</FormHeader>
@@ -39,5 +39,3 @@ const RegistrationUserForm = props => {
     </FormCard>
   );
 };
-
-export default props => <RegistrationUserForm {...props} />;

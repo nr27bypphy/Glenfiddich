@@ -1,12 +1,11 @@
 import React from "react";
-import styled from "styled-components";
 import { PaddingTopWrapper } from "../../Shared/components/PaddingTopWrapper";
-import RegistrationUserForm from "./RegistrationUserForm";
+import { RegistrationUserForm } from "./RegistrationUserForm";
 
-const RegistrationUserPage = props => {
+const RegistrationUserPage = _ => {
   return (
     <PaddingTopWrapper>
-      <RegistrationUserForm></RegistrationUserForm>
+      <RegistrationUserForm />
     </PaddingTopWrapper>
   );
 };
