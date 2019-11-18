@@ -12,25 +12,12 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { BoldText } from "../../Shared/components/BoldText";
 
 const useStyles = makeStyles({
-  root: {
-    width: "100%",
-    overflowX: "auto"
-  },
   table: {
     minWidth: 650
-  },
-  name: {
-    display: "flex"
   },
   personIcon: {
     height: "40px",
     width: "5rem"
-  },
-  nameEmail: {
-    fontSize: "15px"
-  },
-  nameText: {
-    fontWeight: "bold"
   }
 });
 
@@ -64,13 +51,13 @@ export const MemberList = props => {
             <TableRow key={row.name}>
               {/* @todo ここだけ px 指定にしている rem 指定に直す */}
               <TableCell component="th" scope="row" width="300px">
-                <div className={classes.name}>
+                <FlexDiv>
                   <AccountCircleIcon className={classes.personIcon} />
-                  <div className={classes.nameEmail}>
+                  <NameEmail>
                     <BoldText>{row.name}</BoldText>
                     <div>{row.email}</div>
-                  </div>
-                </div>
+                  </NameEmail>
+                </FlexDiv>
               </TableCell>
               <TableCell align="left">
                 <BoldText>{row.accountType}</BoldText>
@@ -89,4 +76,12 @@ export const MemberList = props => {
 const Wrapper = styled.div`
   margin-left: 5%;
   margin-right: 10%;
+`;
+
+const FlexDiv = styled.div`
+  display: flex;
+`;
+
+const NameEmail = styled.div`
+  fontsize: 15px;
 `;
