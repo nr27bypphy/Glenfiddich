@@ -28,22 +28,21 @@ const useStyles = makeStyles(theme => ({
 export const MemberListHeader = props => {
   const classes = useStyles();
   return (
-    <>
-      <Wrapper>
-        <TitleButtonColumn>
-          <Title>Manage Member</Title>
-          <Button variant="contained" className={classes.button}>
-            Invite people
-          </Button>
-        </TitleButtonColumn>
-        <SearchFormContainer>
-          <SearchIcon className={classes.searchIcon} />
-          <InputBase className={classes.input} />
-        </SearchFormContainer>
-      </Wrapper>
-    </>
+    <Wrapper>
+      <TitleButtonColumn>
+        <Title>Manage Member</Title>
+        <Button variant="contained" className={classes.button}>
+          Invite people
+        </Button>
+      </TitleButtonColumn>
+      <SearchFormContainer>
+        <SearchIcon className={classes.searchIcon} />
+        <InputBase className={classes.input} />
+      </SearchFormContainer>
+    </Wrapper>
   );
 };
+
 const Wrapper = styled.div`
   height: 9rem;
   background-color: #f2f2f2;
@@ -52,16 +51,19 @@ const Wrapper = styled.div`
   padding-right: 5%;
   padding-left: 5%;
 `;
+
 const TitleButtonColumn = styled.div`
   height: 4rem;
   display: flex;
 `;
+
 const Title = styled.h2`
   font-size: 1.5rem;
   font-weight: bold;
   width: 80%;
   align-self: flex-start;
 `;
+
 const SearchFormContainer = styled.div`
   height: 4rem;
   background-color: #fff;
