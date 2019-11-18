@@ -7,16 +7,15 @@ import styled from "styled-components";
 const UsersPage = props => {
   return (
     <>
-      <FixedContent>
-        <Header />
-        <MemberListHeader />
-      </FixedContent>
+      <Header />
+      <MemberListHeader />
       <ScrollMemberList />
     </>
   );
 };
-const FixedContent = styled.div``;
+
 const ScrollMemberList = styled(MemberList)`
   margin-top: 13rem;
 `;
+
 export default props => <UsersPage {...props} />;
