@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const DashboardHeader = props => {
+export const Header = props => {
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -59,7 +59,7 @@ export const DashboardHeader = props => {
           </Typography>
           {auth && (
             <div>
-              {props.user.name}
+              {!!props.user && props.user.name}
               <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"

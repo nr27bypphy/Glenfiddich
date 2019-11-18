@@ -1,4 +1,10 @@
 class UsersController < ApplicationController
+  # ログイン画面が完成したらこれを外す
+  skip_before_action :require_sign_in!
+
+  def index
+  end
+  
   def new
     @user = User.new
   end
