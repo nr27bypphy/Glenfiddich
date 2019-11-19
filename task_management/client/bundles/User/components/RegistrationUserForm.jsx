@@ -30,9 +30,7 @@ export const RegistrationUserForm = _ => {
               name="user[password_confirmation"
             />
           </FormElementWrapper>
-          <div>
-            <SubmitButton />
-          </div>
+          <SubmitButton />
           <LinkText href="/login">ログインはこちらから</LinkText>
         </FormBodyWrapper>
       </Form>
