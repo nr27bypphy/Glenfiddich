@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   # ログイン画面が完成したらこれを外す
-  skip_before_action :require_sign_in!
+  skip_before_action :require_sign_in!, only: %i(new create)
 
   def index
   end
@@ -11,11 +13,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save
+    @user.save!
+    sign_in(@user)
 
-    else
-
-    end
+    redirect_to root_path
+  rescue ActiveRecord::RecordInvalid => e
+    render new
   end
 
   private
