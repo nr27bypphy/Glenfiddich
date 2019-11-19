@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
 
-  resources :users, only: %i(index new)
+  resources :users, only: %i(index new create)
 
   root to: "dashboards#index"
 end
