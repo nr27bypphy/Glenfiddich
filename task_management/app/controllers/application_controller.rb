@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
 
   # ログアウト処理の一貫
   # remember_digest を初期化し、cookie も削除する
-  def forget
+  def forget(user)
     user.forget
     cookies.delete(:user_id)
     cookies.delete(:remember_token)
