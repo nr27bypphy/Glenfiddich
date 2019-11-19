@@ -11,12 +11,12 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user.update(user_params)
+    @user.update!(user_params)
     log_in @user
 
     redirect_to root_path
   rescue ActiveRecord::RecordInvalid => e
-    render new
+    render :new
   end
 
   private
