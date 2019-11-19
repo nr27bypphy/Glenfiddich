@@ -17,17 +17,17 @@ export const RegistrationUserForm = _ => {
           <FormElementWrapper>
             <SessionTextField
               label="メールアドレス"
-              name="session[mail]"
+              name="user[mail]"
               hello="hoge"
             />
           </FormElementWrapper>
           <FormElementWrapper>
-            <SessionTextField label="パスワード" name="session[password]" />
+            <SessionTextField label="パスワード" name="user[password]" />
           </FormElementWrapper>
           <FormElementWrapper>
             <SessionTextField
               label="パスワード(確認)"
-              name="session[password_confirmation"
+              name="user[password_confirmation"
             />
           </FormElementWrapper>
           <div>
