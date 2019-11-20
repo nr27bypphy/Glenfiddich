@@ -62,12 +62,7 @@ export const LoginForm = _ => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Form
-            className={classes.form}
-            action="/login"
-            method="post"
-            noValidate
-          >
+          <Form className={classes.form} action="/login" method="post">
             <TextField
               variant="outlined"
               margin="normal"
