@@ -1,13 +1,8 @@
 import React from "react";
-import { PaddingTopWrapper } from "../../Shared/components/PaddingTopWrapper";
-import { RegistrationUserForm } from "./RegistrationUserForm";
+import { SignUp } from "./SignUp";
 
 const RegistrationUserPage = _ => {
-  return (
-    <PaddingTopWrapper>
-      <RegistrationUserForm />
-    </PaddingTopWrapper>
-  );
+  return <SignUp />;
 };
 
-export default props => <RegistrationUserPage {...props} />;
+export default _ => <RegistrationUserPage />;
