@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
   def create
     if @user.authenticate(session_params[:password])
       log_in @user
-      session_params[:remember_me] == '1' ? remember(@user) : forget(@user)
+      ActiveRecord::Type::Boolean.new.cast(session_params[:remember_me]) ? remember(@user) : forget(@user)
       redirect_to root_path, notice: "ログインしました"
     else
       render 'new'
