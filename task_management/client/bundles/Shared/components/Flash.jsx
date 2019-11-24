@@ -1,12 +1,8 @@
 import React from "react";
 import FlashContent from "./FlashContent";
 import Snackbar from "@material-ui/core/Snackbar";
-import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({}));
-
-function Flash(props) {
-  const classes = useStyles();
+const Flash = props => {
   const { initialState, message, variant } = props;
   const [open, setOpen] = React.useState(initialState);
 
@@ -27,10 +23,11 @@ function Flash(props) {
       open={open}
       autoHideDuration={6000}
       onClose={handleClose}
+      anchorOrigin={{ vertical: "top", horizontal: "center" }}
     >
       <FlashContent message={message} onClose={handleClose} variant={variant} />
     </Snackbar>
   );
-}
+};
 
 export default props => <Flash {...props} />;

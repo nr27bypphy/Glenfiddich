@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SessionTextField(props) {
+export const SessionTextField = props => {
   const classes = useStyles();
 
   return (
@@ -25,4 +25,4 @@ export default function SessionTextField(props) {
       inputRef={props.inputRef}
     />
   );
-}
+};

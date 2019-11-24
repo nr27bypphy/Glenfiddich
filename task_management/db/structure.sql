@@ -40,7 +40,7 @@ CREATE TABLE `tasks` (
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -50,12 +50,12 @@ CREATE TABLE `users` (
   `name` varchar(255) NOT NULL DEFAULT 'no name',
   `mail` varchar(191) NOT NULL,
   `password_digest` varchar(191) NOT NULL,
-  `remember_token` varchar(191) DEFAULT NULL,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
+  `remember_digest` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_users_on_mail` (`mail`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -70,6 +70,7 @@ CREATE TABLE `users` (
 INSERT INTO `schema_migrations` (version) VALUES
 ('20191020011038'),
 ('20191109014147'),
-('20191109051021');
+('20191109051021'),
+('20191119163801');
 
 
