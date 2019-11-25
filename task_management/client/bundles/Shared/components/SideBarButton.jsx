@@ -7,9 +7,6 @@ import { SideMenu } from "./SideMenu"
 
 
 const useStyles = makeStyles(theme => ({
-  fullList: {
-    width: 'auto',
-  },
   menuButton: {
     marginRight: theme.spacing(2)
   },

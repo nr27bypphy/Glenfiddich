@@ -9,9 +9,6 @@ const useStyles = makeStyles(theme => ({
   list: {
     width: 250,
   },
-  fullList: {
-    width: 'auto',
-  },
 }));
 export const SideMenu = side => {
   const classes = useStyles();
