@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const SideBar = props =>{
+export const SideBarButton = props =>{
   const classes = useStyles();
   const [state, setState] = useState({
     left: false,

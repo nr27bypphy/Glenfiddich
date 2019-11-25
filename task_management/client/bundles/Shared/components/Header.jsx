@@ -10,7 +10,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import { SideBar } from "./SideBar";
+import { SideBarButton } from "./SideBarButton";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -46,7 +46,7 @@ export const Header = props => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <SideBar></SideBar>
+          <SideBarButton></SideBarButton>
           <Typography variant="h6" className={classes.title}>
             Glenfiddich
           </Typography>
