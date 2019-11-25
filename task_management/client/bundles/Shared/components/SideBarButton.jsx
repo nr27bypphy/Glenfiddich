@@ -2,17 +2,11 @@ import React, { useState }  from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from "@material-ui/icons/Menu";
+import { SideMenu } from "./SideMenu"
 
 
 const useStyles = makeStyles(theme => ({
-  list: {
-    width: 250,
-  },
   fullList: {
     width: 'auto',
   },
@@ -31,27 +25,8 @@ export const SideBarButton = props =>{
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
     setState({ ...state, [side]: open });
   };
-
-  const sideList = side => (
-    <div
-      className={classes.list}
-      role="presentation"
-      onClick={toggleDrawer(side, false)}
-      onKeyDown={toggleDrawer(side, false)}
-    >
-      <List>
-        {['DashBoard', 'User Management', 'Project managemen'].map((text) => (
-          <ListItem button key={text}>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-    </div>
-  );
 
   return (
     <div>
@@ -68,7 +43,12 @@ export const SideBarButton = props =>{
         open={state.left}
         onClose={toggleDrawer('left', false)}
       >
-        {sideList('left')}
+      <SideMenu
+       side="left"
+       onClick={toggleDrawer("left", false)}
+       onKeyDown={toggleDrawer("left", false)}
+      >
+      </SideMenu>
       </Drawer>
     </div>
   );
