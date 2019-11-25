@@ -93,7 +93,7 @@ export const SignUp = _ => {
                 fullWidth
                 name="user[password_confirmation]"
                 label="Password Confirmation"
-                type="password confirmation"
+                type="password"
                 id="passwordConfirmation"
                 autoComplete="current-password-confirmation"
               />
