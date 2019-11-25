@@ -40,9 +40,9 @@ export const SideBarButton = props =>{
         onClose={toggleDrawer('left', false)}
       >
       <SideMenu
-       side="left"
-       onClick={toggleDrawer("left", false)}
-       onKeyDown={toggleDrawer("left", false)}
+        side="left"
+        onClick={toggleDrawer("left", false)}
+        onKeyDown={toggleDrawer("left", false)}
       >
       </SideMenu>
       </Drawer>

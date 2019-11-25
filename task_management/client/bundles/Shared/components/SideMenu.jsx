@@ -14,8 +14,8 @@ export const SideMenu = side => {
   const classes = useStyles();
   return(
     <div
-    className={classes.list}
-    role="presentation"
+      className={classes.list}
+      role="presentation"
     >
     <List>
     {['DashBoard', 'User Management', 'Project managemen'].map((text) => (
