@@ -15,7 +15,15 @@ import { MemberTableTr } from "./MemberTableTr";
 import DescriptionIcon from "@material-ui/icons/Description";
 import PeopleIcon from "@material-ui/icons/People";
 import { AddProjectModal } from "./AddProjectModal";
-
+import { ApolloClient } from "apollo-client";
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { HttpLink } from "apollo-link-http";
+import { ApolloLink, concat } from "apollo-link";
+// import { useMutation } from "react-apollo-hooks";
+// import { gql } from "apollo-boost";
+import { useApolloClient, useMutation } from "@apollo/react-hooks";
+import gql from "graphql-tag";
+// import { ApolloProvider } from "@apollo/react-hooks";
 const useStyles = makeStyles(theme => ({
   projectPaper: {
     paddingBottom: "10px"
@@ -30,10 +38,42 @@ export const DashboardContainer = props => {
   const classes = useStyles();
   const [tasks, setTasks] = useState(props.tasks);
   const [open, setOpen] = useState(false);
+  // const [addTask, { data }] = useMutation(ADD_TASK);
+
+  const cache = new InMemoryCache();
+  const link = new HttpLink({
+    uri: "http://localhost:3000/api/v1/graphql"
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+  const csrfToken = ReactOnRails.authenticityToken();
+
+  const authMiddleware = new ApolloLink((operation, forward) => {
+    operation.setContext({
+      headers: {
+        "X-CSRF-Token": csrfToken
+      }
+    });
+    return forward(operation);
+  });
+
+  const client = new ApolloClient({
+    cache: cache,
+    link: concat(authMiddleware, link)
+  });
+
+  client
+    .mutate({
+      mutation: gql`
+        mutation {
+          testField
+        }
+      `
+    })
+    .then(result => console.log(result));
 
   const handleClose = () => {
     setOpen(false);
@@ -42,6 +82,7 @@ export const DashboardContainer = props => {
   const addNewTasks = (title, description) => {
     const newTasks = tasks.concat({ title: title, description: description });
     setTasks(newTasks);
+    // addTask();
   };
 
   return (

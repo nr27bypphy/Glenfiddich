@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   if Rails.env.development?
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "api/v1/graphql"
   end
   post "/graphql", to: "graphql#execute"
 
@@ -11,9 +11,9 @@ Rails.application.routes.draw do
 
   resources :users, only: %i(index new create)
 
-  namespace :api do
+  namespace :api, { format: 'json' } do
     namespace :v1 do
-      post "/graphql", to: "graphql#excute"
+      post "/graphql", to: "graphql#execute"
     end
   end
 
