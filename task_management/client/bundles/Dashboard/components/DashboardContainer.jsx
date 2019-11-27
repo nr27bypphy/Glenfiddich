@@ -53,27 +53,6 @@ const client = new ApolloClient({
   link: concat(authMiddleware, link)
 });
 
-const addTask = (title, description) => {
-  client
-    .mutate({
-      mutation: gql`
-        mutation {
-          createTask(
-            input: { title: "${title}", userId: 1, description: "${description}" }
-          ) {
-            task {
-              id
-              title
-              userId
-              description
-            }
-          }
-        }
-      `
-    })
-    .then(result => console.log(result));
-};
-
 export const DashboardContainer = props => {
   const classes = useStyles();
   const [tasks, setTasks] = useState(props.tasks);
@@ -88,9 +67,30 @@ export const DashboardContainer = props => {
   };
 
   const addNewTasks = (title, description) => {
-    const newTasks = tasks.concat({ title: title, description: description });
-    setTasks(newTasks);
-    addTask(title, description);
+    client
+      .mutate({
+        mutation: gql`
+        mutation {
+          createTask(
+            input: { title: "${title}", userId: 1, description: "${description}" }
+          ) {
+            task {
+              id
+              title
+              userId
+              description
+            }
+          }
+        }
+      `
+      })
+      .then(result => {
+        const newTasks = tasks.concat({
+          title: title,
+          description: description
+        });
+        setTasks(newTasks);
+      });
   };
 
   return (
