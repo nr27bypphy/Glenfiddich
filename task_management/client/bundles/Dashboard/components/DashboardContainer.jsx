@@ -19,11 +19,9 @@ import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import { ApolloLink, concat } from "apollo-link";
-// import { useMutation } from "react-apollo-hooks";
-// import { gql } from "apollo-boost";
-import { useApolloClient, useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-// import { ApolloProvider } from "@apollo/react-hooks";
+import { GRAPHQL_ENDPOINT } from "../../Constants/graphqlEndPoint";
+
 const useStyles = makeStyles(theme => ({
   projectPaper: {
     paddingBottom: "10px"
@@ -34,46 +32,56 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const DashboardContainer = props => {
-  const classes = useStyles();
-  const [tasks, setTasks] = useState(props.tasks);
-  const [open, setOpen] = useState(false);
-  // const [addTask, { data }] = useMutation(ADD_TASK);
+const csrfToken = ReactOnRails.authenticityToken();
 
-  const cache = new InMemoryCache();
-  const link = new HttpLink({
-    uri: "http://localhost:3000/api/v1/graphql"
+const authMiddleware = new ApolloLink((operation, forward) => {
+  operation.setContext({
+    headers: {
+      "X-CSRF-Token": csrfToken
+    }
   });
+  return forward(operation);
+});
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+const cache = new InMemoryCache();
+const link = new HttpLink({
+  uri: GRAPHQL_ENDPOINT
+});
 
-  const csrfToken = ReactOnRails.authenticityToken();
+const client = new ApolloClient({
+  cache: cache,
+  link: concat(authMiddleware, link)
+});
 
-  const authMiddleware = new ApolloLink((operation, forward) => {
-    operation.setContext({
-      headers: {
-        "X-CSRF-Token": csrfToken
-      }
-    });
-    return forward(operation);
-  });
-
-  const client = new ApolloClient({
-    cache: cache,
-    link: concat(authMiddleware, link)
-  });
-
+const addTask = (title, description) => {
   client
     .mutate({
       mutation: gql`
         mutation {
-          testField
+          createTask(
+            input: { title: "${title}", userId: 1, description: "${description}" }
+          ) {
+            task {
+              id
+              title
+              userId
+              description
+            }
+          }
         }
       `
     })
     .then(result => console.log(result));
+};
+
+export const DashboardContainer = props => {
+  const classes = useStyles();
+  const [tasks, setTasks] = useState(props.tasks);
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -82,7 +90,7 @@ export const DashboardContainer = props => {
   const addNewTasks = (title, description) => {
     const newTasks = tasks.concat({ title: title, description: description });
     setTasks(newTasks);
-    // addTask();
+    addTask(title, description);
   };
 
   return (
