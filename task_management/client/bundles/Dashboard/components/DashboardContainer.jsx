@@ -88,8 +88,8 @@ export const DashboardContainer = props => {
                   <DashboardTable>
                     <ProjectThead />
                     <tbody>
-                      {tasks.map(task => {
-                        return <ProjectTableTr task={task} />;
+                      {tasks.map((task, index) => {
+                        return <ProjectTableTr task={task} key={index} />;
                       })}
                     </tbody>
                   </DashboardTable>
