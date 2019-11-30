@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import { FilterDepartment } from "./FilterDepartment"
+import { FilterPj } from "./FilterPj"
 import Popover from '@material-ui/core/Popover';
 const useStyles = makeStyles(theme => ({
   button: {
@@ -52,7 +52,7 @@ export const PaperSearchContent = props => {
             horizontal: 'center',
           }}
         >
-          <FilterDepartment></FilterDepartment>
+          <FilterPj></FilterPj>
         </Popover>
         <Button
           variant="outlined"

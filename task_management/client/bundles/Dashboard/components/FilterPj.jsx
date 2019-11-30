@@ -47,6 +47,12 @@ const department_names = [
   'Strategy & Operations'
 ];
 
+const project_names = [
+  'PM',
+  'Member',
+  '担当外'
+];
+
 function getStyles(name, departmentName, theme) {
   return {
     fontWeight:
@@ -56,13 +62,17 @@ function getStyles(name, departmentName, theme) {
   };
 }
 
-export const FilterDepartment = props =>{
+export const FilterPj = props =>{
   const classes = useStyles();
   const theme = useTheme();
   const [departmentName, setDepartmentName] = React.useState([]);
+  const [projectName, setProjectName] = React.useState([]);
 
-  const handleChange = event => {
+  const handleDepartmentChange = event => {
     setDepartmentName(event.target.value);
+  };
+  const handleProjectChange = event => {
+    setProjectName(event.target.value);
   };
   const handleDelete = () => {
 
@@ -77,17 +87,18 @@ export const FilterDepartment = props =>{
       }
     }
     setdepartmentName(value);
+    setprojectName(value);
   };
 
   return (
-    <div>
+    <>
       <FormControl className={classes.formControl}>
         <InputLabel id="department_select">部署</InputLabel>
         <Select
           id="demo-mutiple-chip"
           multiple
           value={departmentName}
-          onChange={handleChange}
+          onChange={handleDepartmentChange}
           input={<Input id="select_depertment" />}
           renderValue={selected => (
             <div className={classes.chips}>
@@ -110,6 +121,35 @@ export const FilterDepartment = props =>{
           ))}
         </Select>
       </FormControl>
-    </div>
+      <FormControl className={classes.formControl}>
+        <InputLabel id="department_select">PJ種別</InputLabel>
+        <Select
+          id="demo-mutiple-chip"
+          multiple
+          value={projectName}
+          onChange={handleProjectChange}
+          input={<Input id="select_depertment" />}
+          renderValue={selected => (
+            <div className={classes.chips}>
+              {selected.map(value => (
+                <Chip
+                  key={value}
+                  label={value}
+                  className={classes.chip}
+                  onDelete={handleDelete}
+                  />
+              ))}
+            </div>
+          )}
+          MenuProps={MenuProps}
+        >
+          {project_names.map(name => (
+            <MenuItem key={name} value={name} style={getStyles(name, projectName, theme)}>
+              {name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </>
   );
 }
