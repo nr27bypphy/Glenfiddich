@@ -26,6 +26,7 @@ const client = new ApolloClient({
   link: concat(authMiddleware, link)
 });
 
+// client の定義に必要な処理が多かったので、各 Page のroot におくだけですぐ使えるようにWrapperとして切り出した
 export const ApolloProviderWrapper = props => {
   return <ApolloProvider client={client}>{props.children}</ApolloProvider>;
 };
