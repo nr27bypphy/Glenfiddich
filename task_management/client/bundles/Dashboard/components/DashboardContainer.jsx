@@ -15,12 +15,8 @@ import { MemberTableTr } from "./MemberTableTr";
 import DescriptionIcon from "@material-ui/icons/Description";
 import PeopleIcon from "@material-ui/icons/People";
 import { AddProjectModal } from "./AddProjectModal";
-import { ApolloClient } from "apollo-client";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { HttpLink } from "apollo-link-http";
-import { ApolloLink, concat } from "apollo-link";
 import gql from "graphql-tag";
-import { GRAPHQL_ENDPOINT } from "../../Constants/graphqlEndPoint";
+import { useMutation } from "@apollo/react-hooks";
 
 const useStyles = makeStyles(theme => ({
   projectPaper: {
@@ -32,31 +28,26 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const csrfToken = ReactOnRails.authenticityToken();
-
-const authMiddleware = new ApolloLink((operation, forward) => {
-  operation.setContext({
-    headers: {
-      "X-CSRF-Token": csrfToken
+const ADD_TASK = gql`
+  mutation($title: String!, $userId: Int!, $description: String!) {
+    createTask(
+      input: { title: $title, userId: $userId, description: $description }
+    ) {
+      task {
+        id
+        title
+        userId
+        description
+      }
     }
-  });
-  return forward(operation);
-});
-
-const cache = new InMemoryCache();
-const link = new HttpLink({
-  uri: GRAPHQL_ENDPOINT
-});
-
-const client = new ApolloClient({
-  cache: cache,
-  link: concat(authMiddleware, link)
-});
+  }
+`;
 
 export const DashboardContainer = props => {
   const classes = useStyles();
   const [tasks, setTasks] = useState(props.tasks);
   const [open, setOpen] = useState(false);
+  const [addTask, { data }] = useMutation(ADD_TASK);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -67,30 +58,14 @@ export const DashboardContainer = props => {
   };
 
   const addNewTasks = (title, description) => {
-    client
-      .mutate({
-        mutation: gql`
-        mutation {
-          createTask(
-            input: { title: "${title}", userId: 1, description: "${description}" }
-          ) {
-            task {
-              id
-              title
-              userId
-              description
-            }
-          }
-        }
-      `
-      })
-      .then(result => {
-        const newTasks = tasks.concat({
-          title: title,
-          description: description
-        });
-        setTasks(newTasks);
-      });
+    addTask({
+      variables: { title: title, userId: 1, description: description }
+    });
+    const newTasks = tasks.concat({
+      title: title,
+      description: description
+    });
+    setTasks(newTasks);
   };
 
   return (
