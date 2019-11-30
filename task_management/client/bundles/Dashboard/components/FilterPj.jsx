@@ -14,7 +14,8 @@ const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 300,
-    maxWidth: 600,
+    maxWidth: 400,
+    display: 'block',
   },
   chips: {
     display: 'flex',
@@ -92,7 +93,9 @@ export const FilterPj = props =>{
 
   return (
     <>
-      <FormControl className={classes.formControl}>
+      <FormControl
+        className={classes.formControl}
+      >
         <InputLabel id="department_select">部署</InputLabel>
         <Select
           id="demo-mutiple-chip"
