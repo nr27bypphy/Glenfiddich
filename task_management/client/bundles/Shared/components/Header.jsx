@@ -5,12 +5,11 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import Switch from "@material-ui/core/Switch";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormGroup from "@material-ui/core/FormGroup";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { SideBarButton } from "./SideBarButton";
+import { Form } from "./forms/Form";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -79,6 +78,15 @@ export const Header = props => {
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
+                <Form action="/logout" method="POST">
+                  <MenuItem
+                    onClick={handleClose}
+                    component="button"
+                    type="submit"
+                  >
+                    Logout
+                  </MenuItem>
+                </Form>
               </Menu>
             </div>
           )}
