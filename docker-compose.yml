@@ -7,7 +7,7 @@ services:
       MYSQL_DATABASE: root
     ports:
       - "3306:3306"
-    command: mysqld --character-set-server=utf8mb4 --explicit_defaults_for_timestamp=true
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
       - ./usr/rails/mysql/conf:/etc/mysql/conf.d:rw # Composefileからみた相対パスでmysql/confが呼び出されたら、etc/mysql/conf.dを使ってrw(読み込み・書き込み)を行う。実際は、再ビルド後も、DBの中身がリセットされないようにしてる。
       - ./mysql-datavolume:/var/lib/mysql # Composefileからみた相対パスでmysql-datavolumeが呼び出されたら、/var/lib/mysqlを指定して実行
