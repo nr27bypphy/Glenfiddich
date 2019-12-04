@@ -15,7 +15,10 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
     minWidth: 300,
     maxWidth: 400,
-    display: 'block',
+    display: 'flex',
+  },
+  select: {
+    minWidth: 260,
   },
   chips: {
     display: 'flex',
@@ -98,7 +101,6 @@ export const FilterPj = props =>{
       >
         <InputLabel id="department_select">部署</InputLabel>
         <Select
-          id="demo-mutiple-chip"
           multiple
           value={departmentName}
           onChange={handleDepartmentChange}
@@ -127,7 +129,6 @@ export const FilterPj = props =>{
       <FormControl className={classes.formControl}>
         <InputLabel id="department_select">PJ種別</InputLabel>
         <Select
-          id="demo-mutiple-chip"
           multiple
           value={projectName}
           onChange={handleProjectChange}
