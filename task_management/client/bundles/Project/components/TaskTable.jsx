@@ -31,6 +31,7 @@ const rows = [
 
 export const TaskTable = props => {
   const classes = useStyles();
+  const tasks = props.tasks;
 
   return (
     <Paper className={classes.root}>
@@ -46,16 +47,16 @@ export const TaskTable = props => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => (
-            <TableRow key={row.name}>
+          {tasks.map((task, index) => (
+            <TableRow key={index}>
               <TableCell component="th" scope="row">
-                {row.name}
+                {task.title}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="right">{}</TableCell>
+              <TableCell align="right">{}</TableCell>
+              <TableCell align="right">{task.description}</TableCell>
+              <TableCell align="right">{}</TableCell>
+              <TableCell align="right">{}</TableCell>
             </TableRow>
           ))}
         </TableBody>

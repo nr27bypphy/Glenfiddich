@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Header } from "../../Shared/components/Header";
 import { ApolloProviderWrapper } from "../../Shared/components/ApolloProviderWrapper";
 
@@ -46,6 +46,12 @@ const useStyles = makeStyles(theme => ({
 function ProjectPage(props) {
   const classes = useStyles();
   const projects = JSON.parse(props.projects);
+  // table に表示されている Project の index を管理する
+  const [activeIndex, setAcitveIndex] = useState(0);
+
+  const changeActiveIndex = index => {
+    setAcitveIndex(index);
+  };
 
   return (
     <ApolloProviderWrapper>
@@ -73,7 +79,11 @@ function ProjectPage(props) {
               </Typography>
             </ListItem>
             {projects.map((project, index) => (
-              <ListItem button key={index}>
+              <ListItem
+                button
+                key={index}
+                onClick={() => changeActiveIndex(index)}
+              >
                 <ListItemIcon style={{ color: "white" }}>
                   <WorkIcon />
                 </ListItemIcon>
@@ -87,7 +97,7 @@ function ProjectPage(props) {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <TaskTable />
+          <TaskTable tasks={projects[activeIndex].tasks} />
         </main>
       </div>
     </ApolloProviderWrapper>
