@@ -15,6 +15,8 @@ import { MemberTableTr } from "./MemberTableTr";
 import DescriptionIcon from "@material-ui/icons/Description";
 import PeopleIcon from "@material-ui/icons/People";
 import { AddProjectModal } from "./AddProjectModal";
+import gql from "graphql-tag";
+import { useMutation } from "@apollo/react-hooks";
 
 const useStyles = makeStyles(theme => ({
   projectPaper: {
@@ -26,10 +28,26 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const ADD_TASK = gql`
+  mutation($title: String!, $userId: Int!, $description: String!) {
+    createTask(
+      input: { title: $title, userId: $userId, description: $description }
+    ) {
+      task {
+        id
+        title
+        userId
+        description
+      }
+    }
+  }
+`;
+
 export const DashboardContainer = props => {
   const classes = useStyles();
   const [tasks, setTasks] = useState(props.tasks);
   const [open, setOpen] = useState(false);
+  const [addTask, { data }] = useMutation(ADD_TASK);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -40,7 +58,13 @@ export const DashboardContainer = props => {
   };
 
   const addNewTasks = (title, description) => {
-    const newTasks = tasks.concat({ title: title, description: description });
+    addTask({
+      variables: { title: title, userId: 1, description: description }
+    });
+    const newTasks = tasks.concat({
+      title: title,
+      description: description
+    });
     setTasks(newTasks);
   };
 
@@ -64,8 +88,8 @@ export const DashboardContainer = props => {
                   <DashboardTable>
                     <ProjectThead />
                     <tbody>
-                      {tasks.map(task => {
-                        return <ProjectTableTr task={task} />;
+                      {tasks.map((task, index) => {
+                        return <ProjectTableTr task={task} key={index} />;
                       })}
                     </tbody>
                   </DashboardTable>

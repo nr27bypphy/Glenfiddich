@@ -20,6 +20,46 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     flexGrow: 1
+  },
+  linkText: {
+    zIndex: "4",
+    // ...defaultFont,
+    fontSize: "14px",
+    margin: "0px"
+  },
+  dropdownItem: {
+    // ...defaultFont,
+    fontSize: "13px",
+    padding: "10px 20px",
+    margin: "0 5px",
+    borderRadius: "2px",
+    WebkitTransition: "all 150ms linear",
+    MozTransition: "all 150ms linear",
+    OTransition: "all 150ms linear",
+    MsTransition: "all 150ms linear",
+    transition: "all 150ms linear",
+    display: "block",
+    clear: "both",
+    fontWeight: "400",
+    lineHeight: "1.42857143",
+    // color: grayColor[8],
+    whiteSpace: "nowrap",
+    height: "unset",
+    minHeight: "unset",
+    "&:hover": {
+      // backgroundColor: primaryColor[0],
+      // color: whiteColor,
+      // ...primaryBoxShadow
+    }
+  },
+  manager: {
+    [theme.breakpoints.down("sm")]: {
+      width: "100%"
+    },
+    display: "inline-block"
+  },
+  popperClose: {
+    pointerEvents: "none"
   }
 }));
 
