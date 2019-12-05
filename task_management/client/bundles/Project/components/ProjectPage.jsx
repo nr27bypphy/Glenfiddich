@@ -82,6 +82,7 @@ function ProjectPage(props) {
               <ListItem
                 button
                 key={index}
+                selected={activeIndex == index}
                 onClick={() => changeActiveIndex(index)}
               >
                 <ListItemIcon style={{ color: "white" }}>
