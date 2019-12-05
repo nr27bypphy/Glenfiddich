@@ -14,6 +14,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+import WorkIcon from "@material-ui/icons/Work";
 import { TaskTable } from "./TaskTable";
 
 const drawerWidth = 240;
@@ -47,6 +48,7 @@ const useStyles = makeStyles(theme => ({
 
 function ProjectPage(props) {
   const classes = useStyles();
+  const projects = JSON.parse(props.projects);
 
   return (
     <ApolloProviderWrapper>
@@ -73,12 +75,15 @@ function ProjectPage(props) {
                 Project
               </Typography>
             </ListItem>
-            {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-              <ListItem button key={text}>
+            {projects.map((project, index) => (
+              <ListItem button key={index}>
                 <ListItemIcon style={{ color: "white" }}>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <WorkIcon />
                 </ListItemIcon>
-                <ListItemText primary={text} className={classes.listText} />
+                <ListItemText
+                  primary={project.title}
+                  className={classes.listText}
+                />
               </ListItem>
             ))}
           </List>
