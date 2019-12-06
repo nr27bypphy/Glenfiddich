@@ -5,4 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   include SessionConcern
+  # include しているが現在はまだ権限管理の設定をしていないので実質機能していない
+  # @todo user の権限による制御を追加する
+  include Pundit
 end

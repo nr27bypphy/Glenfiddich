@@ -67,6 +67,7 @@ CREATE TABLE `users` (
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
   `remember_digest` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `role` tinyint(3) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_users_on_mail` (`mail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -87,6 +88,7 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20191109051021'),
 ('20191119163801'),
 ('20191203114757'),
-('20191203120353');
+('20191203120353'),
+('20191206123159');
 
 
