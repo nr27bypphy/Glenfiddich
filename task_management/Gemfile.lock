@@ -143,6 +143,8 @@ GEM
     puma (3.12.1)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
+    pundit-matchers (1.6.0)
+      rspec-rails (>= 3.0.0)
     rack (2.0.7)
     rack-proxy (0.6.5)
       rack
@@ -309,6 +311,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 3.11)
   pundit
+  pundit-matchers
   rails (~> 6.0.0)
   react_on_rails
   rspec-rails
