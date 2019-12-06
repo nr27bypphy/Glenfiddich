@@ -6,6 +6,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import Moment from "react-moment";
 
 const useStyles = makeStyles({
   root: {
@@ -41,7 +42,9 @@ export const TaskTable = props => {
                 {task.title}
               </TableCell>
               <TableCell align="right">{}</TableCell>
-              <TableCell align="right">{}</TableCell>
+              <TableCell align="right">
+                <Moment format="YYYY/MM/DD">{task.deadline}</Moment>
+              </TableCell>
               <TableCell align="right">{task.description}</TableCell>
               <TableCell align="right">{}</TableCell>
               <TableCell align="right">{}</TableCell>
