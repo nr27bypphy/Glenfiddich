@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Header } from "../../Shared/components/Header";
 import { ApolloProviderWrapper } from "../../Shared/components/ApolloProviderWrapper";
-
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -48,7 +47,6 @@ function ProjectPage(props) {
   const projects = JSON.parse(props.projects);
   // table に表示されている Project の index を管理する
   const [activeIndex, setAcitveIndex] = useState(0);
-
   const changeActiveIndex = index => {
     setAcitveIndex(index);
   };
