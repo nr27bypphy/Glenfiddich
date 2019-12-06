@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :projects
 
   validates :name, presence: true
-  validates :mail, presence: true, uniqueness: true
+  validates :mail, presence: true, uniqueness: { case_sensitive: false }
 
   def self.new_remember_token
     SecureRandom.urlsafe_base64
