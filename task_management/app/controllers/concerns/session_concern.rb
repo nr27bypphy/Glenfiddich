@@ -24,6 +24,13 @@ module SessionConcern
     redirect_to login_path unless current_user
   end
 
+  # ログイン済みであればログイン画面やユーザー登録画面は表示する必要がないから
+  def redirect_to_dashboard_if_logged_in
+    return unless current_user
+
+    redirect_to root_path
+  end
+
   def log_in(user)
     session[:user_id] = user.id
   end
