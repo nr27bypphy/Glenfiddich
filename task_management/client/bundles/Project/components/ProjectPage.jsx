@@ -96,7 +96,9 @@ function ProjectPage(props) {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <TaskTable tasks={projects[activeIndex].tasks} />
+          {projects[activeIndex] && (
+            <TaskTable tasks={projects[activeIndex].tasks} />
+          )}
         </main>
       </div>
     </ApolloProviderWrapper>

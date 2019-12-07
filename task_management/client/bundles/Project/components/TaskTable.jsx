@@ -37,22 +37,23 @@ export const TaskTable = props => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {tasks.map((task, index) => (
-            <TableRow key={index}>
-              <TableCell component="th" scope="row">
-                {task.title}
-              </TableCell>
-              {/* @todo ここの要素の追加も必須 */}
-              <TableCell align="right" />
-              <TableCell align="right">
-                <Moment format="YYYY/MM/DD">{task.deadline}</Moment>
-              </TableCell>
-              <TableCell align="right">{task.description}</TableCell>
-              {/* @todo 下の2つの項目に関してはおいおい追加していく */}
-              <TableCell align="right" />
-              <TableCell align="right" />
-            </TableRow>
-          ))}
+          {tasks &&
+            tasks.map((task, index) => (
+              <TableRow key={index}>
+                <TableCell component="th" scope="row">
+                  {task.title}
+                </TableCell>
+                {/* @todo ここの要素の追加も必須 */}
+                <TableCell align="right" />
+                <TableCell align="right">
+                  <Moment format="YYYY/MM/DD">{task.deadline}</Moment>
+                </TableCell>
+                <TableCell align="right">{task.description}</TableCell>
+                {/* @todo 下の2つの項目に関してはおいおい追加していく */}
+                <TableCell align="right" />
+                <TableCell align="right" />
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </Paper>
