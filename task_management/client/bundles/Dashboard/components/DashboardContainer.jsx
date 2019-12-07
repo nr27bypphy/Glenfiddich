@@ -15,6 +15,7 @@ import { MemberTableTr } from "./MemberTableTr";
 import DescriptionIcon from "@material-ui/icons/Description";
 import PeopleIcon from "@material-ui/icons/People";
 import { AddProjectModal } from "./AddProjectModal";
+import { AddUserModal } from "./AddUserModal";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 
@@ -109,7 +110,10 @@ export const DashboardContainer = props => {
                 </PaperHeader>
                 <PaperSearchContent />
                 <PaperBody>
-                  <AddButton message="メンバーを追加する" />
+                  <AddButton
+                    message="メンバーを追加する"
+                    handleClick={() => handleUserOpen()}
+                  />
                   <DashboardTable>
                     <tbody>
                       <MemberTableTr />
@@ -125,6 +129,11 @@ export const DashboardContainer = props => {
       <AddProjectModal
         open={projectOpen}
         handleClose={() => handleProjectClose()}
+        addNewTasks={(title, description) => addNewTasks(title, description)}
+      />
+      <AddUserModal
+        open={userOpen}
+        handleClose={() => handleUserClose()}
         addNewTasks={(title, description) => addNewTasks(title, description)}
       />
     </>
