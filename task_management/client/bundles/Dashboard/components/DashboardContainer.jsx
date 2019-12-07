@@ -46,15 +46,21 @@ const ADD_TASK = gql`
 export const DashboardContainer = props => {
   const classes = useStyles();
   const [tasks, setTasks] = useState(props.tasks);
-  const [open, setOpen] = useState(false);
+  const [projectOpen, setProjectOpen] = useState(false);
+  const [userOpen, setUserOpen] = useState(false);
   const [addTask, { data }] = useMutation(ADD_TASK);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleProjectOpen = () => {
+    setProjectOpen(true);
   };
-
-  const handleClose = () => {
-    setOpen(false);
+  const handleProjectClose = () => {
+    setProjectOpen(false);
+  };
+  const handleUserOpen = () => {
+    setUserOpen(true);
+  };
+  const handleUserClose = () => {
+    setUserOpen(false);
   };
 
   const addNewTasks = (title, description) => {
@@ -83,7 +89,7 @@ export const DashboardContainer = props => {
                 <PaperBody>
                   <AddButton
                     message="プロジェクトを追加する"
-                    handleClick={() => handleClickOpen()}
+                    handleClick={() => handleProjectOpen()}
                   />
                   <DashboardTable>
                     <ProjectThead />
@@ -117,8 +123,8 @@ export const DashboardContainer = props => {
       </BackgroundThema>
       {/* プロジェクト追加モーダル */}
       <AddProjectModal
-        open={open}
-        handleClose={() => handleClose()}
+        open={projectOpen}
+        handleClose={() => handleProjectClose()}
         addNewTasks={(title, description) => addNewTasks(title, description)}
       />
     </>
