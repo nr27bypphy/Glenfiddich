@@ -28,7 +28,8 @@ export const AddUserModal = props => {
 
   const classes = useStyles();
 
-  const handleAddProject = () => {
+  const handleAddUser = () => {
+    props.addNewUser(name, email, role, password, passwordConfirmation);
     props.handleClose();
   };
 
@@ -113,7 +114,7 @@ export const AddUserModal = props => {
         >
           キャンセル
         </Button>
-        <Button type="submit" onClick={handleAddProject} color="primary">
+        <Button type="submit" onClick={handleAddUser} color="primary">
           追加
         </Button>
       </DialogActions>

@@ -44,12 +44,39 @@ const ADD_TASK = gql`
   }
 `;
 
+const ADD_USER = gql`
+  mutation(
+    $name: String!
+    $email: String!
+    $role: Int!
+    $password: String!
+    $passwordConfirmation: String!
+  ) {
+    addUser(
+      input: {
+        name: $name
+        email: $email
+        role: $role
+        password: $password
+        passwordConfirmation: $passwordConfirmation
+      }
+    ) {
+      user {
+        id
+        name
+        role
+      }
+    }
+  }
+`;
+
 export const DashboardContainer = props => {
   const classes = useStyles();
   const [tasks, setTasks] = useState(props.tasks);
   const [projectOpen, setProjectOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
   const [addTask, { data }] = useMutation(ADD_TASK);
+  const [addUser, { userData }] = useMutation(ADD_USER);
 
   const handleProjectOpen = () => {
     setProjectOpen(true);
@@ -73,6 +100,18 @@ export const DashboardContainer = props => {
       description: description
     });
     setTasks(newTasks);
+  };
+
+  const addNewUser = (name, email, role, password, passwordConfirmation) => {
+    addUser({
+      variables: {
+        name: name,
+        email: email,
+        role: role,
+        password: password,
+        passwordConfirmation: passwordConfirmation
+      }
+    });
   };
 
   return (
@@ -134,7 +173,9 @@ export const DashboardContainer = props => {
       <AddUserModal
         open={userOpen}
         handleClose={() => handleUserClose()}
-        addNewTasks={(title, description) => addNewTasks(title, description)}
+        addNewUser={(name, email, role, password, passwordConfirmation) =>
+          addNewUser(name, email, role, password, passwordConfirmation)
+        }
       />
     </>
   );
