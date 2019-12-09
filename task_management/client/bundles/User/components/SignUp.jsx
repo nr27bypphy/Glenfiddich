@@ -70,7 +70,7 @@ export const SignUp = _ => {
                 fullWidth
                 id="email"
                 label="Email Address"
-                name="user[mail]"
+                name="user[email]"
                 autoComplete="email"
               />
             </Grid>
