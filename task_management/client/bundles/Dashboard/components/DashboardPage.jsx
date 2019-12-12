@@ -7,7 +7,7 @@ const DashboardPage = props => {
   return (
     <ApolloProviderWrapper>
       <Header user={props.user} />
-      <DashboardContainer tasks={props.tasks} />
+      <DashboardContainer tasks={props.tasks} users={props.users} />
     </ApolloProviderWrapper>
   );
 };

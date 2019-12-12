@@ -77,6 +77,7 @@ export const DashboardContainer = props => {
   const [userOpen, setUserOpen] = useState(false);
   const [addTask, { data }] = useMutation(ADD_TASK);
   const [addUser, { userData }] = useMutation(ADD_USER);
+  const [users, setUsers] = useState(props.users);
 
   const handleProjectOpen = () => {
     setProjectOpen(true);
