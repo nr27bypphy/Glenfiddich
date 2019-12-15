@@ -1,7 +1,7 @@
 import React from "react";
-import { Header } from "../../Shared/components/Header";
-import { MemberListHeader } from "./MemberListHeader";
-import { MemberList } from "./MemberList";
+import { Header } from "../../components/organisms/Header";
+import { MemberListHeader } from "../../components/molecules/MemberListHeader";
+import { MemberList } from "../../components/organisms/MemberList";
 import styled from "styled-components";
 
 const UsersPage = props => {

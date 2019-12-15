@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
-import { SearchContent } from "./SearchContent";
-import { GrPaper } from "./GrPaper";
-import { PaperHeader } from "./PaperHeader";
-import { PaperSearchContent } from "./PaperSearchContent";
-import { PaperBody } from "./PaperBody";
-import { AddButton } from "./AddButton";
-import { DashboardTable } from "./DashboardTable";
-import { ProjectThead } from "./ProjectThead";
-import { ProjectTableTr } from "./ProjectTableTr";
-import { MemberTableTr } from "./MemberTableTr";
+import { SearchContent } from "../../components/molecules/SearchContent";
+import { GrPaper } from "../../components/molecules/GrPaper";
+import { PaperHeader } from "../../components/molecules/PaperHeader";
+import { PaperSearchContent } from "../../components/organisms/PaperSearchContent";
+import { PaperBody } from "../../components/atoms/PaperBody";
+import { AddButton } from "../../components/atoms/AddButton";
+import { DashboardTable } from "../../components/organisms/DashboardTable";
+import { ProjectThead } from "../../components/molecules/ProjectThead";
+import { ProjectTableTr } from "../../components/molecules/ProjectTableTr";
+import { MemberTableTr } from "../../components/molecules/MemberTableTr";
 import DescriptionIcon from "@material-ui/icons/Description";
 import PeopleIcon from "@material-ui/icons/People";
-import { AddProjectModal } from "./AddProjectModal";
+import { AddProjectModal } from "../../components/organisms/AddProjectModal";
+import { AddUserModal } from "../../components/organisms/AddUserModal";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 
@@ -43,18 +44,52 @@ const ADD_TASK = gql`
   }
 `;
 
+const ADD_USER = gql`
+  mutation(
+    $name: String!
+    $email: String!
+    $role: Int!
+    $password: String!
+    $passwordConfirmation: String!
+  ) {
+    addUser(
+      input: {
+        name: $name
+        email: $email
+        role: $role
+        password: $password
+        passwordConfirmation: $passwordConfirmation
+      }
+    ) {
+      user {
+        id
+        name
+        role
+      }
+    }
+  }
+`;
+
 export const DashboardContainer = props => {
   const classes = useStyles();
   const [tasks, setTasks] = useState(props.tasks);
-  const [open, setOpen] = useState(false);
+  const [projectOpen, setProjectOpen] = useState(false);
+  const [userOpen, setUserOpen] = useState(false);
   const [addTask, { data }] = useMutation(ADD_TASK);
+  const [addUser, { userData }] = useMutation(ADD_USER);
+  const [users, setUsers] = useState(props.users);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleProjectOpen = () => {
+    setProjectOpen(true);
   };
-
-  const handleClose = () => {
-    setOpen(false);
+  const handleProjectClose = () => {
+    setProjectOpen(false);
+  };
+  const handleUserOpen = () => {
+    setUserOpen(true);
+  };
+  const handleUserClose = () => {
+    setUserOpen(false);
   };
 
   const addNewTasks = (title, description) => {
@@ -66,6 +101,18 @@ export const DashboardContainer = props => {
       description: description
     });
     setTasks(newTasks);
+  };
+
+  const addNewUser = (name, email, role, password, passwordConfirmation) => {
+    addUser({
+      variables: {
+        name: name,
+        email: email,
+        role: role,
+        password: password,
+        passwordConfirmation: passwordConfirmation
+      }
+    });
   };
 
   return (
@@ -83,7 +130,7 @@ export const DashboardContainer = props => {
                 <PaperBody>
                   <AddButton
                     message="プロジェクトを追加する"
-                    handleClick={() => handleClickOpen()}
+                    handleClick={() => handleProjectOpen()}
                   />
                   <DashboardTable>
                     <ProjectThead />
@@ -103,7 +150,10 @@ export const DashboardContainer = props => {
                 </PaperHeader>
                 <PaperSearchContent />
                 <PaperBody>
-                  <AddButton message="メンバーを追加する" />
+                  <AddButton
+                    message="メンバーを追加する"
+                    handleClick={() => handleUserOpen()}
+                  />
                   <DashboardTable>
                     <tbody>
                       <MemberTableTr />
@@ -117,9 +167,16 @@ export const DashboardContainer = props => {
       </BackgroundThema>
       {/* プロジェクト追加モーダル */}
       <AddProjectModal
-        open={open}
-        handleClose={() => handleClose()}
+        open={projectOpen}
+        handleClose={() => handleProjectClose()}
         addNewTasks={(title, description) => addNewTasks(title, description)}
+      />
+      <AddUserModal
+        open={userOpen}
+        handleClose={() => handleUserClose()}
+        addNewUser={(name, email, role, password, passwordConfirmation) =>
+          addNewUser(name, email, role, password, passwordConfirmation)
+        }
       />
     </>
   );

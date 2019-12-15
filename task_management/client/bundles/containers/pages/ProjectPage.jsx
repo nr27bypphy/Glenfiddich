@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Header } from "../../Shared/components/Header";
-import { ApolloProviderWrapper } from "../../Shared/components/ApolloProviderWrapper";
+import { Header } from "../../components/organisms/Header";
+import { ApolloProviderWrapper } from "../../components/providers/ApolloProviderWrapper";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -11,7 +11,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import WorkIcon from "@material-ui/icons/Work";
-import { TaskTable } from "./TaskTable";
+import { TaskTable } from "../../components/organisms/TaskTable";
 
 const drawerWidth = 240;
 

@@ -9,13 +9,13 @@ require("@rails/activestorage").start();
 require("channels");
 
 import ReactOnRails from "react-on-rails";
-import DashboardPage from "../bundles/Dashboard/components/DashboardPage";
-import ProjectPage from "../bundles/Project/components/ProjectPage";
-import LoginPage from "../bundles/Session/components/LoginPage";
-import FlashContent from "../bundles/Shared/components/FlashContent";
-import Flash from "../bundles/Shared/components/Flash";
-import UsersPage from "../bundles/User/components/UsersPage";
-import RegistrationUserPage from "../bundles/User/components/RegistrationUserPage";
+import DashboardPage from "../bundles/containers/pages/DashboardPage";
+import ProjectPage from "../bundles/containers/pages/ProjectPage";
+import LoginPage from "../bundles/containers/pages/LoginPage";
+import FlashContent from "../bundles/components/molecules/FlashContent";
+import Flash from "../bundles/components/organisms/Flash";
+import UsersPage from "../bundles/containers/pages/UsersPage";
+import RegistrationUserPage from "../bundles/containers/pages/RegistrationUserPage";
 
 ReactOnRails.register({
   DashboardPage,

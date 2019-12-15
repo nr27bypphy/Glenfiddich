@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def index
   end
-  
+
   def new
   end
 
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
       .require(:user)
       .permit(
         :name,
-        :mail,
+        :email,
         :password,
         :password_confirmation
       )

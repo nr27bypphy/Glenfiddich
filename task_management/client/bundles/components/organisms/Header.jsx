@@ -8,7 +8,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { SideBarButton } from "./SideBarButton";
-import { Form } from "./forms/Form";
+import { Form } from "../atoms/forms/Form";
 import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({

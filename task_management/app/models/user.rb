@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :projects
 
   validates :name, presence: true
-  validates :mail, presence: true, uniqueness: { case_sensitive: false }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :role, presence: true
 
   enum role: { owner: 0, admin: 1, normal: 2, guest: 3 }
