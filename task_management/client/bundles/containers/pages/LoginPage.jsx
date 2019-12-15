@@ -1,5 +1,5 @@
 import React from "react";
-import { LoginForm } from "./LoginForm";
+import { LoginForm } from "../templates/LoginForm";
 
 function LoginPage(props) {
   return <LoginForm />;

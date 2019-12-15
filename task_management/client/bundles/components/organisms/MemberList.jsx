@@ -9,7 +9,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import { BoldText } from "../../Shared/components/BoldText";
+import { BoldText } from "../atoms/BoldText";
 
 const useStyles = makeStyles({
   table: {

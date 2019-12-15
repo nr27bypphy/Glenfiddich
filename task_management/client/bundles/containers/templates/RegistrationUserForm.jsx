@@ -1,12 +1,12 @@
 import React from "react";
-import { FormHeader } from "../../Shared/components/forms/FormHeader";
-import { FormElementWrapper } from "../../Shared/components/forms/FormElementWrapper";
-import { LinkText } from "../../Shared/components/forms/LinkText";
-import { SubmitButton } from "../../Shared/components/forms/SubmitButton";
-import { SessionTextField } from "../../Session/components/SessionTextField";
-import { FormBodyWrapper } from "../../Shared/components/forms/FormBodyWrapper";
-import { FormCard } from "../../Shared/components/forms/FormCard";
-import { Form } from "../../Shared/components/forms/Form";
+import { FormHeader } from "../../components/atoms/forms/FormHeader";
+import { FormElementWrapper } from "../../components/atoms/forms/FormElementWrapper";
+import { LinkText } from "../../components/atoms/LinkText";
+import { SubmitButton } from "../../components/molecules/SubmitButton";
+import { SessionTextField } from "../../components/atoms/SessionTextField";
+import { FormBodyWrapper } from "../../components/atoms/forms/FormBodyWrapper";
+import { FormCard } from "../../components/atoms/forms/FormCard";
+import { Form } from "../../components/atoms/forms/Form";
 
 export const RegistrationUserForm = _ => {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import PersonIcon from "@material-ui/icons/Person";
-import { AlertTd } from "./AlertTd";
+import { AlertTd } from "../atoms/AlertTd";
 import styled from "styled-components";
 
 export const MemberTableTr = props => {

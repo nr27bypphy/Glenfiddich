@@ -1,5 +1,5 @@
 import React from "react";
-import { AlertTd } from "./AlertTd";
+import { AlertTd } from "../atoms/AlertTd";
 
 export const ProjectTableTr = props => {
   const task = props.task;

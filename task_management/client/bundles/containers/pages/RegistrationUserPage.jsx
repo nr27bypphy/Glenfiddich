@@ -1,5 +1,5 @@
 import React from "react";
-import { SignUp } from "./SignUp";
+import { SignUp } from "../templates/SignUp";
 
 const RegistrationUserPage = _ => {
   return <SignUp />;

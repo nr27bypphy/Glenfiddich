@@ -1,5 +1,5 @@
 import React from "react";
-import FlashContent from "./FlashContent";
+import FlashContent from "../molecules/FlashContent";
 import Snackbar from "@material-ui/core/Snackbar";
 
 const Flash = props => {

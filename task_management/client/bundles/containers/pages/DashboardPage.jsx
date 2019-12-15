@@ -1,7 +1,7 @@
 import React from "react";
-import { DashboardContainer } from "./DashboardContainer";
-import { Header } from "../../Shared/components/Header";
-import { ApolloProviderWrapper } from "../../Shared/components/ApolloProviderWrapper";
+import { DashboardContainer } from "../templates/DashboardContainer";
+import { Header } from "../../components/organisms/Header";
+import { ApolloProviderWrapper } from "../../components/providers/ApolloProviderWrapper";
 
 const DashboardPage = props => {
   return (
