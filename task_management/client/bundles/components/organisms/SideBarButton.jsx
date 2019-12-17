@@ -43,7 +43,7 @@ export const SideBarButton = props => {
           side="left"
           onClick={toggleDrawer("left", false)}
           onKeyDown={toggleDrawer("left", false)}
-        ></SideMenu>
+        />
       </Drawer>
     </div>
   );
