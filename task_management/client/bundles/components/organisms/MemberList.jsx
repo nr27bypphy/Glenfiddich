@@ -10,7 +10,10 @@ import TableRow from "@material-ui/core/TableRow";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { BoldText } from "../atoms/BoldText";
+import { IconButton } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
+import gql from "graphql-tag";
+import { useMutation } from "@apollo/react-hooks";
 
 const useStyles = makeStyles({
   table: {
@@ -22,9 +25,23 @@ const useStyles = makeStyles({
   }
 });
 
+const DESTROY_USER = gql`
+  mutation($id: ID!, $currentUserId: Int!) {
+    destroyUser(input: { id: $id, currentUserId: $currentUserId }) {
+      result
+    }
+  }
+`;
+
 export const MemberList = props => {
   const classes = useStyles();
   const users = props.users;
+  const currentUser = props.currentUser;
+  const [destroyUser, { userData }] = useMutation(DESTROY_USER);
+
+  const destroy = (id, currentUserId) => {
+    destroyUser({ variables: { id: id, currentUserId: currentUserId } });
+  };
 
   return (
     <Wrapper>
@@ -54,7 +71,11 @@ export const MemberList = props => {
                 <BoldText>{user.role}</BoldText>
               </TableCell>
               <TableCell align="right">
-                {props.currentUser.role == "owner" && <DeleteIcon />}
+                {currentUser.role == "owner" && (
+                  <IconButton onClick={() => destroy(user.id, currentUser.id)}>
+                    <DeleteIcon />
+                  </IconButton>
+                )}
               </TableCell>
               <TableCell align="right">
                 <MoreHorizIcon />
