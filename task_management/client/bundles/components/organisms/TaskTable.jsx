@@ -29,9 +29,7 @@ export const TaskTable = props => {
         <TableHead>
           <TableRow>
             <TableCell>Task 名</TableCell>
-            <TableCell align="right">ステータス</TableCell>
             <TableCell align="right">期限日</TableCell>
-            <TableCell align="right">Project名</TableCell>
             <TableCell align="right">部署タグ</TableCell>
             <TableCell align="right">コメント</TableCell>
           </TableRow>
@@ -43,12 +41,9 @@ export const TaskTable = props => {
                 <TableCell component="th" scope="row">
                   {task.title}
                 </TableCell>
-                {/* @todo ここの要素の追加も必須 */}
-                <TableCell align="right" />
                 <TableCell align="right">
                   <Moment format="YYYY/MM/DD">{task.deadline}</Moment>
                 </TableCell>
-                <TableCell align="right">{task.description}</TableCell>
                 {/* @todo 下の2つの項目に関してはおいおい追加していく */}
                 <TableCell align="right" />
                 <TableCell align="right" />
