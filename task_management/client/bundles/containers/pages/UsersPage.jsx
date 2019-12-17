@@ -9,13 +9,9 @@ const UsersPage = props => {
     <>
       <Header />
       <MemberListHeader />
-      <ScrollMemberList />
+      <MemberList users={props.users} />
     </>
   );
 };
-
-const ScrollMemberList = styled(MemberList)`
-  margin-top: 13rem;
-`;
 
 export default props => <UsersPage {...props} />;

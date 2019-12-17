@@ -35,6 +35,7 @@ const rows = [
 
 export const MemberList = props => {
   const classes = useStyles();
+  const users = props.users;
 
   return (
     <Wrapper>
@@ -47,7 +48,7 @@ export const MemberList = props => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => (
+          {users.map(row => (
             <TableRow key={row.name}>
               {/* @todo ここだけ px 指定にしている rem 指定に直す */}
               <TableCell component="th" scope="row" width="300px">
@@ -60,7 +61,7 @@ export const MemberList = props => {
                 </FlexDiv>
               </TableCell>
               <TableCell align="left">
-                <BoldText>{row.accountType}</BoldText>
+                <BoldText>{row.role}</BoldText>
               </TableCell>
               <TableCell align="right">
                 <MoreHorizIcon />

@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   before_action :build_user, only: %i(new create)
 
   def index
+    @users = User.all
   end
 
   def new
