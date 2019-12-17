@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
 
 const sideMenuContent = [
   { text: "ダッシュボード", path: "/" },
-  { text: "Hoge", path: "/" },
+  { text: "ユーザー一覧", path: "/users" },
   { text: "ユーザー詳細", path: "/projects" }
 ];
 
