@@ -12,6 +12,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { Form } from "../../components/atoms/forms/Form";
 import { makeStyles } from "@material-ui/core/styles";
+import { CsrfTokenField } from "../../components/atoms/forms/CsrfTokenField";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -63,6 +64,7 @@ export const LoginForm = _ => {
             Sign in
           </Typography>
           <Form className={classes.form} action="/login" method="post">
+            <CsrfTokenField />
             <TextField
               variant="outlined"
               margin="normal"

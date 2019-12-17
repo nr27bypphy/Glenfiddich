@@ -8,7 +8,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { SideBarButton } from "./SideBarButton";
-import { Form } from "../atoms/forms/Form";
+import { CsrfTokenField } from "../atoms/forms/CsrfTokenField";
 import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -118,7 +118,8 @@ export const Header = props => {
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
-                <Form action="/logout" method="POST">
+                <form action="/logout" method="POST">
+                  <CsrfTokenField />
                   <MenuItem
                     onClick={handleClose}
                     component="button"
@@ -126,7 +127,7 @@ export const Header = props => {
                   >
                     Logout
                   </MenuItem>
-                </Form>
+                </form>
               </Menu>
             </div>
           )}
