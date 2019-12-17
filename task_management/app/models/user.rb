@@ -8,6 +8,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :role, presence: true
+  before_destroy :destroyable_user?
 
   enum role: { owner: 0, admin: 1, normal: 2, guest: 3 }
 
@@ -38,5 +39,12 @@ class User < ApplicationRecord
   # ログアウト処理で使用 remember_token の hash 値を nil に更新する
   def forget
     update_columns(remember_digest: nil)
+  end
+
+  def destroyable_user?
+    return if owner?
+
+    errors.add(base: 'オーナー以外はメンバーの削除は出来ません')
+    throw :abort
   end
 end
