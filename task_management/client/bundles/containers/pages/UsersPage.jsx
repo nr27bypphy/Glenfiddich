@@ -9,7 +9,7 @@ const UsersPage = props => {
     <>
       <Header />
       <MemberListHeader />
-      <MemberList users={props.users} />
+      <MemberList currentUser={props.currentUser} users={props.users} />
     </>
   );
 };

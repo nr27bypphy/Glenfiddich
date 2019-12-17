@@ -10,6 +10,7 @@ import TableRow from "@material-ui/core/TableRow";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { BoldText } from "../atoms/BoldText";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const useStyles = makeStyles({
   table: {
@@ -20,18 +21,6 @@ const useStyles = makeStyles({
     width: "5rem"
   }
 });
-
-function createData(name, icon, email, accountType) {
-  return { name, icon, email, accountType };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, "eto@gmail.com", "Owner"),
-  createData("Ice cream sandwich", 237, "eto@gmail.com", "Owner"),
-  createData("Eclair", 262, "eto@gmail.com", "Owner"),
-  createData("Cupcake", 305, "eto@gmail.com", "Owner"),
-  createData("Gingerbread", 356, "eto@gmail.com", "Owner")
-];
 
 export const MemberList = props => {
   const classes = useStyles();
@@ -44,24 +33,28 @@ export const MemberList = props => {
           <TableRow>
             <TableCell align="center">Name</TableCell>
             <TableCell align="left">Account type</TableCell>
-            <TableCell align="right"></TableCell>
+            <TableCell align="right" />
+            <TableCell align="right" />
           </TableRow>
         </TableHead>
         <TableBody>
-          {users.map(row => (
-            <TableRow key={row.name}>
+          {users.map(user => (
+            <TableRow key={user.name}>
               {/* @todo ここだけ px 指定にしている rem 指定に直す */}
               <TableCell component="th" scope="row" width="300px">
                 <FlexDiv>
                   <AccountCircleIcon className={classes.personIcon} />
                   <NameEmail>
-                    <BoldText>{row.name}</BoldText>
-                    <div>{row.email}</div>
+                    <BoldText>{user.name}</BoldText>
+                    <div>{user.email}</div>
                   </NameEmail>
                 </FlexDiv>
               </TableCell>
               <TableCell align="left">
-                <BoldText>{row.role}</BoldText>
+                <BoldText>{user.role}</BoldText>
+              </TableCell>
+              <TableCell align="right">
+                {props.currentUser.role == "owner" && <DeleteIcon />}
               </TableCell>
               <TableCell align="right">
                 <MoreHorizIcon />
