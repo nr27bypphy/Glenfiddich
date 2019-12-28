@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
@@ -17,7 +17,7 @@ import PeopleIcon from "@material-ui/icons/People";
 import { AddProjectModal } from "../../components/organisms/AddProjectModal";
 import { AddUserModal } from "../../components/organisms/AddUserModal";
 import gql from "graphql-tag";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 
 const useStyles = makeStyles(theme => ({
   projectPaper: {
@@ -70,27 +70,42 @@ const ADD_USER = gql`
   }
 `;
 
+const USERS = gql`
+  query {
+    users {
+      edges {
+        node {
+          id
+          email
+          name
+          role
+        }
+      }
+    }
+  }
+`;
+
 export const DashboardContainer = props => {
   const classes = useStyles();
   const [tasks, setTasks] = useState(props.tasks);
   const [projectOpen, setProjectOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
   const [addTask] = useMutation(ADD_TASK);
-  const [addUser, { userData }] = useMutation(ADD_USER);
-  const [users, setUsers] = useState(props.users);
+  const [addUser] = useMutation(ADD_USER, {
+    update(cache, { data: { addUser } }) {
+      // 本当はここで cache.writeQuery を使っていい感じに users のリストを更新したい
+      // const { users } = cache.readQuery({ query: USERS });
+    }
+  });
 
-  const handleProjectOpen = () => {
-    setProjectOpen(true);
-  };
-  const handleProjectClose = () => {
-    setProjectOpen(false);
-  };
-  const handleUserOpen = () => {
-    setUserOpen(true);
-  };
-  const handleUserClose = () => {
-    setUserOpen(false);
-  };
+  const { loading, error, data } = useQuery(USERS);
+  const [usersNode, setUsersNode] = useState([]);
+
+  useEffect(() => {
+    if (data) {
+      setUsersNode(data.users.edges);
+    }
+  }, [data]);
 
   const addNewTasks = (title, description) => {
     addTask({
@@ -113,8 +128,8 @@ export const DashboardContainer = props => {
         passwordConfirmation: passwordConfirmation
       }
     }).then(result => {
-      const newUsers = users.concat(result.data.addUser.user);
-      setUsers(newUsers);
+      // ユーザーの一覧に追加したメンバーを表示させるため
+      setUsersNode(usersNode.concat({ node: result.data.addUser.user }));
     });
   };
 
@@ -133,7 +148,7 @@ export const DashboardContainer = props => {
                 <PaperBody>
                   <AddButton
                     message="プロジェクトを追加する"
-                    handleClick={() => handleProjectOpen()}
+                    handleClick={() => setProjectOpen(true)}
                   />
                   <DashboardTable>
                     <ProjectThead />
@@ -155,13 +170,14 @@ export const DashboardContainer = props => {
                 <PaperBody>
                   <AddButton
                     message="メンバーを追加する"
-                    handleClick={() => handleUserOpen()}
+                    handleClick={() => setUserOpen(true)}
                   />
                   <DashboardTable>
                     <tbody>
-                      {users.map((user, index) => {
-                        return <MemberTableTr user={user} />;
-                      })}
+                      {usersNode &&
+                        usersNode.map((userNode, index) => {
+                          return <MemberTableTr user={userNode.node} />;
+                        })}
                     </tbody>
                   </DashboardTable>
                 </PaperBody>
@@ -173,12 +189,12 @@ export const DashboardContainer = props => {
       {/* プロジェクト追加モーダル */}
       <AddProjectModal
         open={projectOpen}
-        handleClose={() => handleProjectClose()}
+        handleClose={() => setProjectOpen(false)}
         addNewTasks={(title, description) => addNewTasks(title, description)}
       />
       <AddUserModal
         open={userOpen}
-        handleClose={() => handleUserClose()}
+        handleClose={() => setUserOpen(false)}
         addNewUser={(name, email, role, password, passwordConfirmation) =>
           addNewUser(name, email, role, password, passwordConfirmation)
         }
