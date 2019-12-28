@@ -75,7 +75,7 @@ export const DashboardContainer = props => {
   const [tasks, setTasks] = useState(props.tasks);
   const [projectOpen, setProjectOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
-  const [addTask, { data }] = useMutation(ADD_TASK);
+  const [addTask] = useMutation(ADD_TASK);
   const [addUser, { userData }] = useMutation(ADD_USER);
   const [users, setUsers] = useState(props.users);
 
@@ -112,6 +112,9 @@ export const DashboardContainer = props => {
         password: password,
         passwordConfirmation: passwordConfirmation
       }
+    }).then(result => {
+      const newUsers = users.concat(result.data.addUser.user);
+      setUsers(newUsers);
     });
   };
 
