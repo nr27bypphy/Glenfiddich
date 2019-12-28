@@ -176,7 +176,9 @@ export const DashboardContainer = props => {
                     <tbody>
                       {usersNode &&
                         usersNode.map((userNode, index) => {
-                          return <MemberTableTr user={userNode.node} />;
+                          return (
+                            <MemberTableTr user={userNode.node} key={index} />
+                          );
                         })}
                     </tbody>
                   </DashboardTable>
