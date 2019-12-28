@@ -18,6 +18,7 @@ export const MemberTableTr = props => {
         <PersonIcon />
       </Td>
       <Td width="25%">{props.user.name}</Td>
+      {/* role は integer が入っているので roleMap から対応する権限名を取り出す  */}
       <Td width="20%">{roleMap.get(props.user.role)}</Td>
       <AlertTd />
     </tr>
