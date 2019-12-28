@@ -3,7 +3,7 @@ module Mutations
     argument :id, ID, required: true
     argument :current_user_id, Integer, required: true
 
-    field :result, Boolean, null: false
+    field :users, [Types::UserType], null: true
 
     def resolve(id:, current_user_id:)
       current_user = User.find(current_user_id)
@@ -13,7 +13,9 @@ module Mutations
 
       user.destroy!
 
-      { result: true }
+      users = User.all
+
+      { users: users }
     end
   end
 end

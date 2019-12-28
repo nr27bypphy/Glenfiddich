@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -28,19 +28,28 @@ const useStyles = makeStyles({
 const DESTROY_USER = gql`
   mutation($id: ID!, $currentUserId: Int!) {
     destroyUser(input: { id: $id, currentUserId: $currentUserId }) {
-      result
+      users {
+        id
+        name
+        email
+        role
+      }
     }
   }
 `;
 
 export const MemberList = props => {
   const classes = useStyles();
-  const users = props.users;
+  const [users, setUsers] = useState(props.users);
   const currentUser = props.currentUser;
   const [destroyUser, { userData }] = useMutation(DESTROY_USER);
 
   const destroy = (id, currentUserId) => {
-    destroyUser({ variables: { id: id, currentUserId: currentUserId } });
+    destroyUser({
+      variables: { id: id, currentUserId: currentUserId }
+    }).then(result => {
+      setUsers(result.data.destroyUser.users);
+    });
   };
 
   return (
@@ -56,7 +65,7 @@ export const MemberList = props => {
         </TableHead>
         <TableBody>
           {users.map(user => (
-            <TableRow key={user.name}>
+            <TableRow key={user.id}>
               {/* @todo ここだけ px 指定にしている rem 指定に直す */}
               <TableCell component="th" scope="row" width="300px">
                 <FlexDiv>
