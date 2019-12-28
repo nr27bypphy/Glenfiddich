@@ -4,14 +4,15 @@ import { AlertTd } from "../atoms/AlertTd";
 import styled from "styled-components";
 
 export const MemberTableTr = props => {
+  const user = props.user;
   return (
     <tr>
       <Td width="20%">
         {/* TODO: このIconのサイズがちょっとアンマッチ */}
         <PersonIcon />
       </Td>
-      <Td width="45%"></Td>
-      <Td width="10%"></Td>
+      <Td width="25%">{user.name}</Td>
+      <Td width="20%">{user.role}</Td>
       <AlertTd />
     </tr>
   );
