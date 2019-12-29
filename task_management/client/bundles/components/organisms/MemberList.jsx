@@ -52,13 +52,20 @@ export const MemberList = props => {
     });
   };
 
+  const roles = new Map([
+    ["owner", "オーナー"],
+    ["admin", "管理者"],
+    ["normal", "一般"],
+    ["guest", "ゲスト"]
+  ]);
+
   return (
     <Wrapper>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell align="center">Name</TableCell>
-            <TableCell align="left">Account type</TableCell>
+            <TableCell align="center">名前</TableCell>
+            <TableCell align="left">権限</TableCell>
             <TableCell align="right" />
             <TableCell align="right" />
           </TableRow>
@@ -77,7 +84,7 @@ export const MemberList = props => {
                 </FlexDiv>
               </TableCell>
               <TableCell align="left">
-                <BoldText>{user.role}</BoldText>
+                <BoldText>{roles.get(user.role)}</BoldText>
               </TableCell>
               <TableCell align="right">
                 {currentUser.role == "owner" && (
