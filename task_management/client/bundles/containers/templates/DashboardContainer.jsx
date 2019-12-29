@@ -129,10 +129,16 @@ export const DashboardContainer = props => {
         password: password,
         passwordConfirmation: passwordConfirmation
       }
-    }).then(result => {
-      // ユーザーの一覧に追加したメンバーを表示させるため
-      setUsersNode(usersNode.concat({ node: result.data.addUser.user }));
-    });
+    })
+      .then(result => {
+        // ユーザーの一覧に追加したメンバーを表示させるため
+        setUsersNode(usersNode.concat({ node: result.data.addUser.user }));
+      })
+      .catch(e => {
+        // error message の配列
+        // @todo 取得したエラーメッセージを modal 上で表示するように修正する
+        const errorMessages = e.graphQLErrors;
+      });
   };
 
   return (
