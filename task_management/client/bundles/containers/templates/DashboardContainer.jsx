@@ -87,9 +87,11 @@ const USERS = gql`
 
 export const DashboardContainer = props => {
   const classes = useStyles();
-  const [tasks, setTasks] = useState(props.tasks);
+  // モーダル表示の状態を管理する
   const [projectOpen, setProjectOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
+
+  const [tasks, setTasks] = useState(props.tasks);
   const [addTask] = useMutation(ADD_TASK);
   const [addUser] = useMutation(ADD_USER, {
     update(cache, { data: { addUser } }) {
