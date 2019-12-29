@@ -12,6 +12,7 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { BoldText } from "../atoms/BoldText";
 import { IconButton } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { AlertDialog } from "./ConfirmDialog";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 
@@ -25,6 +26,7 @@ const useStyles = makeStyles({
   }
 });
 
+// ユーザー削除で使用する
 const DESTROY_USER = gql`
   mutation($id: ID!, $currentUserId: Int!) {
     destroyUser(input: { id: $id, currentUserId: $currentUserId }) {
@@ -42,14 +44,14 @@ export const MemberList = props => {
   const classes = useStyles();
   const [users, setUsers] = useState(props.users);
   const currentUser = props.currentUser;
-  const [destroyUser, { userData }] = useMutation(DESTROY_USER);
 
-  const destroy = (id, currentUserId) => {
-    destroyUser({
-      variables: { id: id, currentUserId: currentUserId }
-    }).then(result => {
-      setUsers(result.data.destroyUser.users);
-    });
+  // ユーザー削除の確認モーダルの状態管理で使用する
+  const [destroyOpen, setDestroyOpen] = useState(false);
+  const [destroyTargetUser, setDestroyTargetUser] = useState();
+  // 確認モーダルを開く
+  const handleDialogOpen = user => {
+    setDestroyTargetUser(user);
+    setDestroyOpen(true);
   };
 
   const roles = new Map([
@@ -58,6 +60,24 @@ export const MemberList = props => {
     ["normal", "一般"],
     ["guest", "ゲスト"]
   ]);
+
+  // ユーザー削除用のmutation
+  const [destroyUser, { userData }] = useMutation(DESTROY_USER);
+  // ユーザーの削除を実行する
+  const destroyConfirm = () => {
+    // 削除対象が決まってない場合はこの後の処理で落ちないように早期returnする
+    if (!destroyTargetUser) return;
+
+    destroyUser({
+      variables: {
+        id: destroyTargetUser.id,
+        currentUserId: currentUser.id
+      }
+    }).then(result => {
+      setUsers(result.data.destroyUser.users);
+      setDestroyOpen(false);
+    });
+  };
 
   return (
     <Wrapper>
@@ -88,7 +108,8 @@ export const MemberList = props => {
               </TableCell>
               <TableCell align="right">
                 {currentUser.role == "owner" && (
-                  <IconButton onClick={() => destroy(user.id, currentUser.id)}>
+                  // <IconButton onClick={() => destroy(user.id, currentUser.id)}>
+                  <IconButton onClick={() => handleDialogOpen(user)}>
                     <DeleteIcon />
                   </IconButton>
                 )}
@@ -100,6 +121,13 @@ export const MemberList = props => {
           ))}
         </TableBody>
       </Table>
+      <AlertDialog
+        open={destroyOpen}
+        setOpen={arg => setDestroyOpen(arg)}
+        setUsers={users => setUsers(users)}
+        user={destroyTargetUser}
+        confirm={() => destroyConfirm()}
+      />
     </Wrapper>
   );
 };
