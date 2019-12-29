@@ -16,6 +16,9 @@ const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120
+  },
+  errorMessage: {
+    color: "#FF0000"
   }
 }));
 
@@ -44,11 +47,14 @@ export const AddUserModal = props => {
     >
       <DialogTitle id="form-dialog-title">メンバーの追加</DialogTitle>
       <DialogContent>
-        <DialogContentText>メンバーの追加が可能です！</DialogContentText>
         {/* 追加に失敗した時は下記でエラーメッセージを表示する @todo style の修正 */}
         {props.errors.length != 0 &&
           props.errors.map((error, index) => {
-            return <DialogContentText key={index}>{error}</DialogContentText>;
+            return (
+              <p key={index} className={classes.errorMessage}>
+                {error}
+              </p>
+            );
           })}
         <TextField
           autoFocus
