@@ -30,7 +30,7 @@ export const MemberListHeader = props => {
   return (
     <Wrapper>
       <TitleButtonColumn>
-        <Title>Manage Member</Title>
+        <Title>メンバー一覧</Title>
         <Button variant="contained" className={classes.button}>
           Invite people
         </Button>
