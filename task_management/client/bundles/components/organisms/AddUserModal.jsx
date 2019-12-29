@@ -123,21 +123,23 @@ export const AddUserModal = props => {
       </DialogContent>
       <DialogActions>
         <Button
-          onClick={() => {
-            props.handleClose();
-          }}
-          color="primary"
-        >
-          キャンセル
-        </Button>
-        <Button
           type="submit"
+          variant="outlined"
+          color="primary"
           onClick={() =>
             props.addNewUser(name, email, role, password, passwordConfirmation)
           }
-          color="primary"
         >
           追加
+        </Button>
+        <Button
+          variant="outlined"
+          color="secondary"
+          onClick={() => {
+            props.handleClose();
+          }}
+        >
+          キャンセル
         </Button>
       </DialogActions>
     </Dialog>
