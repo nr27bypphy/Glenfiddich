@@ -100,6 +100,8 @@ export const DashboardContainer = props => {
     }
   });
 
+  // ユーザー追加のエラーメッセージ用
+  const [userErrors, setUserErrors] = useState([]);
   const { loading, error, data } = useQuery(USERS);
   const [usersNode, setUsersNode] = useState([]);
 
@@ -133,11 +135,14 @@ export const DashboardContainer = props => {
       .then(result => {
         // ユーザーの一覧に追加したメンバーを表示させるため
         setUsersNode(usersNode.concat({ node: result.data.addUser.user }));
+        setUserOpen(false);
       })
       .catch(e => {
-        // error message の配列
-        // @todo 取得したエラーメッセージを modal 上で表示するように修正する
-        const errorMessages = e.graphQLErrors;
+        // 失敗した時は、エラーメッセージを表示して、モーダルを閉じないようにする
+        const errorMessages = e.graphQLErrors.map(error => {
+          return error["message"];
+        });
+        setUserErrors(errorMessages);
       });
   };
 
@@ -208,6 +213,7 @@ export const DashboardContainer = props => {
         addNewUser={(name, email, role, password, passwordConfirmation) =>
           addNewUser(name, email, role, password, passwordConfirmation)
         }
+        errors={userErrors}
       />
     </>
   );

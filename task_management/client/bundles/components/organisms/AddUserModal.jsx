@@ -28,11 +28,6 @@ export const AddUserModal = props => {
 
   const classes = useStyles();
 
-  const handleAddUser = () => {
-    props.addNewUser(name, email, role, password, passwordConfirmation);
-    props.handleClose();
-  };
-
   // 権限のセレクトボックスで使用する
   const roles = [
     { label: "オーナー", value: 0 },
@@ -50,6 +45,11 @@ export const AddUserModal = props => {
       <DialogTitle id="form-dialog-title">メンバーの追加</DialogTitle>
       <DialogContent>
         <DialogContentText>メンバーの追加が可能です！</DialogContentText>
+        {/* 追加に失敗した時は下記でエラーメッセージを表示する @todo style の修正 */}
+        {props.errors.length != 0 &&
+          props.errors.map((error, index) => {
+            return <DialogContentText key={index}>{error}</DialogContentText>;
+          })}
         <TextField
           autoFocus
           margin="dense"
@@ -125,7 +125,13 @@ export const AddUserModal = props => {
         >
           キャンセル
         </Button>
-        <Button type="submit" onClick={handleAddUser} color="primary">
+        <Button
+          type="submit"
+          onClick={() =>
+            props.addNewUser(name, email, role, password, passwordConfirmation)
+          }
+          color="primary"
+        >
           追加
         </Button>
       </DialogActions>
