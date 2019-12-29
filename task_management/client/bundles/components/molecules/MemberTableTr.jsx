@@ -4,14 +4,22 @@ import { AlertTd } from "../atoms/AlertTd";
 import styled from "styled-components";
 
 export const MemberTableTr = props => {
+  const roles = new Map([
+    [0, "オーナー"],
+    [1, "管理者"],
+    [2, "一般"],
+    [3, "ゲスト"]
+  ]);
+
   return (
     <tr>
       <Td width="20%">
         {/* TODO: このIconのサイズがちょっとアンマッチ */}
         <PersonIcon />
       </Td>
-      <Td width="45%"></Td>
-      <Td width="10%"></Td>
+      <Td width="25%">{props.user.name}</Td>
+      {/* role は integer が入っているので roleMap から対応する権限名を取り出す  */}
+      <Td width="20%">{roles.get(props.user.role)}</Td>
       <AlertTd />
     </tr>
   );

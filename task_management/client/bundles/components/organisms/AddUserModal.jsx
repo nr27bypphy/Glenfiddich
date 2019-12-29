@@ -5,7 +5,6 @@ import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
@@ -16,6 +15,9 @@ const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120
+  },
+  errorMessage: {
+    color: "#FF0000"
   }
 }));
 
@@ -28,10 +30,13 @@ export const AddUserModal = props => {
 
   const classes = useStyles();
 
-  const handleAddUser = () => {
-    props.addNewUser(name, email, role, password, passwordConfirmation);
-    props.handleClose();
-  };
+  // 権限のセレクトボックスで使用する
+  const roles = [
+    { label: "オーナー", value: 0 },
+    { label: "管理者", value: 1 },
+    { label: "一般", value: 2 },
+    { label: "ゲスト", value: 3 }
+  ];
 
   return (
     <Dialog
@@ -41,7 +46,15 @@ export const AddUserModal = props => {
     >
       <DialogTitle id="form-dialog-title">メンバーの追加</DialogTitle>
       <DialogContent>
-        <DialogContentText>メンバーの追加が可能です！</DialogContentText>
+        {/* 追加に失敗した時は下記でエラーメッセージを表示する @todo style の修正 */}
+        {props.errors.length != 0 &&
+          props.errors.map((error, index) => {
+            return (
+              <p key={index} className={classes.errorMessage}>
+                {error}
+              </p>
+            );
+          })}
         <TextField
           autoFocus
           margin="dense"
@@ -74,10 +87,13 @@ export const AddUserModal = props => {
               setRole(e.target.value);
             }}
           >
-            <MenuItem value={0}>オーナー</MenuItem>
-            <MenuItem value={1}>管理者</MenuItem>
-            <MenuItem value={2}>一般</MenuItem>
-            <MenuItem value={3}>ゲスト</MenuItem>
+            {roles.map((role, index) => {
+              return (
+                <MenuItem value={role["value"]} key={index}>
+                  {role["label"]}
+                </MenuItem>
+              );
+            })}
           </Select>
         </FormControl>
         <TextField
@@ -107,15 +123,23 @@ export const AddUserModal = props => {
       </DialogContent>
       <DialogActions>
         <Button
+          type="submit"
+          variant="outlined"
+          color="primary"
+          onClick={() =>
+            props.addNewUser(name, email, role, password, passwordConfirmation)
+          }
+        >
+          追加
+        </Button>
+        <Button
+          variant="outlined"
+          color="secondary"
           onClick={() => {
             props.handleClose();
           }}
-          color="primary"
         >
           キャンセル
-        </Button>
-        <Button type="submit" onClick={handleAddUser} color="primary">
-          追加
         </Button>
       </DialogActions>
     </Dialog>
