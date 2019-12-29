@@ -33,6 +33,14 @@ export const AddUserModal = props => {
     props.handleClose();
   };
 
+  // 権限のセレクトボックスで使用する
+  const roles = [
+    { label: "オーナー", value: 0 },
+    { label: "管理者", value: 1 },
+    { label: "一般", value: 2 },
+    { label: "ゲスト", value: 3 }
+  ];
+
   return (
     <Dialog
       open={props.open}
@@ -74,10 +82,13 @@ export const AddUserModal = props => {
               setRole(e.target.value);
             }}
           >
-            <MenuItem value={0}>オーナー</MenuItem>
-            <MenuItem value={1}>管理者</MenuItem>
-            <MenuItem value={2}>一般</MenuItem>
-            <MenuItem value={3}>ゲスト</MenuItem>
+            {roles.map((role, index) => {
+              return (
+                <MenuItem value={role["value"]} key={index}>
+                  {role["label"]}
+                </MenuItem>
+              );
+            })}
           </Select>
         </FormControl>
         <TextField
