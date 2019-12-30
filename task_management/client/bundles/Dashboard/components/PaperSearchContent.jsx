@@ -17,6 +17,7 @@ export const PaperSearchContent = props => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = event => {
+    console.log(id)
     setAnchorEl(event.currentTarget);
   };
 
@@ -54,13 +55,6 @@ export const PaperSearchContent = props => {
         >
           <FilterPj></FilterPj>
         </Popover>
-        <Button
-          variant="outlined"
-          color="primary"
-          className={classes.button}
-        >
-          Sort
-        </Button>
       </BorderContent>
     </Wrapper>
   );

@@ -15,6 +15,7 @@ import { MemberTableTr } from "./MemberTableTr";
 import DescriptionIcon from "@material-ui/icons/Description";
 import PeopleIcon from "@material-ui/icons/People";
 import { AddProjectModal } from "./AddProjectModal";
+import { MemberSortTable } from "./MemberSortTable"
 
 const useStyles = makeStyles(theme => ({
   projectPaper: {
@@ -55,7 +56,9 @@ export const DashboardContainer = props => {
                 <PaperHeader title="Project">
                   <DescriptionIcon className={classes.icon} />
                 </PaperHeader>
-                <PaperSearchContent />
+                <PaperSearchContent
+                  key="project"
+                />
                 <PaperBody>
                   <AddButton
                     message="プロジェクトを追加する"
@@ -77,14 +80,12 @@ export const DashboardContainer = props => {
                 <PaperHeader title="Member">
                   <PeopleIcon className={classes.icon} />
                 </PaperHeader>
-                <PaperSearchContent />
+                <PaperSearchContent
+                  key="member"
+                />
                 <PaperBody>
                   <AddButton message="メンバーを追加する" />
-                  <DashboardTable>
-                    <tbody>
-                      <MemberTableTr />
-                    </tbody>
-                  </DashboardTable>
+                  <MemberSortTable></MemberSortTable>
                 </PaperBody>
               </GrPaper>
             </Grid>
