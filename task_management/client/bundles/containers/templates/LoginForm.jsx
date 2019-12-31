@@ -47,9 +47,6 @@ const useStyles = makeStyles(theme => ({
 export const LoginForm = _ => {
   const classes = useStyles();
   const [checkedValue, setCheckedValue] = useState(false);
-  const handleChange = () => e => {
-    setCheckedValue(e.target.checked);
-  };
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -61,7 +58,7 @@ export const LoginForm = _ => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            ログイン
           </Typography>
           <Form className={classes.form} action="/login" method="post">
             <CsrfTokenField />
@@ -71,7 +68,7 @@ export const LoginForm = _ => {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="メールアドレス"
               name="session[mail]"
               autoComplete="email"
               autoFocus
@@ -82,7 +79,7 @@ export const LoginForm = _ => {
               required
               fullWidth
               name="session[password]"
-              label="Password"
+              label="パスワード"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -92,11 +89,11 @@ export const LoginForm = _ => {
                 <Checkbox
                   color="primary"
                   name="session[remember_me]"
-                  onChange={handleChange()}
+                  onChange={e => setCheckedValue(e.target.checked)}
                   value={checkedValue}
                 />
               }
-              label="Remember me"
+              label="ログインを記憶する"
             />
             <Button
               type="submit"
@@ -105,13 +102,13 @@ export const LoginForm = _ => {
               color="primary"
               className={classes.submit}
             >
-              Sign In
+              送信
             </Button>
             <Grid container>
               {/* @todo パスワードリセット機能をここに追加する */}
               <Grid item>
                 <Link href="users/new" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {"新規登録の方はこちら"}
                 </Link>
               </Grid>
             </Grid>
