@@ -16,7 +16,7 @@ import DescriptionIcon from "@material-ui/icons/Description";
 import PeopleIcon from "@material-ui/icons/People";
 import { AddProjectModal } from "../../components/organisms/AddProjectModal";
 import { AddUserModal } from "../../components/organisms/AddUserModal";
-import { ADD_USER, USERS } from "../../tags/User";
+import { CREATE_USER, USERS } from "../../tags/User";
 import { ADD_TASK } from "../../tags/Task";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
@@ -38,7 +38,7 @@ export const DashboardContainer = props => {
 
   const [tasks, setTasks] = useState(props.tasks);
   const [addTask] = useMutation(ADD_TASK);
-  const [addUser] = useMutation(ADD_USER, {
+  const [createUser] = useMutation(CREATE_USER, {
     update(cache, { data: { addUser } }) {
       // 本当はここで cache.writeQuery を使っていい感じに users のリストを更新したい
       // const { users } = cache.readQuery({ query: USERS });
@@ -67,8 +67,14 @@ export const DashboardContainer = props => {
     setTasks(newTasks);
   };
 
-  const addNewUser = (name, email, role, password, passwordConfirmation) => {
-    addUser({
+  const handleSubmitUser = (
+    name,
+    email,
+    role,
+    password,
+    passwordConfirmation
+  ) => {
+    createUser({
       variables: {
         name: name,
         email: email,
@@ -79,7 +85,7 @@ export const DashboardContainer = props => {
     })
       .then(result => {
         // ユーザーの一覧に追加したメンバーを表示させるため
-        setUsersNode(usersNode.concat({ node: result.data.addUser.user }));
+        setUsersNode(usersNode.concat({ node: result.data.createUser.user }));
         setUserOpen(false);
       })
       .catch(e => {
@@ -155,8 +161,8 @@ export const DashboardContainer = props => {
       <AddUserModal
         open={userOpen}
         handleClose={() => setUserOpen(false)}
-        addNewUser={(name, email, role, password, passwordConfirmation) =>
-          addNewUser(name, email, role, password, passwordConfirmation)
+        createUser={(name, email, role, password, passwordConfirmation) =>
+          handleSubmitUser(name, email, role, password, passwordConfirmation)
         }
         errors={userErrors}
       />

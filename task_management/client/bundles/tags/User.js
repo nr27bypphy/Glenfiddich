@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-export const ADD_USER = gql`
+export const CREATE_USER = gql`
   mutation(
     $name: String!
     $email: String!
@@ -8,7 +8,7 @@ export const ADD_USER = gql`
     $password: String!
     $passwordConfirmation: String!
   ) {
-    addUser(
+    createUser(
       input: {
         name: $name
         email: $email

@@ -127,7 +127,7 @@ export const AddUserModal = props => {
           variant="outlined"
           color="primary"
           onClick={() =>
-            props.addNewUser(name, email, role, password, passwordConfirmation)
+            props.createUser(name, email, role, password, passwordConfirmation)
           }
         >
           追加
