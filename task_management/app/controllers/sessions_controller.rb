@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
     if @user.authenticate(session_params[:password])
       log_in @user
       ActiveRecord::Type::Boolean.new.cast(session_params[:remember_me]) ? remember(@user) : forget(@user)
-      redirect_to root_path, notice: "ログインしました"
+      redirect_to logined_path, notice: "ログインしました"
     else
       render 'new'
     end
@@ -35,5 +35,14 @@ class SessionsController < ApplicationController
   # 許可するパラメータ
   def session_params
     params.require(:session).permit(:mail, :password, :remember_me)
+  end
+
+  # ユーザーの権限によって、ログイン後に遷移したいページが異なるから
+  def logined_path
+    if current_user.owner?
+      root_path
+    else
+      projects_path
+    end
   end
 end
