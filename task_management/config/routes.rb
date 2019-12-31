@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   post 'login', to: 'sessions#create'
   post 'logout', to: 'sessions#destroy'
 
+  get 'registration', to: 'registrations#new'
+  post 'registration', to: 'registrations#create'
+
   resources :users, only: %i(index new create)
 
   resources :projects, only: %i(index)
