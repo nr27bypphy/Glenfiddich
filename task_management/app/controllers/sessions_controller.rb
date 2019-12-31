@@ -39,7 +39,7 @@ class SessionsController < ApplicationController
 
   # ユーザーの権限によって、ログイン後に遷移したいページが異なるから
   def logined_path
-    if current_user.owner?
+    if current_user.owner? || current_user.admin?
       root_path
     else
       projects_path
