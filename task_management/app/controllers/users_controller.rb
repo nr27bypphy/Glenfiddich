@@ -2,11 +2,13 @@
 
 class UsersController < ApplicationController
   skip_before_action :require_sign_in!, only: %i(new create)
+  before_action :redirect_to_dashboard_if_logged_in, only: %i(new create)
   before_action :build_user, only: %i(new create)
 
   def index
+    @users = User.all
   end
-  
+
   def new
   end
 
@@ -30,7 +32,7 @@ class UsersController < ApplicationController
       .require(:user)
       .permit(
         :name,
-        :mail,
+        :email,
         :password,
         :password_confirmation
       )

@@ -1,12 +1,16 @@
 class User < ApplicationRecord
   attr_accessor :remember_token
+  enum role: { owner: 0, admin: 1, normal: 2, guest: 3 }
+  EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+
+  has_many :projects
+
+  before_save { self.email = email.downcase }
+  validates :name, presence: true
+  validates :email, presence: true, length: { maximum: 255 }, format: { with: EMAIL_REGEX }, uniqueness: { case_sensitive: false }
+  validates :role, presence: true
 
   has_secure_password validations: true
-
-  has_many :tasks
-
-  validates :name, presence: true
-  validates :mail, presence: true, uniqueness: true
 
   def self.new_remember_token
     SecureRandom.urlsafe_base64

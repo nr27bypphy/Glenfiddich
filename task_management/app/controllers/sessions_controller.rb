@@ -2,6 +2,7 @@
 
 class SessionsController < ApplicationController
   skip_before_action :require_sign_in!, only: %i(new create)
+  before_action :redirect_to_dashboard_if_logged_in, only: %i(new create)
   before_action :set_user, only: %i(create)
 
   def new
@@ -25,7 +26,7 @@ class SessionsController < ApplicationController
   private
 
   def set_user
-    @user = User.find_by!(mail: session_params[:mail])
+    @user = User.find_by!(email: session_params[:mail])
   rescue ActiveRecord::RecordNotFound
     flash.now[:alert] = "ユーザーが存在しません"
     render :new
