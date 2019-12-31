@@ -16,7 +16,8 @@ import DescriptionIcon from "@material-ui/icons/Description";
 import PeopleIcon from "@material-ui/icons/People";
 import { AddProjectModal } from "../../components/organisms/AddProjectModal";
 import { AddUserModal } from "../../components/organisms/AddUserModal";
-import gql from "graphql-tag";
+import { ADD_USER, USERS } from "../../tags/User";
+import { ADD_TASK } from "../../tags/Task";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
 const useStyles = makeStyles(theme => ({
@@ -28,62 +29,6 @@ const useStyles = makeStyles(theme => ({
     height: "100%"
   }
 }));
-
-const ADD_TASK = gql`
-  mutation($title: String!, $userId: Int!, $description: String!) {
-    createTask(
-      input: { title: $title, userId: $userId, description: $description }
-    ) {
-      task {
-        id
-        title
-        userId
-        description
-      }
-    }
-  }
-`;
-
-const ADD_USER = gql`
-  mutation(
-    $name: String!
-    $email: String!
-    $role: Int!
-    $password: String!
-    $passwordConfirmation: String!
-  ) {
-    addUser(
-      input: {
-        name: $name
-        email: $email
-        role: $role
-        password: $password
-        passwordConfirmation: $passwordConfirmation
-      }
-    ) {
-      user {
-        id
-        name
-        role
-      }
-    }
-  }
-`;
-
-const USERS = gql`
-  query {
-    users {
-      edges {
-        node {
-          id
-          email
-          name
-          role
-        }
-      }
-    }
-  }
-`;
 
 export const DashboardContainer = props => {
   const classes = useStyles();
