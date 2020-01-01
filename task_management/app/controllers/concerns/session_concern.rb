@@ -18,6 +18,20 @@ module SessionConcern
       @current_user = user
     end
   end
+  
+  def current_workspace
+    return @current_workspace if @current_workspace.present?
+
+    if current_user.current_workspace
+      return @current_workspace = current_user.current_workspace
+    end
+    
+    # user_status がない場合は、適当な workspace で user_status を作成してそれを返す
+    workspace = current_user.workspace_members.first.workspace
+    current_user.create_user_status!(workspace: workspace)
+
+    @current_workspace = workspace
+  end
 
   # ログインしていないければ、ログイン画面に強制リダイレクトさせる
   def require_sign_in!
