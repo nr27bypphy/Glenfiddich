@@ -29,6 +29,7 @@ RSpec.describe RegistrationsController, type: :request do
         expect {subject}.to change(User, :count).by(1)
                               .and change(Workspace, :count).by(1)
                                      .and change(WorkspaceMember, :count).by(1)
+                                            .and change(UserStatus, :count).by(1)
         is_expected.to redirect_to(root_path)
       end
     end
