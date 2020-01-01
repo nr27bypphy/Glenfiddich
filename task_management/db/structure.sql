@@ -70,15 +70,15 @@ CREATE TABLE `users` (
   `role` tinyint(3) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_users_on_email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `workspace_members`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `workspace_members` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) DEFAULT NULL,
-  `workspace_id` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `workspace_id` bigint(20) NOT NULL,
   `role` tinyint(3) unsigned NOT NULL DEFAULT '1',
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
