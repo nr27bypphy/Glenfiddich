@@ -107,7 +107,7 @@ export const LoginForm = _ => {
             <Grid container>
               {/* @todo パスワードリセット機能をここに追加する */}
               <Grid item>
-                <Link href="users/new" variant="body2">
+                <Link href="/registration" variant="body2">
                   {"新規登録の方はこちら"}
                 </Link>
               </Grid>
