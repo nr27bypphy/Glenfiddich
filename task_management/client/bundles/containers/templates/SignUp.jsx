@@ -48,20 +48,32 @@ export const SignUp = _ => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          新規登録
         </Typography>
-        <Form className={classes.form} action="/users" method="post">
+        <Form className={classes.form} action="/registration" method="post">
           <CsrfTokenField />
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
                 autoComplete="fname"
-                name="user[name]"
+                name="registration[workspace_name]"
                 variant="outlined"
                 required
                 fullWidth
-                id="name"
-                label="Name"
+                id="workspace_name"
+                label="ワークスペース名"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                autoComplete="fname"
+                name="registration[user_name]"
+                variant="outlined"
+                required
+                fullWidth
+                id="user_name"
+                label="名前"
                 autoFocus
               />
             </Grid>
@@ -71,8 +83,8 @@ export const SignUp = _ => {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
-                name="user[email]"
+                label="メールアドレス"
+                name="registration[email]"
                 autoComplete="email"
               />
             </Grid>
@@ -81,8 +93,8 @@ export const SignUp = _ => {
                 variant="outlined"
                 required
                 fullWidth
-                name="user[password]"
-                label="Password"
+                name="registration[password]"
+                label="パスワード"
                 type="password"
                 id="password"
                 autoComplete="current-password"
@@ -93,10 +105,10 @@ export const SignUp = _ => {
                 variant="outlined"
                 required
                 fullWidth
-                name="user[password_confirmation]"
-                label="Password Confirmation"
+                name="registration[password_confirmation]"
+                label="パスワード(確認)"
                 type="password"
-                id="passwordConfirmation"
+                id="password_confirmation"
                 autoComplete="current-password-confirmation"
               />
             </Grid>
@@ -108,12 +120,12 @@ export const SignUp = _ => {
             color="primary"
             className={classes.submit}
           >
-            Sign Up
+            送信
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
               <Link href="/login" variant="body2">
-                Already have an account? Sign in
+                すでにアカウントを持っている方はこちら
               </Link>
             </Grid>
           </Grid>
