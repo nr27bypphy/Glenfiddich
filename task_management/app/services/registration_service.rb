@@ -14,6 +14,7 @@ class RegistrationService
       user = create_user!
       workspace = create_workspace!
       create_workspace_member!(user, workspace)
+      create_user_status!(user, workspace)
     end
   end
 
@@ -39,5 +40,10 @@ class RegistrationService
         workspace: workspace,
         role: :owner
       )
+  end
+
+  # ダッシュボードで表示するときの workspace を設定しておく
+  def create_user_status!(user, workspace)
+    user.create_workspace!(workspace: workspace)
   end
 end
