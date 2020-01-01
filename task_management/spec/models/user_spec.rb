@@ -14,5 +14,6 @@ RSpec.describe User, type: :model do
 
   describe 'Associations' do
     it { is_expected.to have_many(:workspace_members) }
+    it { is_expected.to have_one(:user_status) }
   end
 end

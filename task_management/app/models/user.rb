@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :projects
   has_many :workspace_members
 
+  has_one :user_status
+
   before_save { self.email = email.downcase }
   validates :name, presence: true
   validates :email, presence: true, length: { maximum: 255 }, format: { with: EMAIL_REGEX }, uniqueness: { case_sensitive: false }
