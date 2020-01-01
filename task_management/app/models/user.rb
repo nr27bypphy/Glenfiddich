@@ -43,4 +43,14 @@ class User < ApplicationRecord
   def forget
     update_columns(remember_digest: nil)
   end
+
+  # 表示する workspace
+  def current_workspace
+    user_status&.workspace
+  end
+
+  # 表示する workspace_member
+  def current_workspace_member
+    workspace_members.find_by(workspace: current_workspace)
+  end
 end
