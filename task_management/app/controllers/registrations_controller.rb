@@ -7,7 +7,8 @@ class RegistrationsController < ApplicationController
   end
 
   def create
-    RegistrationService.new(**registration_params).create!
+    RegistrationService.new(registration_params).create!
+    log_in user
 
     redirect_to root_path, notice: 'ログインしました'
   rescue ActiveRecord::RecordInvalid => e
@@ -27,5 +28,9 @@ class RegistrationsController < ApplicationController
         :password,
         :password_confirmation
       )
+  end
+
+  def user
+    User.find_by(email: registration_params[:email])
   end
 end

@@ -1,16 +1,16 @@
 class RegistrationService
   attr_reader :workspace_name, :user_name, :email, :password, :password_confirmation
 
-  def initialize(workspace_name:, user_name:, email:, password:, password_confirmation:)
-    @workspace_name = workspace_name
-    @user_name = user_name
-    @email = email
-    @password = password
-    @password_confirmation = password_confirmation
+  def initialize(params)
+    @workspace_name = params[:workspace_name]
+    @user_name = params[:user_name]
+    @email = params[:email]
+    @password = params[:password]
+    @password_confirmation = params[:password_confirmation]
   end
 
   def create!
-    User.with_lock do
+    User.transaction do
       user = create_user!
       workspace = create_workspace!
       create_workspace_member!(user, workspace)
