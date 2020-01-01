@@ -6,7 +6,7 @@ class CreateUserStatus < ActiveRecord::Migration[6.0]
 
       t.timestamps null: false
 
-      t.index %i(user_id workspace_id), unique: true
+      t.index :user_id, unique: true
     end
   end
 end

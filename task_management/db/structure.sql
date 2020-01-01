@@ -66,7 +66,7 @@ CREATE TABLE `user_statuses` (
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `index_user_statuses_on_user_id_and_workspace_id` (`user_id`,`workspace_id`)
+  UNIQUE KEY `index_user_statuses_on_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `users`;
