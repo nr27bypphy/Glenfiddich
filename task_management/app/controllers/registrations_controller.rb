@@ -13,8 +13,8 @@ class RegistrationsController < ApplicationController
 
     redirect_to root_path, notice: 'ログインしました'
   rescue ActiveRecord::RecordInvalid => e
-    flash.now[:alert] = e.errors.messages
-    render :new
+    flash.now[:alert] = e.record.errors.full_messages.join(', ')
+    render :new, status: :unprocessable_entity
   end
 
   private
