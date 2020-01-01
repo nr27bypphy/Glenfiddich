@@ -56,6 +56,19 @@ CREATE TABLE `tasks` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `user_statuses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_statuses` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL,
+  `workspace_id` bigint(20) NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_user_statuses_on_user_id_and_workspace_id` (`user_id`,`workspace_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -117,6 +130,7 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20191203120353'),
 ('20191206123159'),
 ('20191209143500'),
-('20191231112518');
+('20191231112518'),
+('20200101132843');
 
 
