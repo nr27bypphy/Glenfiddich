@@ -26,12 +26,14 @@ DROP TABLE IF EXISTS `projects`;
 CREATE TABLE `projects` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` bigint(20) NOT NULL,
   `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deadline` datetime(6) DEFAULT NULL,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
-  PRIMARY KEY (`id`)
+  `workspace_member_id` bigint(20) DEFAULT NULL COMMENT 'projectの主担当となるworkspace_member 主担当が未定でも作成出来るようにnull許可',
+  `workspace_id` bigint(20) NOT NULL COMMENT 'projectが所属するworkspace',
+  PRIMARY KEY (`id`),
+  KEY `index_projects_on_workspace_id` (`workspace_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `schema_migrations`;
@@ -53,7 +55,9 @@ CREATE TABLE `tasks` (
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
   `project_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`id`)
+  `workspace_member_id` bigint(20) DEFAULT NULL COMMENT 'taskを担当するworkspace_member 担当者が未定でも作成出来る様にnull許可',
+  PRIMARY KEY (`id`),
+  KEY `index_tasks_on_project_id` (`project_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `user_statuses`;
@@ -131,6 +135,7 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20191206123159'),
 ('20191209143500'),
 ('20191231112518'),
-('20200101132843');
+('20200101132843'),
+('20200101233420');
 
 
