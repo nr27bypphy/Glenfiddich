@@ -11,5 +11,6 @@ RSpec.describe Workspace, type: :model do
 
   describe 'Associations' do
     it { is_expected.to have_many(:workspace_members) }
+    it { is_expected.to have_many(:projects) }
   end
 end
