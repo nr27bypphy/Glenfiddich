@@ -44,6 +44,6 @@ class RegistrationService
 
   # ダッシュボードで表示するときの workspace を設定しておく
   def create_user_status!(user, workspace)
-    user.create_workspace!(workspace: workspace)
+    user.create_user_status!(workspace: workspace)
   end
 end
