@@ -7,7 +7,7 @@ module Mutations
     argument :password_confirmation, String, required: true
     argument :workspace_id, Integer, required: true
 
-    field :workspace_member, Types::WorkspaceMember, null: false
+    field :workspace_member, Types::WorkspaceMemberType, null: false
 
     def resolve(name:, email:, role:, password:, password_confirmation:, workspace_id:)
       workspace_member = InvitationWorkspaceMemberService
