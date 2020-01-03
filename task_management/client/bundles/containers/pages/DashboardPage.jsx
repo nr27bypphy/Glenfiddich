@@ -7,7 +7,11 @@ const DashboardPage = props => {
   return (
     <ApolloProviderWrapper>
       <Header user={props.user} />
-      <DashboardContainer tasks={props.tasks} users={props.users} />
+      <DashboardContainer
+        tasks={props.tasks}
+        users={props.users}
+        workspaceMembers={props.workspaceMembers}
+      />
     </ApolloProviderWrapper>
   );
 };

@@ -30,6 +30,77 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const ADD_TASK = gql`
+  mutation($title: String!, $userId: Int!, $description: String!) {
+    createTask(
+      input: { title: $title, userId: $userId, description: $description }
+    ) {
+      task {
+        id
+        title
+        userId
+        description
+      }
+    }
+  }
+`;
+
+const ADD_USER = gql`
+  mutation(
+    $name: String!
+    $email: String!
+    $role: Int!
+    $password: String!
+    $passwordConfirmation: String!
+  ) {
+    addUser(
+      input: {
+        name: $name
+        email: $email
+        role: $role
+        password: $password
+        passwordConfirmation: $passwordConfirmation
+      }
+    ) {
+      user {
+        id
+        name
+        role
+      }
+    }
+  }
+`;
+
+const USERS = gql`
+  query {
+    users {
+      edges {
+        node {
+          id
+          email
+          name
+          role
+        }
+      }
+    }
+  }
+`;
+
+const WORKSPACE_MEMBERS = gql`
+  query {
+    workspaceMembers {
+      edges {
+        node {
+          role
+          user {
+            name
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const DashboardContainer = props => {
   const classes = useStyles();
   // モーダル表示の状態を管理する
@@ -47,12 +118,12 @@ export const DashboardContainer = props => {
 
   // ユーザー追加のエラーメッセージ用
   const [userErrors, setUserErrors] = useState([]);
-  const { loading, error, data } = useQuery(USERS);
-  const [usersNode, setUsersNode] = useState([]);
+  const { loading, error, data } = useQuery(WORKSPACE_MEMBERS);
+  const [workspaceMembersNode, setWorkspaceMembersNode] = useState([]);
 
   useEffect(() => {
     if (data) {
-      setUsersNode(data.users.edges);
+      setWorkspaceMembersNode(data.workspaceMembers.edges);
     }
   }, [data]);
 
@@ -138,12 +209,17 @@ export const DashboardContainer = props => {
                   />
                   <DashboardTable>
                     <tbody>
-                      {usersNode &&
-                        usersNode.map((userNode, index) => {
-                          return (
-                            <MemberTableTr user={userNode.node} key={index} />
-                          );
-                        })}
+                      {workspaceMembersNode &&
+                        workspaceMembersNode.map(
+                          (workspaceMemberNode, index) => {
+                            return (
+                              <MemberTableTr
+                                workspaceMember={workspaceMemberNode.node}
+                                key={index}
+                              />
+                            );
+                          }
+                        )}
                     </tbody>
                   </DashboardTable>
                 </PaperBody>

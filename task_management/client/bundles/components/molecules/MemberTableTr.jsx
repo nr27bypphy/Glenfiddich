@@ -17,9 +17,9 @@ export const MemberTableTr = props => {
         {/* TODO: このIconのサイズがちょっとアンマッチ */}
         <PersonIcon />
       </Td>
-      <Td width="25%">{props.user.name}</Td>
+      <Td width="25%">{props.workspaceMember.user.name}</Td>
       {/* role は integer が入っているので roleMap から対応する権限名を取り出す  */}
-      <Td width="20%">{roles.get(props.user.role)}</Td>
+      <Td width="20%">{roles.get(props.workspaceMember.role)}</Td>
       <AlertTd />
     </tr>
   );
