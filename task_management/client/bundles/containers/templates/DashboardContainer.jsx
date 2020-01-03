@@ -271,7 +271,13 @@ export const DashboardContainer = props => {
       <AddUserModal
         open={userOpen}
         handleClose={() => setUserOpen(false)}
-        addNewUser={(name, email, role, password, passwordConfirmation) =>
+        cerateWorkspaceMember={(
+          name,
+          email,
+          role,
+          password,
+          passwordConfirmation
+        ) =>
           cerateWorkspaceMember(
             name,
             email,

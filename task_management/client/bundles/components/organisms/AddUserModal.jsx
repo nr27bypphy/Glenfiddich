@@ -127,7 +127,13 @@ export const AddUserModal = props => {
           variant="outlined"
           color="primary"
           onClick={() =>
-            props.createUser(name, email, role, password, passwordConfirmation)
+            props.createWorkspaceMember(
+              name,
+              email,
+              role,
+              password,
+              passwordConfirmation
+            )
           }
         >
           追加
