@@ -24,7 +24,7 @@ class InvitationWorkspaceMemberService
   end
 
   def create_user!
-    user.update!(password: password, password_confirmation: password_confirmation)
+    user.update!(name: name, password: password, password_confirmation: password_confirmation)
   end
 
   def create_workspace_member!
