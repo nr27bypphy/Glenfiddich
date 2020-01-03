@@ -15,7 +15,7 @@ import { MemberTableTr } from "../../components/molecules/MemberTableTr";
 import DescriptionIcon from "@material-ui/icons/Description";
 import PeopleIcon from "@material-ui/icons/People";
 import { AddProjectModal } from "../../components/organisms/AddProjectModal";
-import { AddUserModal } from "../../components/organisms/AddUserModal";
+import { AddWorkspaceMemberModal } from "../../components/organisms/AddWorkspaceMemberModal";
 import {
   INVITATION_WORKSPACE_MEMBER,
   WORKSPACE_MEMBERS
@@ -171,7 +171,7 @@ export const DashboardContainer = props => {
         handleClose={() => setProjectOpen(false)}
         addNewTasks={(title, description) => addNewTasks(title, description)}
       />
-      <AddUserModal
+      <AddWorkspaceMemberModal
         open={userOpen}
         handleClose={() => setUserOpen(false)}
         cerateWorkspaceMember={(
