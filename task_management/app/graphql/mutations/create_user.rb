@@ -1,5 +1,5 @@
 module Mutations
-  class AddUser < GraphQL::Schema::RelayClassicMutation
+  class CreateUser < GraphQL::Schema::RelayClassicMutation
     argument :name, String, required: true
     argument :email, String, required: true
     argument :role, Integer, required: true

@@ -13,7 +13,7 @@ import { BoldText } from "../atoms/BoldText";
 import { IconButton } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { AlertDialog } from "./ConfirmDialog";
-import gql from "graphql-tag";
+import { DESTROY_USER } from "../../tags/User";
 import { useMutation } from "@apollo/react-hooks";
 
 const useStyles = makeStyles({
@@ -25,20 +25,6 @@ const useStyles = makeStyles({
     width: "5rem"
   }
 });
-
-// ユーザー削除で使用する
-const DESTROY_USER = gql`
-  mutation($id: ID!, $currentUserId: Int!) {
-    destroyUser(input: { id: $id, currentUserId: $currentUserId }) {
-      users {
-        id
-        name
-        email
-        role
-      }
-    }
-  }
-`;
 
 export const MemberList = props => {
   const classes = useStyles();
