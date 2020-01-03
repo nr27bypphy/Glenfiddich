@@ -71,6 +71,35 @@ const ADD_USER = gql`
   }
 `;
 
+const INVITATION_WORKSPACE_MEMBER = gql`
+  mutation(
+    $name: String!
+    $email: String!
+    $role: Int!
+    $password: String!
+    $passwordConfirmation: String!
+    $workspaceId: Int!
+  ) {
+    invitationWorkspaceMember(
+      input: {
+        name: $name
+        email: $email
+        role: $role
+        password: $password
+        passwordConfirmation: $passwordConfirmation
+        workspaceId: $workspaceId
+      }
+    ) {
+      workspaceMember {
+        role
+        user {
+          name
+        }
+      }
+    }
+  }
+`;
+
 const USERS = gql`
   query {
     users {
@@ -109,10 +138,10 @@ export const DashboardContainer = props => {
 
   const [tasks, setTasks] = useState(props.tasks);
   const [addTask] = useMutation(ADD_TASK);
-  const [createUser] = useMutation(CREATE_USER, {
-    update(cache, { data: { addUser } }) {
+  const [addWorkspaceMember] = useMutation(INVITATION_WORKSPACE_MEMBER, {
+    update(cache, { data: { invitationWorkspaceMember } }) {
       // 本当はここで cache.writeQuery を使っていい感じに users のリストを更新したい
-      // const { users } = cache.readQuery({ query: USERS });
+      // const { workspaceMembers } = cache.readQuery({ query: WORKSPACE_MEMBERS });
     }
   });
 
@@ -138,25 +167,30 @@ export const DashboardContainer = props => {
     setTasks(newTasks);
   };
 
-  const handleSubmitUser = (
+  const cerateWorkspaceMember = (
     name,
     email,
     role,
     password,
     passwordConfirmation
   ) => {
-    createUser({
+    addWorkspaceMember({
       variables: {
         name: name,
         email: email,
         role: role,
         password: password,
-        passwordConfirmation: passwordConfirmation
+        passwordConfirmation: passwordConfirmation,
+        workspaceId: props.workspaceId
       }
     })
       .then(result => {
         // ユーザーの一覧に追加したメンバーを表示させるため
-        setUsersNode(usersNode.concat({ node: result.data.createUser.user }));
+        setWorkspaceMembersNode(
+          workspaceMembersNode.concat({
+            node: result.data.invitationWorkspaceMember.workspaceMember
+          })
+        );
         setUserOpen(false);
       })
       .catch(e => {
@@ -237,8 +271,14 @@ export const DashboardContainer = props => {
       <AddUserModal
         open={userOpen}
         handleClose={() => setUserOpen(false)}
-        createUser={(name, email, role, password, passwordConfirmation) =>
-          handleSubmitUser(name, email, role, password, passwordConfirmation)
+        addNewUser={(name, email, role, password, passwordConfirmation) =>
+          cerateWorkspaceMember(
+            name,
+            email,
+            role,
+            password,
+            passwordConfirmation
+          )
         }
         errors={userErrors}
       />
