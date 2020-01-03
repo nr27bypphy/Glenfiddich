@@ -9,7 +9,7 @@ module Types
     field :users,
           Types::UserType.connection_type,
           null: false,
-          resolve: ->(_object, _args, _congtext) do
+          resolve: ->(_object, _args, _context) do
             User.all
           end
   end
