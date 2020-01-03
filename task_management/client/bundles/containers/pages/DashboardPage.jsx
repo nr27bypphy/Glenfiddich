@@ -10,7 +10,7 @@ const DashboardPage = props => {
       <DashboardContainer
         tasks={props.tasks}
         users={props.users}
-        workspaceMembers={props.workspaceMembers}
+        workspaceId={props.workspaceId}
       />
     </ApolloProviderWrapper>
   );
