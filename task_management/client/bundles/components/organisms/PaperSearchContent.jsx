@@ -17,7 +17,6 @@ export const PaperSearchContent = props => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = event => {
-    console.log(id)
     setAnchorEl(event.currentTarget);
   };
 
@@ -53,7 +52,7 @@ export const PaperSearchContent = props => {
             horizontal: 'center',
           }}
         >
-          <FilterPj></FilterPj>
+          <FilterPj />
         </Popover>
       </BorderContent>
     </Wrapper>

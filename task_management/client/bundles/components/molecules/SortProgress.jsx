@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
@@ -69,17 +69,14 @@ function getStyles(name, departmentName, theme) {
 export const FilterPj = props =>{
   const classes = useStyles();
   const theme = useTheme();
-  const [departmentName, setDepartmentName] = React.useState([]);
-  const [projectName, setProjectName] = React.useState([]);
+  const [departmentName, setDepartmentName] = useState([]);
+  const [projectName, setProjectName] = useState([]);
 
   const handleDepartmentChange = event => {
     setDepartmentName(event.target.value);
   };
   const handleProjectChange = event => {
     setProjectName(event.target.value);
-  };
-  const handleDelete = () => {
-
   };
 
   const handleChangeMultiple = event => {
@@ -112,7 +109,6 @@ export const FilterPj = props =>{
                   key={value}
                   label={value}
                   className={classes.chip}
-                  onDelete={handleDelete}
                   />
               ))}
             </div>
@@ -140,7 +136,6 @@ export const FilterPj = props =>{
                   key={value}
                   label={value}
                   className={classes.chip}
-                  onDelete={handleDelete}
                   />
               ))}
             </div>

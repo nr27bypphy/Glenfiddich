@@ -13,7 +13,7 @@ function createData(name, red, yellow, green) {
   return { name, red, yellow, green };
 }
 
-const rows = [
+const member_rows = [
   createData("Yusuke Eto", 5, 6, 1),
   createData("Kazuma Tashiro", 2, 2, 3),
   createData("Shuya Otsuki", 5, 3, 1),
@@ -23,9 +23,9 @@ const rows = [
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
-  }else if (b[orderBy] > a[orderBy]) {
+  } else if (b[orderBy] > a[orderBy]) {
     return 1;
-  }else{
+  } else {
     return 0;
   }
 }
@@ -34,8 +34,11 @@ function stableSort(array, cmp) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
     const order = cmp(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
+    if (order !== 0){
+      return order;
+    } else {
+      return a[1] - b[1];
+    }
   });
   return stabilizedThis.map(el => el[0]);
 }
@@ -96,7 +99,7 @@ export const MemberSortTable = props => {
 
   const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelecteds = rows.map(n => n.name);
+      const newSelecteds = member_rows.map(n => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -126,7 +129,7 @@ export const MemberSortTable = props => {
   const isSelected = name => selected.indexOf(name) !== -1;
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, member_rows.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -144,10 +147,10 @@ export const MemberSortTable = props => {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={member_rows.length}
             />
             <TableBody>
-              {stableSort(rows, getSorting(order, orderBy))
+              {stableSort(member_rows, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.name);
