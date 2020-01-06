@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
 
 export const PaperSearchContent = props => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -35,7 +35,7 @@ export const PaperSearchContent = props => {
           color="primary"
           className={classes.button}
           onClick={handleClick}
-          >
+        >
           Filter
         </Button>
         <Popover
