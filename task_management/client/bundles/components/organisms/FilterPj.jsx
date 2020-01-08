@@ -57,10 +57,10 @@ const project_names = [
   '担当外'
 ];
 
-function getStyles(name, departmentName, theme) {
+function getStyles(name, departmentNames, theme) {
   return {
     fontWeight:
-      departmentName.indexOf(name) === -1
+      departmentNames.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
   };
@@ -69,26 +69,14 @@ function getStyles(name, departmentName, theme) {
 export const FilterPj = props =>{
   const classes = useStyles();
   const theme = useTheme();
-  const [departmentName, setDepartmentName] = useState([]);
-  const [projectName, setProjectName] = useState([]);
+  const [departmentNames, setDepartmentNames] = useState([]);
+  const [projectNames, setProjectNames] = useState([]);
 
   const handleDepartmentChange = event => {
-    setDepartmentName(event.target.value);
+    setDepartmentNames(event.target.value);
   };
   const handleProjectChange = event => {
-    setProjectName(event.target.value);
-  };
-
-  const handleChangeMultiple = event => {
-    const { options } = event.target;
-    const value = [];
-    for (let i = 0, l = options.length; i < l; i += 1) {
-      if (options[i].selected) {
-        value.push(options[i].value);
-      }
-    }
-    setdepartmentName(value);
-    setprojectName(value);
+    setProjectNames(event.target.value);
   };
 
   return (
@@ -99,7 +87,7 @@ export const FilterPj = props =>{
         <InputLabel id="department_select">部署</InputLabel>
         <Select
           multiple
-          value={departmentName}
+          value={departmentNames}
           onChange={handleDepartmentChange}
           input={<Input id="select_depertment" />}
           renderValue={selected => (
@@ -109,7 +97,6 @@ export const FilterPj = props =>{
                   key={value}
                   label={value}
                   className={classes.chip}
-                  onDelete={handleDelete}
                 />
               ))}
             </div>
@@ -117,7 +104,7 @@ export const FilterPj = props =>{
           MenuProps={MenuProps}
         >
           {department_names.map(name => (
-            <MenuItem key={name} value={name} style={getStyles(name, departmentName, theme)}>
+            <MenuItem key={name} value={name} style={getStyles(name, departmentNames, theme)}>
               {name}
             </MenuItem>
           ))}
@@ -127,7 +114,7 @@ export const FilterPj = props =>{
         <InputLabel id="department_select">PJ種別</InputLabel>
         <Select
           multiple
-          value={projectName}
+          value={projectNames}
           onChange={handleProjectChange}
           input={<Input id="select_depertment" />}
           renderValue={selected => (
@@ -137,7 +124,6 @@ export const FilterPj = props =>{
                   key={value}
                   label={value}
                   className={classes.chip}
-                  onDelete={handleDelete}
                 />
               ))}
             </div>
@@ -145,7 +131,7 @@ export const FilterPj = props =>{
           MenuProps={MenuProps}
         >
           {project_names.map(name => (
-            <MenuItem key={name} value={name} style={getStyles(name, projectName, theme)}>
+            <MenuItem key={name} value={name} style={getStyles(name, projectNames, theme)}>
               {name}
             </MenuItem>
           ))}
