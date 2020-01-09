@@ -16,6 +16,7 @@ import DescriptionIcon from "@material-ui/icons/Description";
 import PeopleIcon from "@material-ui/icons/People";
 import { AddProjectModal } from "../../components/organisms/AddProjectModal";
 import { AddUserModal } from "../../components/organisms/AddUserModal";
+import { MemberSortTable } from "../../components/organisms/MemberSortTable";
 import { CREATE_USER, USERS } from "../../tags/User";
 import { ADD_TASK } from "../../tags/Task";
 import { useMutation, useQuery } from "@apollo/react-hooks";
@@ -136,16 +137,7 @@ export const DashboardContainer = props => {
                     message="メンバーを追加する"
                     handleClick={() => setUserOpen(true)}
                   />
-                  <DashboardTable>
-                    <tbody>
-                      {usersNode &&
-                        usersNode.map((userNode, index) => {
-                          return (
-                            <MemberTableTr user={userNode.node} key={index} />
-                          );
-                        })}
-                    </tbody>
-                  </DashboardTable>
+                  <MemberSortTable />
                 </PaperBody>
               </GrPaper>
             </Grid>
