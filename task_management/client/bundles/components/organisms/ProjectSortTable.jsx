@@ -6,18 +6,17 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { MemberSortTableHead } from "./MemberSortTableHead"
+import { ProjectSortTableHead } from "./ProjectSortTableHead"
 
 
-function createData(name, red, yellow, green) {
-  return { name, red, yellow, green };
+function createData(title, description, member, red, yellow, green) {
+  return { title, description, member, red, yellow, green };
 }
 
-const member_rows = [
-  createData("Yusuke Eto", 5, 6, 1),
-  createData("Kazuma Tashiro", 2, 2, 3),
-  createData("Shuya Otsuki", 5, 3, 1),
-  createData("Naruhiko Toda", 1, 6, 5)
+const project_rows = [
+  createData("LINE@の運用", "LINE@による学生との接点づくり", "Shuya Otsuki", 3 , 6, 1),
+  createData("HPの運用", "HPによるブランディング", "Yusuke Eto", 5 , 2, 6),
+  createData("wantedlyの運用", "wantedlyによる採用活動", "Shuya Otsuki", 2 , 4, 2),
 ];
 
 function desc(a, b, orderBy) {
@@ -58,7 +57,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2)
   },
   table: {
-    minWidth: 250
+    minWidth: 400
   },
   visuallyHidden: {
     border: 0,
@@ -87,7 +86,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-MemberSortTableHead.propTypes = {
+ProjectSortTableHead.propTypes = {
   classes: PropTypes.object.isRequired,
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
@@ -97,7 +96,7 @@ MemberSortTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired
 };
 
-export const MemberSortTable = props => {
+export const ProjectSortTable = props => {
   const classes = useStyles();
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("red");
@@ -113,19 +112,19 @@ export const MemberSortTable = props => {
 
   const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelecteds = member_rows.map(n => n.name);
+      const newSelecteds = project_rows.map(n => n.title);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event, title) => {
+    const selectedIndex = selected.indexOf(title);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, title);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -140,10 +139,10 @@ export const MemberSortTable = props => {
     setSelected(newSelected);
   };
 
-  const isSelected = name => selected.indexOf(name) !== -1;
+  const isSelected = title => selected.indexOf(title) !== -1;
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, member_rows.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, project_rows.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -154,30 +153,30 @@ export const MemberSortTable = props => {
             size={"medium"}
             aria-label="enhanced table"
           >
-            <MemberSortTableHead
+            <ProjectSortTableHead
               classes={classes}
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={member_rows.length}
+              rowCount={project_rows.length}
             />
             <TableBody>
-              {stableSort(member_rows, getSorting(order, orderBy))
+              {stableSort(project_rows, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.title);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={event => handleClick(event, row.name)}
+                      onClick={event => handleClick(event, row.title)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.title}
                       selected={isItemSelected}
                     >
                       <TableCell
@@ -186,8 +185,10 @@ export const MemberSortTable = props => {
                         scope="row"
                         padding="none"
                       >
-                        {row.name}
+                        {row.title}
                       </TableCell>
+                      <TableCell align="right">{row.description}</TableCell>
+                      <TableCell align="right">{row.member}</TableCell>
                       <TableCell align="right"><span className={classes.red}>{row.red}</span></TableCell>
                       <TableCell align="right"><span className={classes.yellow}>{row.yellow}</span></TableCell>
                       <TableCell align="right"><span className={classes.green}>{row.green}</span></TableCell>
