@@ -48,8 +48,6 @@ const headCells = [{
   }
 ];
 
-
-
 export const MemberSortTableHead = props => {
   const {
     classes,
