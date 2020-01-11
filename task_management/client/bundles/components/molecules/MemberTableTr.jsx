@@ -7,7 +7,7 @@ export const MemberTableTr = props => {
   const roles = new Map([
     ["owner", "オーナー"],
     ["admin", "管理者"],
-    ["normal", "一般"],
+    ["member", "メンバー"],
     ["guest", "ゲスト"]
   ]);
 
