@@ -19,7 +19,6 @@ import {
   INVITATION_WORKSPACE_MEMBER,
   WORKSPACE_MEMBERS
 } from "../../tags/WorkspaceMember";
-import { AddUserModal } from "../../components/organisms/AddUserModal";
 import { MemberSortTable } from "../../components/organisms/MemberSortTable";
 import { ADD_TASK } from "../../tags/Task";
 import { useMutation, useQuery } from "@apollo/react-hooks";
