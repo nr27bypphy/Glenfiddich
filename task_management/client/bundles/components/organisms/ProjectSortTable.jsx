@@ -13,12 +13,6 @@ function createData(title, description, member, red, yellow, green) {
   return { title, description, member, red, yellow, green };
 }
 
-const project_rows = [
-  createData("LINE@の運用", "LINE@による学生との接点づくり", "Shuya Otsuki", 3 , 6, 1),
-  createData("HPの運用", "HPによるブランディング", "Yusuke Eto", 5 , 2, 6),
-  createData("wantedlyの運用", "wantedlyによる採用活動", "Shuya Otsuki", 2 , 4, 2),
-];
-
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -104,6 +98,16 @@ export const ProjectSortTable = props => {
   const [selected, setSelected] = useState([]);
   const [page] = useState(0);
   const [rowsPerPage] = useState(5);
+  const tasks = props.tasks;
+
+  const projects = [
+    createData("LINE@の運用", "LINE@による学生との接点づくり", "Shuya Otsuki", 3 , 6, 1),
+    createData("HPの運用", "HPによるブランディング", "Yusuke Eto", 5 , 2, 6),
+    createData("wantedlyの運用", "wantedlyによる採用活動", "Shuya Otsuki", 2 , 4, 2),
+  ];
+  for (var i = 0; i < tasks.length; i++){
+    projects.push(createData(tasks[i].title, tasks[i].description, "Naruhiko Toda", 1 , 5, 5))
+  }
 
   const handleRequestSort = (event, property) => {
     const isDesc = orderBy === property && order === "desc";
@@ -113,7 +117,7 @@ export const ProjectSortTable = props => {
 
   const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelecteds = project_rows.map(n => n.title);
+      const newSelecteds = projects.map(n => n.title);
       setSelected(newSelecteds);
       return;
     }
@@ -143,7 +147,7 @@ export const ProjectSortTable = props => {
   const isSelected = title => selected.indexOf(title) !== -1;
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, project_rows.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, projects.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -161,10 +165,10 @@ export const ProjectSortTable = props => {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={project_rows.length}
+              rowCount={projects.length}
             />
             <TableBody>
-              {stableSort(project_rows, getSorting(order, orderBy))
+              {stableSort(projects, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.title);

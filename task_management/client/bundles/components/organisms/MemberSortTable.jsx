@@ -9,15 +9,22 @@ import Paper from "@material-ui/core/Paper";
 import { MemberSortTableHead } from "./MemberSortTableHead"
 
 
-function createData(name, red, yellow, green) {
-  return { name, red, yellow, green };
+function createData(name, roles, red, yellow, green) {
+  return { name, roles, red, yellow, green };
 }
 
+const roles = new Map([
+  [0, "オーナー"],
+  [1, "管理者"],
+  [2, "一般"],
+  [3, "ゲスト"]
+]);
+
 const member_rows = [
-  createData("Yusuke Eto", 5, 6, 1),
-  createData("Kazuma Tashiro", 2, 2, 3),
-  createData("Shuya Otsuki", 5, 3, 1),
-  createData("Naruhiko Toda", 1, 6, 5)
+  createData("Yusuke Eto", roles.get(0), 5, 6, 1),
+  createData("Kazuma Tashiro", roles.get(0), 2, 2, 3),
+  createData("Shuya Otsuki", roles.get(0), 5, 3, 1),
+  createData("Naruhiko Toda", roles.get(0), 1, 6, 5)
 ];
 
 function desc(a, b, orderBy) {
@@ -73,7 +80,7 @@ const useStyles = makeStyles(theme => ({
     width: 1
   },
   member_td: {
-    width: 230
+    width: 130
   },
   red: {
     backgroundColor: "red",
@@ -185,6 +192,7 @@ export const MemberSortTable = props => {
                       selected={isItemSelected}
                     >
                       <TableCell align="center" className={classes.member_td}>{row.name}</TableCell>
+                      <TableCell align="right">{row.roles}</TableCell>
                       <TableCell align="right"><span className={classes.red}>{row.red}</span></TableCell>
                       <TableCell align="right"><span className={classes.yellow}>{row.yellow}</span></TableCell>
                       <TableCell align="right"><span className={classes.green}>{row.green}</span></TableCell>
