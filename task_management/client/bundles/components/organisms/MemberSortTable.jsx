@@ -20,13 +20,6 @@ const roles = new Map([
   [3, "ゲスト"]
 ]);
 
-const member_rows = [
-  createData("Yusuke Eto", roles.get(0), 5, 6, 1),
-  createData("Kazuma Tashiro", roles.get(0), 2, 2, 3),
-  createData("Shuya Otsuki", roles.get(0), 5, 3, 1),
-  createData("Naruhiko Toda", roles.get(0), 1, 6, 5)
-];
-
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -114,7 +107,18 @@ export const MemberSortTable = props => {
   const [orderBy, setOrderBy] = useState("red");
   const [selected, setSelected] = useState([]);
   const [page] = useState(0);
-  const [rowsPerPage] = useState(5);
+  const users = props.users
+  const members = [
+    createData("Yusuke Eto", roles.get(0), 5, 6, 1),
+    createData("Kazuma Tashiro", roles.get(0), 2, 2, 3),
+    createData("Shuya Otsuki", roles.get(0), 5, 3, 1),
+    createData("Naruhiko Toda", roles.get(0), 1, 6, 5)
+  ];
+  const [rowsPerPage] = useState(10);
+
+  for (var i = 0; i < users.length; i++){
+    members.push(createData(users[i].name, roles.get(users[i].role), 1 , 5, 5))
+  }
 
   const handleRequestSort = (event, property) => {
     const isDesc = orderBy === property && order === "desc";
@@ -124,7 +128,7 @@ export const MemberSortTable = props => {
 
   const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelecteds = member_rows.map(n => n.name);
+      const newSelecteds = members.map(n => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -154,7 +158,7 @@ export const MemberSortTable = props => {
   const isSelected = name => selected.indexOf(name) !== -1;
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, member_rows.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, members.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -172,10 +176,10 @@ export const MemberSortTable = props => {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={member_rows.length}
+              rowCount={members.length}
             />
             <TableBody>
-              {stableSort(member_rows, getSorting(order, orderBy))
+              {stableSort(members, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.name);

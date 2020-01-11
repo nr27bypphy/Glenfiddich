@@ -24,6 +24,12 @@ const headCells = [{
     label: ""
   },
   {
+    id: "role",
+    numeric: false,
+    disablePadding: false,
+    label: ""
+  },
+  {
     id: "red",
     numeric: true,
     disablePadding: false,

@@ -131,15 +131,14 @@ export const DashboardContainer = props => {
                     message="メンバーを追加する"
                     handleClick={() => setUserOpen(true)}
                   />
-                  {usersNode &&
+                  <MemberSortTable
+                  users = {usersNode &&
                   usersNode.map((userNode, index) => {
                     return (
-                      <MemberSortTable
-                      user={userNode.node}
-                      key={index}
-                      />
+                      userNode.node
                     );
                   })}
+                  />
                 </PaperBody>
               </GrPaper>
             </Grid>
