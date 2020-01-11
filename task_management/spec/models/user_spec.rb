@@ -9,6 +9,6 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of(:mail) }
     it { is_expected.to validate_uniqueness_of(:mail).case_insensitive }
     it { is_expected.to validate_presence_of(:role) }
-    it { is_expected.to define_enum_for(:role).with_values([:owner, :admin, :normal, :guest]) }
+    it { is_expected.to define_enum_for(:role).with_values([:owner, :admin, :member, :guest]) }
   end
 end

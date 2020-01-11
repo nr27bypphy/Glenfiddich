@@ -5,10 +5,10 @@ import styled from "styled-components";
 
 export const MemberTableTr = props => {
   const roles = new Map([
-    [0, "オーナー"],
-    [1, "管理者"],
-    [2, "一般"],
-    [3, "ゲスト"]
+    ["owner", "オーナー"],
+    ["admin", "管理者"],
+    ["member", "メンバー"],
+    ["guest", "ゲスト"]
   ]);
 
   return (
