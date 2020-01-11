@@ -1,21 +1,31 @@
-// Place your settings in this file to overwrite default and user settings.
 {
+  "editor.minimap.enabled": false,
   "editor.tabSize": 2,
-  "editor.rulers": [80],
-  "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
-  "workbench.iconTheme": "vscode-icons",
-  "eslint.autoFixOnSave": true,
-  "eslint.enable": true,
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
-  "editor.formatOnType": true,
-  "editor.formatOnSave": true,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "files.watcherExclude": {
+    "\"**/.cocoapods/**\":true,": true,
+    "\"**/Dropbox/**\":true,": true,
+    "\"**/GoogleDrive/**\":true,": true,
+    "\"**/Library/**\":true,": true,
+    "\"**/Pictures/**\":true,": true
+  },
+  "editor.fontSize": 14,
+  "ruby.intellisense": "rubyLocate",
+  "editor.codeActionsOnSaveTimeout": 2000,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
+  },
+  "editor.formatOnSave": true,
+  "eslint.format.enable": true,
+  "eslint.options": {
+    "parserOptions": {
+      "project": ["${workspaceFolder}/tsconfig.json"]
+    }
+  },
+  "eslint.workingDirectories": {
+    "mode": "auto"
   }
 }
