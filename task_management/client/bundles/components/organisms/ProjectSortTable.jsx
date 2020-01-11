@@ -8,7 +8,6 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { ProjectSortTableHead } from "./ProjectSortTableHead"
 
-
 function createData(title, description, member, red, yellow, green) {
   return { title, description, member, red, yellow, green };
 }
@@ -97,17 +96,10 @@ export const ProjectSortTable = props => {
   const [orderBy, setOrderBy] = useState("red");
   const [selected, setSelected] = useState([]);
   const [page] = useState(0);
-  const [rowsPerPage] = useState(5);
-  const tasks = props.tasks;
-
-  const projects = [
-    createData("LINE@の運用", "LINE@による学生との接点づくり", "Shuya Otsuki", 3 , 6, 1),
-    createData("HPの運用", "HPによるブランディング", "Yusuke Eto", 5 , 2, 6),
-    createData("wantedlyの運用", "wantedlyによる採用活動", "Shuya Otsuki", 2 , 4, 2),
-  ];
-  for (var i = 0; i < tasks.length; i++){
-    projects.push(createData(tasks[i].title, tasks[i].description, "Naruhiko Toda", 1 , 5, 5))
-  }
+  const tasks = props.tasks.map(
+    task => createData(task.title, task.description, "", 5, 5, 5)
+  )
+  var [rowsPerPage] = useState(tasks.length);
 
   const handleRequestSort = (event, property) => {
     const isDesc = orderBy === property && order === "desc";
@@ -117,7 +109,7 @@ export const ProjectSortTable = props => {
 
   const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelecteds = projects.map(n => n.title);
+      const newSelecteds = tasks.map(n => n.title);
       setSelected(newSelecteds);
       return;
     }
@@ -147,7 +139,7 @@ export const ProjectSortTable = props => {
   const isSelected = title => selected.indexOf(title) !== -1;
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, projects.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, tasks.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -165,11 +157,10 @@ export const ProjectSortTable = props => {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={projects.length}
+              rowCount={tasks.length}
             />
             <TableBody>
-              {stableSort(projects, getSorting(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              {stableSort(tasks, getSorting(order, orderBy))
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.title);
                   const labelId = `enhanced-table-checkbox-${index}`;

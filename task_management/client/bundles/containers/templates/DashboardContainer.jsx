@@ -116,7 +116,9 @@ export const DashboardContainer = props => {
                     message="プロジェクトを追加する"
                     handleClick={() => setProjectOpen(true)}
                   />
-                  <ProjectSortTable tasks={tasks}/>;
+                  <ProjectSortTable
+                    tasks={tasks}
+                  />
                 </PaperBody>
               </GrPaper>
             </Grid>
@@ -132,12 +134,12 @@ export const DashboardContainer = props => {
                     handleClick={() => setUserOpen(true)}
                   />
                   <MemberSortTable
-                  users = {usersNode &&
-                  usersNode.map((userNode, index) => {
-                    return (
-                      userNode.node
-                    );
-                  })}
+                    users = {usersNode &&
+                    usersNode.map((userNode, index) => {
+                      return (
+                        userNode.node
+                      );
+                    })}
                   />
                 </PaperBody>
               </GrPaper>
