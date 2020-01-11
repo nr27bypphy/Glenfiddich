@@ -51,7 +51,8 @@ function getSorting(order, orderBy) {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "100%"
+    width: "41.5vw",
+    marginLeft: "-3.15vw"
   },
   paper: {
     width: "100%",
@@ -70,6 +71,9 @@ const useStyles = makeStyles(theme => ({
     position: "absolute",
     top: 20,
     width: 1
+  },
+  member_td: {
+    width: 230
   },
   red: {
     backgroundColor: "red",
@@ -180,14 +184,7 @@ export const MemberSortTable = props => {
                       key={row.name}
                       selected={isItemSelected}
                     >
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                        {row.name}
-                      </TableCell>
+                      <TableCell align="center" className={classes.member_td}>{row.name}</TableCell>
                       <TableCell align="right"><span className={classes.red}>{row.red}</span></TableCell>
                       <TableCell align="right"><span className={classes.yellow}>{row.yellow}</span></TableCell>
                       <TableCell align="right"><span className={classes.green}>{row.green}</span></TableCell>

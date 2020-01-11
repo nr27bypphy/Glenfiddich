@@ -50,7 +50,8 @@ function getSorting(order, orderBy) {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "100%"
+    width: "41.5vw",
+    marginLeft: "-3.15vw"
   },
   paper: {
     width: "100%",
@@ -179,19 +180,12 @@ export const ProjectSortTable = props => {
                       key={row.title}
                       selected={isItemSelected}
                     >
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                        {row.title}
-                      </TableCell>
+                      <TableCell align="right">{row.title}</TableCell>
                       <TableCell align="right">{row.description}</TableCell>
                       <TableCell align="right">{row.member}</TableCell>
-                      <TableCell align="right"><span className={classes.red}>{row.red}</span></TableCell>
-                      <TableCell align="right"><span className={classes.yellow}>{row.yellow}</span></TableCell>
-                      <TableCell align="right"><span className={classes.green}>{row.green}</span></TableCell>
+                      <TableCell align="center" padding= "none" ><span className={classes.red}>{row.red}</span></TableCell>
+                      <TableCell align="center" padding= "none" ><span className={classes.yellow}>{row.yellow}</span></TableCell>
+                      <TableCell align="center" padding= "none" ><span className={classes.green}>{row.green}</span></TableCell>
                     </TableRow>
                   );
                 })}
