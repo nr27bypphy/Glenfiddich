@@ -5,7 +5,7 @@ RSpec.describe WorkspaceMember, type: :model do
     it { is_expected.to validate_presence_of(:workspace) }
     it { is_expected.to validate_presence_of(:user) }
     it { is_expected.to validate_presence_of(:role) }
-    it { is_expected.to define_enum_for(:role).with_values([:owner, :admin, :normal, :guest]) }
+    it { is_expected.to define_enum_for(:role).with_values([:owner, :admin, :member, :guest]) }
 
     context 'uniqueness validation' do
       subject { dup_workspace_member.valid? }
