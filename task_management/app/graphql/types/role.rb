@@ -1,6 +1,6 @@
 class Types::Role < Types::BaseEnum
   value "owner"
   value "admin"
-  value "normal"
+  value "member"
   value "guest"
 end

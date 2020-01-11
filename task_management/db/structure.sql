@@ -34,7 +34,7 @@ CREATE TABLE `projects` (
   `workspace_id` bigint(20) NOT NULL COMMENT 'projectが所属するworkspace',
   PRIMARY KEY (`id`),
   KEY `index_projects_on_workspace_id` (`workspace_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `schema_migrations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -56,9 +56,9 @@ CREATE TABLE `tasks` (
   `updated_at` datetime(6) NOT NULL,
   `project_id` bigint(20) NOT NULL,
   `workspace_member_id` bigint(20) DEFAULT NULL COMMENT 'taskを担当するworkspace_member 担当者が未定でも作成出来る様にnull許可',
-  PRIMARY KEY (`id`),
   KEY `index_tasks_on_project_id` (`project_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `user_statuses`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;

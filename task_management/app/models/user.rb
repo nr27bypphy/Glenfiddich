@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   attr_accessor :remember_token
-  enum role: { owner: 0, admin: 1, normal: 2, guest: 3 }
+  enum role: { owner: 0, admin: 1, member: 2, guest: 3 }
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   has_many :projects

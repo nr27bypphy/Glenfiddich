@@ -11,7 +11,6 @@ import { AddButton } from "../../components/atoms/AddButton";
 import { DashboardTable } from "../../components/organisms/DashboardTable";
 import { ProjectThead } from "../../components/molecules/ProjectThead";
 import { ProjectTableTr } from "../../components/molecules/ProjectTableTr";
-import { MemberTableTr } from "../../components/molecules/MemberTableTr";
 import DescriptionIcon from "@material-ui/icons/Description";
 import PeopleIcon from "@material-ui/icons/People";
 import { AddProjectModal } from "../../components/organisms/AddProjectModal";
@@ -20,6 +19,8 @@ import {
   INVITATION_WORKSPACE_MEMBER,
   WORKSPACE_MEMBERS
 } from "../../tags/WorkspaceMember";
+import { AddUserModal } from "../../components/organisms/AddUserModal";
+import { MemberSortTable } from "../../components/organisms/MemberSortTable";
 import { ADD_TASK } from "../../tags/Task";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
@@ -144,21 +145,7 @@ export const DashboardContainer = props => {
                     message="メンバーを追加する"
                     handleClick={() => setUserOpen(true)}
                   />
-                  <DashboardTable>
-                    <tbody>
-                      {workspaceMembersNode &&
-                        workspaceMembersNode.map(
-                          (workspaceMemberNode, index) => {
-                            return (
-                              <MemberTableTr
-                                workspaceMember={workspaceMemberNode.node}
-                                key={index}
-                              />
-                            );
-                          }
-                        )}
-                    </tbody>
-                  </DashboardTable>
+                  <MemberSortTable />
                 </PaperBody>
               </GrPaper>
             </Grid>
