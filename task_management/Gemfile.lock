@@ -204,6 +204,8 @@ GEM
       rspec-expectations (~> 3.9.0)
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
+    rspec-request_describer (0.3.1)
+      actionpack (>= 5.0.0)
     rspec-support (3.9.0)
     rubocop (0.76.0)
       jaro_winkler (~> 1.5.1)
@@ -315,6 +317,7 @@ DEPENDENCIES
   rails (~> 6.0.0)
   react_on_rails
   rspec-rails
+  rspec-request_describer
   rubocop
   rubocop-rails_config
   sass-rails (~> 5)

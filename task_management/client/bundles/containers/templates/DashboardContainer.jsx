@@ -11,13 +11,15 @@ import { AddButton } from "../../components/atoms/AddButton";
 import { DashboardTable } from "../../components/organisms/DashboardTable";
 import { ProjectThead } from "../../components/molecules/ProjectThead";
 import { ProjectTableTr } from "../../components/molecules/ProjectTableTr";
-import { MemberTableTr } from "../../components/molecules/MemberTableTr";
 import DescriptionIcon from "@material-ui/icons/Description";
 import PeopleIcon from "@material-ui/icons/People";
 import { AddProjectModal } from "../../components/organisms/AddProjectModal";
-import { AddUserModal } from "../../components/organisms/AddUserModal";
+import { AddWorkspaceMemberModal } from "../../components/organisms/AddWorkspaceMemberModal";
+import {
+  INVITATION_WORKSPACE_MEMBER,
+  WORKSPACE_MEMBERS
+} from "../../tags/WorkspaceMember";
 import { MemberSortTable } from "../../components/organisms/MemberSortTable";
-import { CREATE_USER, USERS } from "../../tags/User";
 import { ADD_TASK } from "../../tags/Task";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
@@ -39,21 +41,21 @@ export const DashboardContainer = props => {
 
   const [tasks, setTasks] = useState(props.tasks);
   const [addTask] = useMutation(ADD_TASK);
-  const [createUser] = useMutation(CREATE_USER, {
-    update(cache, { data: { addUser } }) {
+  const [addWorkspaceMember] = useMutation(INVITATION_WORKSPACE_MEMBER, {
+    update(cache, { data: { invitationWorkspaceMember } }) {
       // 本当はここで cache.writeQuery を使っていい感じに users のリストを更新したい
-      // const { users } = cache.readQuery({ query: USERS });
+      // const { workspaceMembers } = cache.readQuery({ query: WORKSPACE_MEMBERS });
     }
   });
 
   // ユーザー追加のエラーメッセージ用
   const [userErrors, setUserErrors] = useState([]);
-  const { loading, error, data } = useQuery(USERS);
-  const [usersNode, setUsersNode] = useState([]);
+  const { loading, error, data } = useQuery(WORKSPACE_MEMBERS);
+  const [workspaceMembersNode, setWorkspaceMembersNode] = useState([]);
 
   useEffect(() => {
     if (data) {
-      setUsersNode(data.users.edges);
+      setWorkspaceMembersNode(data.workspaceMembers.edges);
     }
   }, [data]);
 
@@ -68,25 +70,30 @@ export const DashboardContainer = props => {
     setTasks(newTasks);
   };
 
-  const handleSubmitUser = (
+  const cerateWorkspaceMember = (
     name,
     email,
     role,
     password,
     passwordConfirmation
   ) => {
-    createUser({
+    addWorkspaceMember({
       variables: {
         name: name,
         email: email,
         role: role,
         password: password,
-        passwordConfirmation: passwordConfirmation
+        passwordConfirmation: passwordConfirmation,
+        workspaceId: props.workspaceId
       }
     })
       .then(result => {
         // ユーザーの一覧に追加したメンバーを表示させるため
-        setUsersNode(usersNode.concat({ node: result.data.createUser.user }));
+        setWorkspaceMembersNode(
+          workspaceMembersNode.concat({
+            node: result.data.invitationWorkspaceMember.workspaceMember
+          })
+        );
         setUserOpen(false);
       })
       .catch(e => {
@@ -150,11 +157,23 @@ export const DashboardContainer = props => {
         handleClose={() => setProjectOpen(false)}
         addNewTasks={(title, description) => addNewTasks(title, description)}
       />
-      <AddUserModal
+      <AddWorkspaceMemberModal
         open={userOpen}
         handleClose={() => setUserOpen(false)}
-        createUser={(name, email, role, password, passwordConfirmation) =>
-          handleSubmitUser(name, email, role, password, passwordConfirmation)
+        cerateWorkspaceMember={(
+          name,
+          email,
+          role,
+          password,
+          passwordConfirmation
+        ) =>
+          cerateWorkspaceMember(
+            name,
+            email,
+            role,
+            password,
+            passwordConfirmation
+          )
         }
         errors={userErrors}
       />

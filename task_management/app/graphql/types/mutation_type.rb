@@ -3,5 +3,6 @@ module Types
     field :createTask, mutation: Mutations::CreateTask
     field :createUser, mutation: Mutations::CreateUser
     field :destroyUser, mutation: Mutations::DestroyUser
+    field :invitationWorkspaceMember, mutation: Mutations::InvitationWorkspaceMember
   end
 end

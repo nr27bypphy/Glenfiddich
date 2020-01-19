@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const AddUserModal = props => {
+export const AddWorkspaceMemberModal = props => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
@@ -127,7 +127,13 @@ export const AddUserModal = props => {
           variant="outlined"
           color="primary"
           onClick={() =>
-            props.createUser(name, email, role, password, passwordConfirmation)
+            props.createWorkspaceMember(
+              name,
+              email,
+              role,
+              password,
+              passwordConfirmation
+            )
           }
         >
           追加

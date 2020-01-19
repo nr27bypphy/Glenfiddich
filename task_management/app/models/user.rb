@@ -4,6 +4,9 @@ class User < ApplicationRecord
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   has_many :projects
+  has_many :workspace_members
+
+  has_one :user_status
 
   before_save { self.email = email.downcase }
   validates :name, presence: true
@@ -39,5 +42,15 @@ class User < ApplicationRecord
   # ログアウト処理で使用 remember_token の hash 値を nil に更新する
   def forget
     update_columns(remember_digest: nil)
+  end
+
+  # 表示する workspace
+  def current_workspace
+    user_status&.workspace
+  end
+
+  # 表示する workspace_member
+  def current_workspace_member
+    workspace_members.find_by(workspace: current_workspace)
   end
 end
