@@ -1,8 +1,9 @@
 class Project < ApplicationRecord
 
-  belongs_to :user
   has_many :tasks
+  belongs_to :workspace
+  belongs_to :workspace_member
 
   validates :title, presence: true
-  validates :user, presence: true
+  validates :workspace, presence: true
 end
