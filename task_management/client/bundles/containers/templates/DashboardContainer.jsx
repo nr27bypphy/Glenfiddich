@@ -20,6 +20,8 @@ import {
   WORKSPACE_MEMBERS
 } from "../../tags/WorkspaceMember";
 import { MemberSortTable } from "../../components/organisms/MemberSortTable";
+import { ProjectSortTable } from "../../components/organisms/ProjectSortTable";
+import { CREATE_USER, USERS } from "../../tags/User";
 import { ADD_TASK } from "../../tags/Task";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
@@ -122,14 +124,9 @@ export const DashboardContainer = props => {
                     message="プロジェクトを追加する"
                     handleClick={() => setProjectOpen(true)}
                   />
-                  <DashboardTable>
-                    <ProjectThead />
-                    <tbody>
-                      {tasks.map((task, index) => {
-                        return <ProjectTableTr task={task} key={index} />;
-                      })}
-                    </tbody>
-                  </DashboardTable>
+                  <ProjectSortTable
+                    tasks={tasks}
+                  />
                 </PaperBody>
               </GrPaper>
             </Grid>
@@ -144,7 +141,14 @@ export const DashboardContainer = props => {
                     message="メンバーを追加する"
                     handleClick={() => setUserOpen(true)}
                   />
-                  <MemberSortTable />
+                  <MemberSortTable
+                    users = {usersNode &&
+                    usersNode.map((userNode, index) => {
+                      return (
+                        userNode.node
+                      );
+                    })}
+                  />
                 </PaperBody>
               </GrPaper>
             </Grid>

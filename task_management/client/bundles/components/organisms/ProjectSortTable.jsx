@@ -6,18 +6,11 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { MemberSortTableHead } from "./MemberSortTableHead"
+import { ProjectSortTableHead } from "./ProjectSortTableHead"
 
-function createData(name, role, red, yellow, green) {
-  return { name, role, red, yellow, green };
+function createData(title, description, member, red, yellow, green) {
+  return { title, description, member, red, yellow, green };
 }
-
-const roles = new Map([
-  [0, "オーナー"],
-  [1, "管理者"],
-  [2, "一般"],
-  [3, "ゲスト"]
-]);
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -58,7 +51,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2)
   },
   table: {
-    minWidth: 250
+    minWidth: 400
   },
   visuallyHidden: {
     border: 0,
@@ -70,9 +63,6 @@ const useStyles = makeStyles(theme => ({
     position: "absolute",
     top: 20,
     width: 1
-  },
-  member_td: {
-    width: 130
   },
   red: {
     backgroundColor: "red",
@@ -90,7 +80,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-MemberSortTableHead.propTypes = {
+ProjectSortTableHead.propTypes = {
   classes: PropTypes.object.isRequired,
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
@@ -100,16 +90,16 @@ MemberSortTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired
 };
 
-export const MemberSortTable = props => {
+export const ProjectSortTable = props => {
   const classes = useStyles();
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("red");
   const [selected, setSelected] = useState([]);
   const [page] = useState(0);
-  const users = props.users.map(
-    user => createData(user.name, user.role, 5, 5, 5)
+  const tasks = props.tasks.map(
+    task => createData(task.title, task.description, "", 5, 5, 5)
   )
-  const [rowsPerPage] = useState(10);
+  var [rowsPerPage] = useState(tasks.length);
 
   const handleRequestSort = (event, property) => {
     const isDesc = orderBy === property && order === "desc";
@@ -119,19 +109,19 @@ export const MemberSortTable = props => {
 
   const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelecteds = users.map(n => n.name);
+      const newSelecteds = tasks.map(n => n.title);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event, title) => {
+    const selectedIndex = selected.indexOf(title);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, title);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -146,10 +136,10 @@ export const MemberSortTable = props => {
     setSelected(newSelected);
   };
 
-  const isSelected = name => selected.indexOf(name) !== -1;
+  const isSelected = title => selected.indexOf(title) !== -1;
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, users.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, tasks.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -160,36 +150,36 @@ export const MemberSortTable = props => {
             size={"medium"}
             aria-label="enhanced table"
           >
-            <MemberSortTableHead
+            <ProjectSortTableHead
               classes={classes}
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={users.length}
+              rowCount={tasks.length}
             />
             <TableBody>
-              {stableSort(users, getSorting(order, orderBy))
+              {stableSort(tasks, getSorting(order, orderBy))
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.title);
                   const labelId = `enhanced-table-checkbox-${index}`;
-
                   return (
                     <TableRow
                       hover
-                      onClick={event => handleClick(event, row.name)}
+                      onClick={event => handleClick(event, row.title)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.title}
                       selected={isItemSelected}
                     >
-                      <TableCell align="center" className={classes.member_td}>{row.name}</TableCell>
-                      <TableCell align="right">{row.roles}</TableCell>
-                      <TableCell align="right"><span className={classes.red}>{row.red}</span></TableCell>
-                      <TableCell align="right"><span className={classes.yellow}>{row.yellow}</span></TableCell>
-                      <TableCell align="right"><span className={classes.green}>{row.green}</span></TableCell>
+                      <TableCell align="right">{row.title}</TableCell>
+                      <TableCell align="right">{row.description}</TableCell>
+                      <TableCell align="right">{row.member}</TableCell>
+                      <TableCell align="center" padding= "none" ><span className={classes.red}>{row.red}</span></TableCell>
+                      <TableCell align="center" padding= "none" ><span className={classes.yellow}>{row.yellow}</span></TableCell>
+                      <TableCell align="center" padding= "none" ><span className={classes.green}>{row.green}</span></TableCell>
                     </TableRow>
                   );
                 })}

@@ -6,6 +6,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 
+
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -17,15 +18,21 @@ function desc(a, b, orderBy) {
 }
 
 const headCells = [{
-    id: "name",
+    id: "title",
     numeric: false,
     disablePadding: true,
     label: ""
   },
   {
-    id: "role",
+    id: "description",
     numeric: false,
-    disablePadding: false,
+    disablePadding: true,
+    label: ""
+  },
+  {
+    id: "member",
+    numeric: false,
+    disablePadding: true,
     label: ""
   },
   {
@@ -48,7 +55,9 @@ const headCells = [{
   }
 ];
 
-export const MemberSortTableHead = props => {
+
+
+export const ProjectSortTableHead = props => {
   const {
     classes,
     order,
