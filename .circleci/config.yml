@@ -1,0 +1,16 @@
+# Ruby CircleCI 2.1 configuration file
+#
+# Check https://circleci.com/docs/2.0/ruby/ for more details
+#
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.6.5-node
+      - image: circleci/mysql:5.7
+    steps:
+      - checkout
+
+# What to do next? Set up a test job. Please see
+# https://circleci.com/docs/2.0/configuration-reference/, for more  info on how to get started.
