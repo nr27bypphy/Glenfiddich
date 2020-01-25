@@ -1,0 +1,58 @@
+# Ruby CircleCI 2.1 configuration file
+#
+# Check https://circleci.com/docs/2.0/ruby/ for more details
+#
+version: 2.1
+
+jobs:
+  build:
+    working_directory: ~/task_management
+    docker:
+      - image: circleci/ruby:2.6.5-node
+        environment:
+          MYSQL_HOST: 127.0.0.1
+          MYSQL_PASSWORD: 'root'
+          MYSQL_PORT: 3306
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: root
+
+    working_directory: task_management
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-
+
+      - run:
+          name: install dependencies
+          command: |
+            bundle install
+
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+      # database
+      - run:
+          name: waiting for stating database
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
+      - run: docker-compose run web rake db:create
+      - run: docker-compose run web rake db:schema:load --trace
+
+      # test
+      - run:
+          name: Run rspec in parallel
+          command: |
+            docker-compose run web bundle exec rspec --profile 10 \
+                              --format RspecJunitFormatter \
+                              --out test_results/rspec.xml \
+                              --format progress \
+                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+      - store_test_results:
+          path: test_results
+# What to do next? Set up a test job. Please see
+# https://circleci.com/docs/2.0/configuration-reference/, for more  info on how to get started.
