@@ -17,8 +17,6 @@ jobs:
         environment:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: root
-
-    working_directory: task_management
     steps:
       - checkout
       - restore_cache:
