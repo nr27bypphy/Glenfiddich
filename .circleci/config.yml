@@ -1,56 +1,54 @@
-# Ruby CircleCI 2.1 configuration file
-#
-# Check https://circleci.com/docs/2.0/ruby/ for more details
-#
 version: 2.1
 
 jobs:
   build:
+    machine:
+      image: circleci/classic:edge
     working_directory: ~/task_management
-    docker:
-      - image: circleci/ruby:2.6.5-node
-        environment:
-          MYSQL_HOST: 127.0.0.1
-          MYSQL_PASSWORD: 'root'
-          MYSQL_PORT: 3306
-      - image: circleci/mysql:5.7
-        environment:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: root
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            - v1-dependencies-
-
       - run:
-          name: install dependencies
+          name: Install Docker Compose
           command: |
-            bundle install
-
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-
-      # database
+            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
       - run:
-          name: waiting for stating database
-          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
-      - run: docker-compose run web rake db:create
-      - run: docker-compose run web rake db:schema:load --trace
-
-      # test
-      - run:
-          name: Run rspec in parallel
+          name: docker-compose build
           command: |
-            docker-compose run web bundle exec rspec --profile 10 \
-                              --format RspecJunitFormatter \
-                              --out test_results/rspec.xml \
-                              --format progress \
-                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-      - store_test_results:
-          path: test_results
-# What to do next? Set up a test job. Please see
-# https://circleci.com/docs/2.0/configuration-reference/, for more  info on how to get started.
+            set -x
+            docker-compose up --build -d
+      - run:
+          name: docker-compose stop
+          command: |
+            set -x
+            docker-compose stop
+      - run:
+          name: docker-compose up
+          command: |
+            set -x
+            docker-compose up -d
+      - run:
+          name: bundle install
+          command: |
+            set -x
+            docker-compose run web bundle install --path=vendor/bundle
+      - run:
+          name: setup-database
+          command: |
+            set -x
+            docker-compose run web bundle exec rails db:setup RAILS_ENV=test
+            docker-compose run web bundle exec rails db:migrate RAILS_ENV=test
+      - run:
+          name: test
+          command: |
+            mkdir /tmp/test-results
+            TEST_FILES="$(circleci tests glob 'spec/**/*_spec.rb' | circleci tests split --split-by=timings)"
+            docker-compose run web bundle exec rspec --format progress \
+                                                                  --format RspecJunitFormatter \
+                                                                  --out /tmp/test-results/rspec.xml \
+                                                                  $TEST_FILES
+      - run:
+          name: docker-compose down
+          command: docker-compose down
+          MYSQL_DATABASE: root
