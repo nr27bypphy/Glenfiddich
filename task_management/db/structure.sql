@@ -1,4 +1,3 @@
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -56,8 +55,8 @@ CREATE TABLE `tasks` (
   `updated_at` datetime(6) NOT NULL,
   `project_id` bigint(20) NOT NULL,
   `workspace_member_id` bigint(20) DEFAULT NULL COMMENT 'taskを担当するworkspace_member 担当者が未定でも作成出来る様にnull許可',
+  PRIMARY KEY (`id`),
   KEY `index_tasks_on_project_id` (`project_id`)
-  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `user_statuses`;
@@ -87,7 +86,7 @@ CREATE TABLE `users` (
   `role` tinyint(3) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_users_on_email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `workspace_members`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -137,5 +136,3 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20191231112518'),
 ('20200101132843'),
 ('20200101233420');
-
-
