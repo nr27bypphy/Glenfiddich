@@ -12,13 +12,6 @@ function createData(name, role, red, yellow, green) {
   return { name, role, red, yellow, green };
 }
 
-const roles = new Map([
-  [0, "オーナー"],
-  [1, "管理者"],
-  [2, "一般"],
-  [3, "ゲスト"]
-]);
-
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -100,14 +93,14 @@ MemberSortTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired
 };
 
-export const MemberSortTable = props => {
+export const MemberSortTable = ({workspaceMembers}) => {
   const classes = useStyles();
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("red");
   const [selected, setSelected] = useState([]);
   const [page] = useState(0);
-  const users = props.users.map(
-    user => createData(user.name, user.role, 5, 5, 5)
+  const rowDatas = workspaceMembers.map(
+    workspaceMember => createData(workspaceMember.user.name, workspaceMember.role, 5, 5, 5)
   )
   const [rowsPerPage] = useState(10);
 
@@ -119,7 +112,7 @@ export const MemberSortTable = props => {
 
   const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelecteds = users.map(n => n.name);
+      const newSelecteds = rowDatas.map(n => n.user.name);
       setSelected(newSelecteds);
       return;
     }
@@ -149,7 +142,7 @@ export const MemberSortTable = props => {
   const isSelected = name => selected.indexOf(name) !== -1;
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, users.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, rowDatas.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -167,14 +160,13 @@ export const MemberSortTable = props => {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={users.length}
+              rowCount={rowDatas.length}
             />
             <TableBody>
-              {stableSort(users, getSorting(order, orderBy))
+              {stableSort(rowDatas, getSorting(order, orderBy))
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
-
                   return (
                     <TableRow
                       hover

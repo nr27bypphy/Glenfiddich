@@ -8,9 +8,6 @@ import { PaperHeader } from "../../components/molecules/PaperHeader";
 import { PaperSearchContent } from "../../components/organisms/PaperSearchContent";
 import { PaperBody } from "../../components/atoms/PaperBody";
 import { AddButton } from "../../components/atoms/AddButton";
-import { DashboardTable } from "../../components/organisms/DashboardTable";
-import { ProjectThead } from "../../components/molecules/ProjectThead";
-import { ProjectTableTr } from "../../components/molecules/ProjectTableTr";
 import DescriptionIcon from "@material-ui/icons/Description";
 import PeopleIcon from "@material-ui/icons/People";
 import { AddProjectModal } from "../../components/organisms/AddProjectModal";
@@ -21,7 +18,6 @@ import {
 } from "../../tags/WorkspaceMember";
 import { MemberSortTable } from "../../components/organisms/MemberSortTable";
 import { ProjectSortTable } from "../../components/organisms/ProjectSortTable";
-import { CREATE_USER, USERS } from "../../tags/User";
 import { ADD_TASK } from "../../tags/Task";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
@@ -53,11 +49,10 @@ export const DashboardContainer = props => {
   // ユーザー追加のエラーメッセージ用
   const [userErrors, setUserErrors] = useState([]);
   const { loading, error, data } = useQuery(WORKSPACE_MEMBERS);
-  const [workspaceMembersNode, setWorkspaceMembersNode] = useState([]);
-
+  const [workspaceMembers, setWorkspaceMembers] = useState([]);
   useEffect(() => {
     if (data) {
-      setWorkspaceMembersNode(data.workspaceMembers.edges);
+      setWorkspaceMembers(data.workspaceMembers);
     }
   }, [data]);
 
@@ -92,7 +87,7 @@ export const DashboardContainer = props => {
       .then(result => {
         // ユーザーの一覧に追加したメンバーを表示させるため
         setWorkspaceMembersNode(
-          workspaceMembersNode.concat({
+          workspaceMembers.concat({
             node: result.data.invitationWorkspaceMember.workspaceMember
           })
         );
@@ -142,12 +137,7 @@ export const DashboardContainer = props => {
                     handleClick={() => setUserOpen(true)}
                   />
                   <MemberSortTable
-                    users = {usersNode &&
-                    usersNode.map((userNode, index) => {
-                      return (
-                        userNode.node
-                      );
-                    })}
+                    workspaceMembers={workspaceMembers}
                   />
                 </PaperBody>
               </GrPaper>

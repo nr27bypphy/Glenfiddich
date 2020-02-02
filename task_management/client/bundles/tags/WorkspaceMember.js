@@ -32,13 +32,9 @@ export const INVITATION_WORKSPACE_MEMBER = gql`
 export const WORKSPACE_MEMBERS = gql`
   query {
     workspaceMembers {
-      edges {
-        node {
-          role
-          user {
-            name
-          }
-        }
+      role
+      user {
+        name
       }
     }
   }
