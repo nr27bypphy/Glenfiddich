@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   def index
-    @projects = current_user
+    @projects = current_workspace
                   .projects
                   .last(20)
                   .to_json(
