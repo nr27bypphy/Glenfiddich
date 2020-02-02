@@ -12,13 +12,6 @@ function createData(name, role, red, yellow, green) {
   return { name, role, red, yellow, green };
 }
 
-const roles = new Map([
-  [0, "オーナー"],
-  [1, "管理者"],
-  [2, "一般"],
-  [3, "ゲスト"]
-]);
-
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
