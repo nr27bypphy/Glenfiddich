@@ -106,8 +106,8 @@ export const MemberSortTable = props => {
   const [orderBy, setOrderBy] = useState("red");
   const [selected, setSelected] = useState([]);
   const [page] = useState(0);
-  const users = props.users.map(
-    user => createData(user.name, user.role, 5, 5, 5)
+  const workspaceMembers = props.workspaceMembers.map(
+    workspaceMember => createData(workspaceMember.user.name, workspaceMember.role, 5, 5, 5)
   )
   const [rowsPerPage] = useState(10);
 
@@ -119,7 +119,7 @@ export const MemberSortTable = props => {
 
   const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelecteds = users.map(n => n.name);
+      const newSelecteds = workspaceMembers.map(n => n.user.name);
       setSelected(newSelecteds);
       return;
     }
@@ -149,7 +149,7 @@ export const MemberSortTable = props => {
   const isSelected = name => selected.indexOf(name) !== -1;
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, users.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, workspaceMembers.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -167,10 +167,10 @@ export const MemberSortTable = props => {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={users.length}
+              rowCount={workspaceMembers.length}
             />
             <TableBody>
-              {stableSort(users, getSorting(order, orderBy))
+              {stableSort(workspaceMembers, getSorting(order, orderBy))
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
