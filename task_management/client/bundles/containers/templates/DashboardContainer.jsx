@@ -49,11 +49,10 @@ export const DashboardContainer = props => {
   // ユーザー追加のエラーメッセージ用
   const [userErrors, setUserErrors] = useState([]);
   const { loading, error, data } = useQuery(WORKSPACE_MEMBERS);
-  const [workspaceMembersNode, setWorkspaceMembersNode] = useState([]);
-
+  const [workspaceMembers, setWorkspaceMembers] = useState([]);
   useEffect(() => {
     if (data) {
-      setWorkspaceMembersNode(data.workspaceMembers.edges);
+      setWorkspaceMembers(data.workspaceMembers);
     }
   }, [data]);
 
@@ -88,7 +87,7 @@ export const DashboardContainer = props => {
       .then(result => {
         // ユーザーの一覧に追加したメンバーを表示させるため
         setWorkspaceMembersNode(
-          workspaceMembersNode.concat({
+          workspaceMembers.concat({
             node: result.data.invitationWorkspaceMember.workspaceMember
           })
         );
@@ -138,12 +137,7 @@ export const DashboardContainer = props => {
                     handleClick={() => setUserOpen(true)}
                   />
                   <MemberSortTable
-                    workspaceMembers = {workspaceMembersNode &&
-                    workspaceMembersNode.map((workspaceMemberNode, index) => {
-                      return (
-                        workspaceMemberNode.node
-                      );
-                    })}
+                    workspaceMembers={workspaceMembers}
                   />
                 </PaperBody>
               </GrPaper>

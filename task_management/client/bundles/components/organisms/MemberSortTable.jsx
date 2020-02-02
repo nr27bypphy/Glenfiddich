@@ -93,13 +93,13 @@ MemberSortTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired
 };
 
-export const MemberSortTable = props => {
+export const MemberSortTable = ({workspaceMembers}) => {
   const classes = useStyles();
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("red");
   const [selected, setSelected] = useState([]);
   const [page] = useState(0);
-  const workspaceMembers = props.workspaceMembers.map(
+  const rowDatas = workspaceMembers.map(
     workspaceMember => createData(workspaceMember.user.name, workspaceMember.role, 5, 5, 5)
   )
   const [rowsPerPage] = useState(10);
@@ -112,7 +112,7 @@ export const MemberSortTable = props => {
 
   const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelecteds = workspaceMembers.map(n => n.user.name);
+      const newSelecteds = rowDatas.map(n => n.user.name);
       setSelected(newSelecteds);
       return;
     }
@@ -142,7 +142,7 @@ export const MemberSortTable = props => {
   const isSelected = name => selected.indexOf(name) !== -1;
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, workspaceMembers.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, rowDatas.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -160,14 +160,13 @@ export const MemberSortTable = props => {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={workspaceMembers.length}
+              rowCount={rowDatas.length}
             />
             <TableBody>
-              {stableSort(workspaceMembers, getSorting(order, orderBy))
+              {stableSort(rowDatas, getSorting(order, orderBy))
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
-
                   return (
                     <TableRow
                       hover
