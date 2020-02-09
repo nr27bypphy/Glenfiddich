@@ -102,7 +102,7 @@ export const MemberSortTable = ({workspaceMembers}) => {
   const rowDatas = workspaceMembers.map(
     workspaceMember => createData(workspaceMember.user.name, workspaceMember.role, 5, 5, 5)
   )
-  const [rowsPerPage] = useState(10);
+  const [rowsPerPage] = useState(workspaceMembers.length);
 
   const handleRequestSort = (event, property) => {
     const isDesc = orderBy === property && order === "desc";
