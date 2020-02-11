@@ -26,7 +26,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const MemberList = ({ currentUser, workspaceMembers }) => {
+export const MemberList = ({ currentWorkspaceMember, workspaceMembers }) => {
   const classes = useStyles();
 
   // ユーザー削除の確認モーダルの状態管理で使用する
@@ -90,7 +90,7 @@ export const MemberList = ({ currentUser, workspaceMembers }) => {
                 <BoldText>{roles.get(workspaceMember.role)}</BoldText>
               </TableCell>
               <TableCell align="right">
-                {currentUser.role == "owner" && (
+                {currentWorkspaceMember.role == "owner" && (
                   <IconButton onClick={() => handleDialogOpen(workspaceMember)}>
                     <DeleteIcon />
                   </IconButton>

@@ -7,7 +7,7 @@ import { client } from "../../../lib/ApolloClient/client";
 import { WORKSPACE_MEMBERS } from "../../tags/WorkspaceMember";
 import { useQuery } from "@apollo/react-hooks";
 
-const WorkspaceMembersPage = (currentUser) => {
+const WorkspaceMembersPage = (currentWorkspaceMember) => {
   const { data, error, loading } = useQuery(WORKSPACE_MEMBERS);
 
   if (loading == true) {
@@ -18,7 +18,7 @@ const WorkspaceMembersPage = (currentUser) => {
     <>
       <Header />
       <MemberListHeader />
-      <MemberList currentUser={currentUser} workspaceMembers={data.workspaceMembers} />
+      <MemberList currentWorkspaceMember={currentWorkspaceMember.currentWorkspaceMember} workspaceMembers={data.workspaceMembers} />
     </>
   );
 };
