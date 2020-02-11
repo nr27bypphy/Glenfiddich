@@ -8,20 +8,20 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-export const AddProjectModal = props => {
+export const AddProjectModal = ({open, handleClose, postProject}) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [userName, setUserName] = useState("");
 
   const handleAddProject = () => {
-    props.postProject(title, description);
-    props.handleClose();
+    postProject(title, description);
+    handleClose();
   };
 
   return (
     <Dialog
-      open={props.open}
-      onClose={() => props.handleClose()}
+      open={open}
+      onClose={() => handleClose()}
       aria-labelledby="form-dialog-title"
     >
       <DialogTitle id="form-dialog-title">プロジェクト追加</DialogTitle>
@@ -71,7 +71,7 @@ export const AddProjectModal = props => {
       <DialogActions>
         <Button
           onClick={() => {
-            props.handleClose();
+            handleClose();
           }}
           color="primary"
         >
