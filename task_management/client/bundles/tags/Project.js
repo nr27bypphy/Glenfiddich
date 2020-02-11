@@ -8,6 +8,7 @@ export const CREATE_PROJECT = gql`
       project {
         title
         description
+        workspaceMemberId
       }
     }
   }
