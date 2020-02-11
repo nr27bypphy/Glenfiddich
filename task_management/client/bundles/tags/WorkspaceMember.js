@@ -35,6 +35,7 @@ export const WORKSPACE_MEMBERS = gql`
       role
       user {
         name
+        email
       }
     }
   }
