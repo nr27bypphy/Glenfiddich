@@ -8,15 +8,15 @@ module Mutations
 
     def resolve(title:, description:, workspace_member_id:)
       current_workspace = context[:current_workspace]
-      current_workspace
-        .projects
-        .create!(
-          title: title,
-          description: description,
-          workspace_member_id: workspace_member_id
-        )
+      project = current_workspace
+                  .projects
+                  .create!(
+                    title: title,
+                    description: description,
+                    workspace_member_id: workspace_member_id
+                  )
 
-      { project: current_workspace }
+      {project: project}
     end
   end
 end
