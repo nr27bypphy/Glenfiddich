@@ -14,7 +14,7 @@ export const AddProjectModal = props => {
   const [userName, setUserName] = useState("");
 
   const handleAddProject = () => {
-    props.addNewTasks(title, description);
+    props.postProject(title, description);
     props.handleClose();
   };
 

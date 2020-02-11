@@ -36,6 +36,7 @@ export const DashboardContainer = props => {
   // モーダル表示の状態を管理する
   const [projectOpen, setProjectOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
+  const postProject = props.postProject;
 
   const [tasks, setTasks] = useState(props.tasks);
   const [addTask] = useMutation(ADD_TASK);
@@ -55,17 +56,6 @@ export const DashboardContainer = props => {
       setWorkspaceMembers(data.workspaceMembers);
     }
   }, [data]);
-
-  const addNewTasks = (title, description) => {
-    addTask({
-      variables: { title: title, userId: 1, description: description }
-    });
-    const newTasks = tasks.concat({
-      title: title,
-      description: description
-    });
-    setTasks(newTasks);
-  };
 
   const cerateWorkspaceMember = (
     name,
@@ -149,7 +139,7 @@ export const DashboardContainer = props => {
       <AddProjectModal
         open={projectOpen}
         handleClose={() => setProjectOpen(false)}
-        addNewTasks={(title, description) => addNewTasks(title, description)}
+        postProject={postProject}
       />
       <AddWorkspaceMemberModal
         open={userOpen}
