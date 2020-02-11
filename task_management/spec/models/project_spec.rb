@@ -9,6 +9,6 @@ RSpec.describe Project, type: :model do
   describe 'Association' do
     it { is_expected.to have_many(:tasks) }
     it { is_expected.to belong_to(:workspace) }
-    it { is_expected.to belong_to(:workspace_member) }
+    it { is_expected.to belong_to(:workspace_member).optional }
   end
 end
