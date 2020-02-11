@@ -140,6 +140,7 @@ export const DashboardContainer = props => {
         open={projectOpen}
         handleClose={() => setProjectOpen(false)}
         postProject={postProject}
+        workspaceMembers={props.workspaceMembers}
       />
       <AddWorkspaceMemberModal
         open={userOpen}

@@ -39,3 +39,14 @@ export const WORKSPACE_MEMBERS = gql`
     }
   }
 `;
+
+export const WORKSPACE_MEMBER_ID_NAMES = gql`
+  query {
+    workspaceMembers {
+      id
+      user {
+        name
+      }
+    }
+  }
+`;
