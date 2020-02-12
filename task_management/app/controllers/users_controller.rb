@@ -5,10 +5,6 @@ class UsersController < ApplicationController
   before_action :redirect_to_dashboard_if_logged_in, only: %i(new create)
   before_action :build_user, only: %i(new create)
 
-  def index
-    @users = User.all
-  end
-
   def new
   end
 
