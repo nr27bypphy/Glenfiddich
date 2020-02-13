@@ -37,6 +37,7 @@ export const DashboardContainer = props => {
   const [projectOpen, setProjectOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
   const postProject = props.postProject;
+  const projects = props.projects;
 
   const [tasks, setTasks] = useState(props.tasks);
   const [addTask] = useMutation(ADD_TASK);
@@ -110,7 +111,7 @@ export const DashboardContainer = props => {
                     handleClick={() => setProjectOpen(true)}
                   />
                   <ProjectSortTable
-                    tasks={tasks}
+                    projects={projects}
                   />
                 </PaperBody>
               </GrPaper>
