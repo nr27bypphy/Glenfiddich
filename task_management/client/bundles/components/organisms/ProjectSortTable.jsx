@@ -171,7 +171,7 @@ export const ProjectSortTable = ({projects}) => {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.title} 
+                      key={index}
                       selected={isItemSelected}
                     >
                       <TableCell align="right">{row.title}</TableCell>
