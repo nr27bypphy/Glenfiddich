@@ -8,6 +8,28 @@ class Project < ApplicationRecord
   validates :workspace, presence: true
   validate :validate_workspace_member_belongs_to_workspace
 
+  # @todo リファクタ
+  def hurry_task_count
+    tasks
+      .where('deadline <= ?', Time.zone.today)
+      .count
+  end
+
+  # @todo リファクタ
+  def afford_task_count
+    tasks
+      .where('deadline <= ?', Time.zone.today.since(3.days))
+      .where('deadline > ?', Time.zone.today)
+      .count
+  end
+
+  # @todo リファクタ
+  def middle_task_count
+    tasks
+      .where('deadline > ?', Time.zone.today.since(3.days))
+      .count
+  end
+
   private
 
   # 設定した担当者が workspace に所属するメンバーかをチェックする
