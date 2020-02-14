@@ -5,6 +5,7 @@ import { client } from "../../../lib/ApolloClient/client";
 import { Header } from "../../components/organisms/Header";
 import { CREATE_PROJECT } from "../../tags/Project";
 import { DASHBOARD_PAGE } from "../../tags/Dashboard";
+import { INVITATION_WORKSPACE_MEMBER } from "../../tags/WorkspaceMember";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
 const DashboardPage = props => {
@@ -18,6 +19,19 @@ const DashboardPage = props => {
       }
     });
   };
+  const [addWorkspaceMember] = useMutation(INVITATION_WORKSPACE_MEMBER);
+  const invitationWorkspaceMember = (name, email, role, password, passwordConfirmation) => {
+    addWorkspaceMember({
+      variables: {
+        name: name,
+        email: email,
+        role: role,
+        password: password,
+        passwordConfirmation: passwordConfirmation,
+        workspaceId: props.workspaceId
+      }
+    });
+  }
   const { data, error, loading } = useQuery(DASHBOARD_PAGE);
 
   if (loading == true) {
@@ -28,12 +42,10 @@ const DashboardPage = props => {
     <>
       <Header user={props.user} />
       <DashboardContainer
-        tasks={props.tasks}
-        users={props.users}
-        workspaceId={props.workspaceId}
         postProject={postProject}
         workspaceMembers={data.workspaceMembers}
         projects={data.projects}
+        invitationWorkspaceMember={invitationWorkspaceMember}
       />
     </>
   );
