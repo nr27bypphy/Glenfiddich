@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
@@ -30,7 +30,6 @@ export const DashboardContainer = ({postProject, workspaceMembers, projects, inv
   // モーダル表示の状態を管理する
   const [projectOpen, setProjectOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
-
   // ユーザー追加のエラーメッセージ用
   const [userErrors, setUserErrors] = useState([]);
 
