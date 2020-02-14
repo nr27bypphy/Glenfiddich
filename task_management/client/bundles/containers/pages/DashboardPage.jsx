@@ -7,6 +7,7 @@ import { CREATE_PROJECT } from "../../tags/Project";
 import { DASHBOARD_PAGE } from "../../tags/Dashboard";
 import { INVITATION_WORKSPACE_MEMBER } from "../../tags/WorkspaceMember";
 import { useMutation, useQuery } from "@apollo/react-hooks";
+import { LoadingPage } from "./LoadingPage"
 
 const DashboardPage = props => {
   const [createProject] = useMutation(CREATE_PROJECT);
@@ -35,7 +36,7 @@ const DashboardPage = props => {
   const { data, error, loading } = useQuery(DASHBOARD_PAGE);
 
   if (loading == true) {
-    return <p>loading....</p>;
+    return <LoadingPage />;
   }
 
   return (
