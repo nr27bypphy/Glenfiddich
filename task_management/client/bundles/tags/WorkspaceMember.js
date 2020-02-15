@@ -35,6 +35,18 @@ export const WORKSPACE_MEMBERS = gql`
       role
       user {
         name
+        email
+      }
+    }
+  }
+`;
+
+export const WORKSPACE_MEMBER_ID_NAMES = gql`
+  query {
+    workspaceMembers {
+      id
+      user {
+        name
       }
     }
   }

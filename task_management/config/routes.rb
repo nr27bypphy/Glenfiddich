@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   post 'registration', to: 'registrations#create'
 
   resources :users, only: %i(index new create)
+  resources :workspace_members, only: %i(index)
 
   resources :projects, only: %i(index)
 

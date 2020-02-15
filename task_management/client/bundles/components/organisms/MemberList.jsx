@@ -12,7 +12,7 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { BoldText } from "../atoms/BoldText";
 import { IconButton } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { AlertDialog } from "./ConfirmDialog";
+import { AlertDialog } from "./AlertDialog";
 import { DESTROY_USER } from "../../tags/User";
 import { useMutation } from "@apollo/react-hooks";
 
@@ -26,17 +26,15 @@ const useStyles = makeStyles({
   }
 });
 
-export const MemberList = props => {
+export const MemberList = ({ currentWorkspaceMember, workspaceMembers }) => {
   const classes = useStyles();
-  const [users, setUsers] = useState(props.users);
-  const currentUser = props.currentUser;
 
   // ユーザー削除の確認モーダルの状態管理で使用する
   const [destroyOpen, setDestroyOpen] = useState(false);
-  const [destroyTargetUser, setDestroyTargetUser] = useState();
+  const [destroyTargetMember, setDestroyTargetMember] = useState();
   // 確認モーダルを開く
-  const handleDialogOpen = user => {
-    setDestroyTargetUser(user);
+  const handleDialogOpen = workspaceMember => {
+    setDestroyTargetMember(workspaceMember);
     setDestroyOpen(true);
   };
 
@@ -60,7 +58,6 @@ export const MemberList = props => {
         currentUserId: currentUser.id
       }
     }).then(result => {
-      setUsers(result.data.destroyUser.users);
       setDestroyOpen(false);
     });
   };
@@ -77,25 +74,24 @@ export const MemberList = props => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {users.map(user => (
-            <TableRow key={user.id}>
+          {workspaceMembers.map(workspaceMember => (
+            <TableRow key={workspaceMember.user.name}>
               {/* @todo ここだけ px 指定にしている rem 指定に直す */}
               <TableCell component="th" scope="row" width="300px">
                 <FlexDiv>
                   <AccountCircleIcon className={classes.personIcon} />
                   <NameEmail>
-                    <BoldText>{user.name}</BoldText>
-                    <div>{user.email}</div>
+                    <BoldText>{workspaceMember.user.name}</BoldText>
+                    <div>{workspaceMember.user.email}</div>
                   </NameEmail>
                 </FlexDiv>
               </TableCell>
               <TableCell align="left">
-                <BoldText>{roles.get(user.role)}</BoldText>
+                <BoldText>{roles.get(workspaceMember.role)}</BoldText>
               </TableCell>
               <TableCell align="right">
-                {currentUser.role == "owner" && (
-                  // <IconButton onClick={() => destroy(user.id, currentUser.id)}>
-                  <IconButton onClick={() => handleDialogOpen(user)}>
+                {currentWorkspaceMember.role == "owner" && (
+                  <IconButton onClick={() => handleDialogOpen(workspaceMember)}>
                     <DeleteIcon />
                   </IconButton>
                 )}
@@ -111,7 +107,7 @@ export const MemberList = props => {
         open={destroyOpen}
         setOpen={arg => setDestroyOpen(arg)}
         setUsers={users => setUsers(users)}
-        user={destroyTargetUser}
+        workspaceMember={destroyTargetMember}
         confirm={() => destroyConfirm()}
       />
     </Wrapper>

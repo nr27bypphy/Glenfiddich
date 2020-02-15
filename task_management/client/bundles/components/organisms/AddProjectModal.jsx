@@ -7,21 +7,42 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Input from '@material-ui/core/Input';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 
-export const AddProjectModal = props => {
+const useStyles = makeStyles(theme => ({
+  selectBox: {
+    width: "100%"
+  }
+}));
+
+const MenuProps = {
+  PaperProps: {
+    style: {
+      width: 250,
+    },
+  },
+};
+
+export const AddProjectModal = ({open, handleClose, postProject, workspaceMembers}) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [userName, setUserName] = useState("");
+  const [workspaceMemberId, setWorkspaceMemberId] = useState([]);
+  const classes = useStyles();
 
   const handleAddProject = () => {
-    props.addNewTasks(title, description);
-    props.handleClose();
+    postProject(title, description, workspaceMemberId[0]);
+    handleClose();
   };
 
   return (
     <Dialog
-      open={props.open}
-      onClose={() => props.handleClose()}
+      open={open}
+      onClose={() => handleClose()}
       aria-labelledby="form-dialog-title"
     >
       <DialogTitle id="form-dialog-title">プロジェクト追加</DialogTitle>
@@ -55,23 +76,32 @@ export const AddProjectModal = props => {
           }}
           fullWidth
         />
-        <TextField
-          autoFocus
-          margin="dense"
-          id="user_name"
-          label="担当者名"
-          value={userName}
-          onChange={e => {
-            setUserName(e.target.value);
-          }}
-          type="text"
-          fullWidth
-        />
+        <FormControl className={classes.selectBox}>
+          <InputLabel id="demo-simple-select-label">担当者名</InputLabel>
+          <Select
+            id="workspace-member-name"
+            multiple
+            margin="dense"
+            value={workspaceMemberId}
+            autoWidth={true}
+            label="担当者名"
+            className={classes.selectBox}
+            onChange={event => setWorkspaceMemberId(event.target.value)}
+            input={<Input />}
+            MenuProps={MenuProps}
+          >
+            {workspaceMembers.map(workspaceMember => (
+              <MenuItem key={workspaceMember.user.name} value={workspaceMember.id}>
+                {workspaceMember.user.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </DialogContent>
       <DialogActions>
         <Button
           onClick={() => {
-            props.handleClose();
+            handleClose();
           }}
           color="primary"
         >
