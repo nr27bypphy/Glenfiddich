@@ -7,5 +7,8 @@ module Types
     field :workspaceMemberId, Integer, null: true, description: '担当するワークスペースメンバーのID'
     field :workspace, Types::WorkspaceType, null: false, description: '紐づいているワークスペース'
     field :workspaceMember, Types::WorkspaceMemberType, null: true, description: '担当のワークスペースメンバー'
+    field :hurry_task_count, Integer, null: true, description: '期限が当日 or 過ぎている task の個数'
+    field :afford_task_count, Integer, null: true, description: '期限が当日 ~ 3日後'
+    field :middle_task_count, Integer, null: true, description: '期限が4日以上先'
   end
 end

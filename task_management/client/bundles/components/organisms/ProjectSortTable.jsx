@@ -8,8 +8,8 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { ProjectSortTableHead } from "./ProjectSortTableHead"
 
-function createData(title, description, member, red, yellow, green) {
-  return { title, description, member, red, yellow, green };
+function createData(title, description, member, hurryTaskCount, middleTaskCount, affordTaskCount) {
+  return { title, description, member, hurryTaskCount, middleTaskCount, affordTaskCount };
 }
 
 function desc(a, b, orderBy) {
@@ -90,16 +90,16 @@ ProjectSortTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired
 };
 
-export const ProjectSortTable = props => {
+export const ProjectSortTable = ({projects}) => {
   const classes = useStyles();
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("red");
   const [selected, setSelected] = useState([]);
   const [page] = useState(0);
-  const projects = props.projects.map(
-    project => createData(project.title, project.description, "", 5, 5, 5)
+  const rowDatas = projects.map(
+    project => createData(project.title, project.description, "", project.hurryTaskCount, project.middleTaskCount, project.affordTaskCount)
   )
-  var [rowsPerPage] = useState(projects.length);
+  var [rowsPerPage] = useState(rowDatas.length);
 
   const handleRequestSort = (event, property) => {
     const isDesc = orderBy === property && order === "desc";
@@ -139,7 +139,7 @@ export const ProjectSortTable = props => {
   const isSelected = title => selected.indexOf(title) !== -1;
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, projects.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, rowDatas.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -160,7 +160,7 @@ export const ProjectSortTable = props => {
               rowCount={projects.length}
             />
             <TableBody>
-              {stableSort(projects, getSorting(order, orderBy))
+              {stableSort(rowDatas, getSorting(order, orderBy))
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.title);
                   const labelId = `enhanced-table-checkbox-${index}`;
@@ -171,15 +171,15 @@ export const ProjectSortTable = props => {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.title}
+                      key={index}
                       selected={isItemSelected}
                     >
                       <TableCell align="right">{row.title}</TableCell>
                       <TableCell align="right">{row.description}</TableCell>
                       <TableCell align="right">{row.member}</TableCell>
-                      <TableCell align="center" padding= "none" ><span className={classes.red}>{row.red}</span></TableCell>
-                      <TableCell align="center" padding= "none" ><span className={classes.yellow}>{row.yellow}</span></TableCell>
-                      <TableCell align="center" padding= "none" ><span className={classes.green}>{row.green}</span></TableCell>
+                      <TableCell align="center" padding= "none" ><span className={classes.red}>{row.hurryTaskCount}</span></TableCell>
+                      <TableCell align="center" padding= "none" ><span className={classes.yellow}>{row.middleTaskCount}</span></TableCell>
+                      <TableCell align="center" padding= "none" ><span className={classes.green}>{row.affordTaskCount}</span></TableCell>
                     </TableRow>
                   );
                 })}

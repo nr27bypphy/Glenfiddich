@@ -26,7 +26,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const MemberList = ({ currentWorkspaceMember, workspaceMembers }) => {
+export const MemberList = ({ currentWorkspaceMember, workspaceMembers, destroyConfirm }) => {
   const classes = useStyles();
 
   // ユーザー削除の確認モーダルの状態管理で使用する

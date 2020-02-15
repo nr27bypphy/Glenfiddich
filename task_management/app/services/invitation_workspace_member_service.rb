@@ -1,13 +1,13 @@
 class InvitationWorkspaceMemberService
   attr_reader :name, :user, :role, :password, :password_confirmation, :workspace
 
-  def initialize(name:, email:, role:, password:, password_confirmation:, workspace_id:)
+  def initialize(name:, email:, role:, password:, password_confirmation:, workspace:)
     @name = name
     @role = role
     @password = password
     @password_confirmation = password_confirmation
     @user = User.find_or_initialize_by(email: email)
-    @workspace = Workspace.find(workspace_id)
+    @workspace = workspace
   end
 
   def invite!

@@ -6,12 +6,12 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-export const AlertDialog = ({open, setOpen, confirm, workspaceMember}) => {
+export const AlertDialog = ({open, setModalOpen, workspaceMember, confirm}) => {
   return (
     <div>
       <Dialog
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={() => setModalOpen(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -24,10 +24,10 @@ export const AlertDialog = ({open, setOpen, confirm, workspaceMember}) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => confirm()} color="primary">
+          <Button onClick={() => confirm(workspaceMember.id)} color="primary">
             削除する
           </Button>
-          <Button onClick={() => setOpen(false)} color="primary" autoFocus>
+          <Button onClick={() => setModalOpen(false)} color="primary" autoFocus>
             キャンセル
           </Button>
         </DialogActions>

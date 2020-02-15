@@ -12,6 +12,9 @@ export const DASHBOARD_PAGE = gql`
       title
       description
       deadline
+      hurryTaskCount
+      middleTaskCount
+      affordTaskCount
       workspaceMember {
         id
         user {
