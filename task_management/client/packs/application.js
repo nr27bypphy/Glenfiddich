@@ -14,7 +14,6 @@ import ProjectPage from "../bundles/containers/pages/ProjectPage";
 import LoginPage from "../bundles/containers/pages/LoginPage";
 import FlashContent from "../bundles/components/molecules/FlashContent";
 import Flash from "../bundles/components/organisms/Flash";
-import UsersPage from "../bundles/containers/pages/UsersPage";
 import RegistrationUserPage from "../bundles/containers/pages/RegistrationUserPage";
 import WorkspaceMembersPage from "../bundles/containers/pages/WorkspaceMembersPage";
 
@@ -24,7 +23,6 @@ ReactOnRails.register({
   LoginPage,
   FlashContent,
   Flash,
-  UsersPage,
   RegistrationUserPage,
   WorkspaceMembersPage
 });

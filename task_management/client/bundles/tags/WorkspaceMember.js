@@ -51,3 +51,23 @@ export const WORKSPACE_MEMBER_ID_NAMES = gql`
     }
   }
 `;
+
+export const DESTROY_WORKSPACE_MEMBER = gql`
+  mutation(
+    $workspaceMemberId: Int!
+  ) {
+    destroyWorkspaceMember(
+      input: {
+        workspaceMemberId: $workspaceMemberId
+      }
+    ) {
+      workspaceMember {
+        role
+        user {
+          name
+          email
+        }
+      }
+    }
+  }
+`;

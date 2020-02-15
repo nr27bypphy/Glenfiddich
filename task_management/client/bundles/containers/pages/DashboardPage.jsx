@@ -4,7 +4,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import { client } from "../../../lib/ApolloClient/client";
 import { Header } from "../../components/organisms/Header";
 import { CREATE_PROJECT } from "../../tags/Project";
-import { WORKSPACE_MEMBER_ID_NAMES } from "../../tags/WorkspaceMember";
+import { DASHBOARD_PAGE } from "../../tags/Dashboard";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 
 const DashboardPage = props => {
@@ -18,7 +18,7 @@ const DashboardPage = props => {
       }
     });
   };
-  const { data, error, loading } = useQuery(WORKSPACE_MEMBER_ID_NAMES);
+  const { data, error, loading } = useQuery(DASHBOARD_PAGE);
 
   if (loading == true) {
     return <p>loading....</p>;
@@ -33,6 +33,7 @@ const DashboardPage = props => {
         workspaceId={props.workspaceId}
         postProject={postProject}
         workspaceMembers={data.workspaceMembers}
+        projects={data.projects}
       />
     </>
   );

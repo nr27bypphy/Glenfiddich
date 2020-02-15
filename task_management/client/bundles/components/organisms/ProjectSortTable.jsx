@@ -96,10 +96,10 @@ export const ProjectSortTable = props => {
   const [orderBy, setOrderBy] = useState("red");
   const [selected, setSelected] = useState([]);
   const [page] = useState(0);
-  const tasks = props.tasks.map(
-    task => createData(task.title, task.description, "", 5, 5, 5)
+  const projects = props.projects.map(
+    project => createData(project.title, project.description, "", 5, 5, 5)
   )
-  var [rowsPerPage] = useState(tasks.length);
+  var [rowsPerPage] = useState(projects.length);
 
   const handleRequestSort = (event, property) => {
     const isDesc = orderBy === property && order === "desc";
@@ -109,7 +109,7 @@ export const ProjectSortTable = props => {
 
   const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelecteds = tasks.map(n => n.title);
+      const newSelecteds = projects.map(n => n.title);
       setSelected(newSelecteds);
       return;
     }
@@ -139,7 +139,7 @@ export const ProjectSortTable = props => {
   const isSelected = title => selected.indexOf(title) !== -1;
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, tasks.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, projects.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -157,10 +157,10 @@ export const ProjectSortTable = props => {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={tasks.length}
+              rowCount={projects.length}
             />
             <TableBody>
-              {stableSort(tasks, getSorting(order, orderBy))
+              {stableSort(projects, getSorting(order, orderBy))
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.title);
                   const labelId = `enhanced-table-checkbox-${index}`;

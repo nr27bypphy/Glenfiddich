@@ -1,8 +1,8 @@
 class ApplicationPolicy
-  attr_reader :user, :record
+  attr_reader :current_workspace_member, :record
 
-  def initialize(user, record)
-    @user = user
+  def initialize(current_workspace_member, record)
+    @current_workspace_member = current_workspace_member
     @record = record
   end
 
