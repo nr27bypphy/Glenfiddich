@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
-import { SearchContent } from "../../components/molecules/SearchContent";
 import { GrPaper } from "../../components/molecules/GrPaper";
 import { PaperHeader } from "../../components/molecules/PaperHeader";
 import { PaperSearchContent } from "../../components/organisms/PaperSearchContent";
@@ -14,6 +13,7 @@ import { AddProjectModal } from "../../components/organisms/AddProjectModal";
 import { AddWorkspaceMemberModal } from "../../components/organisms/AddWorkspaceMemberModal";
 import { MemberSortTable } from "../../components/organisms/MemberSortTable";
 import { ProjectSortTable } from "../../components/organisms/ProjectSortTable";
+import { SearchInput } from "../../components/molecules/SearchInput";
 
 const useStyles = makeStyles(theme => ({
   projectPaper: {
@@ -22,6 +22,9 @@ const useStyles = makeStyles(theme => ({
   icon: {
     flex: "1",
     height: "100%"
+  },
+  searchForm: {
+    padding: '1.5rem 0'
   }
 }));
 
@@ -41,7 +44,11 @@ export const DashboardContainer = ({
     <>
       <BackgroundThema>
         <Content>
-          <SearchContent />
+          <div className={classes.searchForm}>
+            <SearchInput
+              placeholder="search anything"
+            />
+          </div>
           <Grid container spacing={3}>
             <Grid item xs={6}>
               <GrPaper className={classes.projectPaper}>
