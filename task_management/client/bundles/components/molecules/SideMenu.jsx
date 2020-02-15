@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
 
 const sideMenuContent = [
   { text: "ダッシュボード", path: "/" },
-  { text: "ユーザー一覧", path: "/workspace_members" },
+  { text: "メンバーリスト", path: "/workspace_members" },
   { text: "ユーザー詳細", path: "/projects" }
 ];
 
