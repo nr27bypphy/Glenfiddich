@@ -30,7 +30,9 @@ export const INVITATION_WORKSPACE_MEMBER = gql`
 export const WORKSPACE_MEMBERS = gql`
   query {
     workspaceMembers {
+      id
       role
+      createdAt
       user {
         name
         email

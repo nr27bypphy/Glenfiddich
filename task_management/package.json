@@ -26,6 +26,7 @@
     "react-hook-form": "^3.26.2",
     "react-moment": "^0.9.6",
     "react-on-rails": "11.3.0",
+    "react-perfect-scrollbar": "^1.5.8",
     "styled-components": "^4.4.1",
     "turbolinks": "^5.2.0"
   },
