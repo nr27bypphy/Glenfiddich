@@ -5,11 +5,11 @@ module Mutations
     argument :role, Integer, required: true
     argument :password, String, required: true
     argument :password_confirmation, String, required: true
-    argument :workspace_id, Integer, required: true
 
     field :workspace_member, Types::WorkspaceMemberType, null: false
 
-    def resolve(name:, email:, role:, password:, password_confirmation:, workspace_id:)
+    def resolve(name:, email:, role:, password:, password_confirmation:)
+      workspace = context[:current_workspace]
       workspace_member = InvitationWorkspaceMemberService
                            .new(
                              name: name,
@@ -17,7 +17,7 @@ module Mutations
                              role: role,
                              password: password,
                              password_confirmation: password_confirmation,
-                             workspace_id: workspace_id
+                             workspace: workspace
                            )
                            .invite!
 

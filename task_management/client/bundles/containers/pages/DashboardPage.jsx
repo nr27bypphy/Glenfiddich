@@ -29,7 +29,6 @@ const DashboardPage = props => {
         role: role,
         password: password,
         passwordConfirmation: passwordConfirmation,
-        workspaceId: props.workspaceId
       }
     });
   }
