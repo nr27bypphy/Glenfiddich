@@ -20,7 +20,9 @@ const DashboardPage = props => {
       }
     });
   };
-  const [addWorkspaceMember] = useMutation(INVITATION_WORKSPACE_MEMBER);
+  const [addWorkspaceMember, { loading: mutationLoading, error: mutationError }] = useMutation(INVITATION_WORKSPACE_MEMBER);
+  const invitationErrorMessage = mutationError ? mutationError.graphQLErrors[0].message : '';
+
   const invitationWorkspaceMember = (name, email, role, password, passwordConfirmation) => {
     addWorkspaceMember({
       variables: {
@@ -46,6 +48,7 @@ const DashboardPage = props => {
         workspaceMembers={data.workspaceMembers}
         projects={data.projects}
         invitationWorkspaceMember={invitationWorkspaceMember}
+        invitationErrorMessage={invitationErrorMessage}
       />
     </>
   );

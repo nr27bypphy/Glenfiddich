@@ -25,13 +25,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const DashboardContainer = ({postProject, workspaceMembers, projects, invitationWorkspaceMember}) => {
+export const DashboardContainer = ({
+  postProject,
+  workspaceMembers,
+  projects,
+  invitationWorkspaceMember,
+  invitationErrorMessage
+}) => {
   const classes = useStyles();
   // モーダル表示の状態を管理する
   const [projectOpen, setProjectOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
-  // ユーザー追加のエラーメッセージ用
-  const [userErrors, setUserErrors] = useState([]);
 
   return (
     <>
@@ -87,7 +91,7 @@ export const DashboardContainer = ({postProject, workspaceMembers, projects, inv
         open={userOpen}
         handleClose={() => setUserOpen(false)}
         invitationWorkspaceMember={invitationWorkspaceMember}
-        errors={userErrors}
+        error={invitationErrorMessage}
       />
     </>
   );

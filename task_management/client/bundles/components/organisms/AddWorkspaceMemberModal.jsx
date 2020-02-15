@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const AddWorkspaceMemberModal = ({open, handleClose, invitationWorkspaceMember, errors}) => {
+export const AddWorkspaceMemberModal = ({open, handleClose, invitationWorkspaceMember, error}) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
@@ -47,14 +47,11 @@ export const AddWorkspaceMemberModal = ({open, handleClose, invitationWorkspaceM
       <DialogTitle id="form-dialog-title">メンバーの追加</DialogTitle>
       <DialogContent>
         {/* 追加に失敗した時は下記でエラーメッセージを表示する @todo style の修正 */}
-        {errors.length != 0 &&
-          errors.map((error, index) => {
-            return (
-              <p key={index} className={classes.errorMessage}>
-                {error}
-              </p>
-            );
-          })}
+        {error != '' &&
+          (<p className={classes.errorMessage}>
+            {error}
+          </p>)
+        }
         <TextField
           autoFocus
           margin="dense"
