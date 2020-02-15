@@ -6,20 +6,23 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import { client } from "../../../lib/ApolloClient/client";
 import { WORKSPACE_MEMBERS } from "../../tags/WorkspaceMember";
 import { useQuery } from "@apollo/react-hooks";
-import { LoadingPage } from "./LoadingPage"
+import { LoadingPage } from "./LoadingPage";
 
-const WorkspaceMembersPage = (currentWorkspaceMember) => {
+const WorkspaceMembersPage = currentWorkspaceMember => {
   const { data, error, loading } = useQuery(WORKSPACE_MEMBERS);
 
   if (loading == true) {
-    return <LoadingPage />
+    return <LoadingPage />;
   }
 
   return (
     <>
       <Header />
       <MemberListHeader />
-      <MemberList currentWorkspaceMember={currentWorkspaceMember.currentWorkspaceMember} workspaceMembers={data.workspaceMembers} />
+      <MemberList
+        currentWorkspaceMember={currentWorkspaceMember.currentWorkspaceMember}
+        workspaceMembers={data.workspaceMembers}
+      />
     </>
   );
 };
