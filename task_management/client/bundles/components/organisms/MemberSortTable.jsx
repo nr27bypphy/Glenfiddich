@@ -7,10 +7,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { MemberSortTableHead } from "./MemberSortTableHead"
-
-function createData(name, role, red, yellow, green) {
-  return { name, role, red, yellow, green };
-}
+import { Link } from "../../components/atoms/Link"
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -100,7 +97,9 @@ export const MemberSortTable = ({workspaceMembers}) => {
   const [selected, setSelected] = useState([]);
   const [page] = useState(0);
   const rowDatas = workspaceMembers.map(
-    workspaceMember => createData(workspaceMember.user.name, workspaceMember.role, 5, 5, 5)
+    workspaceMember => {
+      return { id: workspaceMember.id, name: workspaceMember.user.name, role: workspaceMember.role, red: 5, yellow: 5, green: 5 }
+    }
   )
   const [rowsPerPage] = useState(workspaceMembers.length);
 
@@ -177,7 +176,7 @@ export const MemberSortTable = ({workspaceMembers}) => {
                       key={row.name}
                       selected={isItemSelected}
                     >
-                      <TableCell align="center" className={classes.member_td}>{row.name}</TableCell>
+                      <TableCell align="center" className={classes.member_td}><Link href={`/workspace_members/${row.id}`} message={row.name} /></TableCell>
                       <TableCell align="right">{row.roles}</TableCell>
                       <TableCell align="right"><span className={classes.red}>{row.red}</span></TableCell>
                       <TableCell align="right"><span className={classes.yellow}>{row.yellow}</span></TableCell>
