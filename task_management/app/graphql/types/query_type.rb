@@ -13,16 +13,23 @@ module Types
             User.all
           end
     field :workspace_members, [Types::WorkspaceMemberType], null: true, description: '現在使用しているワークスペースの全メンバー'
-    field :projects,  [Types::ProjectType], null: true, description: 'ログイン中のワークスペースに紐づくプロジェクト'
-    
+    field :projects,  [Types::ProjectType], null: true do
+      argument :workspace_member_id, Integer, required: false
+      description 'プロジェクトの一覧を取得する'
+    end
+
     def workspace_members
       workspace = context[:current_workspace]
       workspace.workspace_members
     end
 
-    def projects
+    def projects(workspace_member_id: nil)
       workspace = context[:current_workspace]
-      workspace.projects
+
+      projects = workspace.projects
+      projects = projects.where(workspace_member_id: workspace_member_id) if !workspace_member_id.nil?
+
+      projects
     end
   end
 end
