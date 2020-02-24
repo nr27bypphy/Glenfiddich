@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Header } from "../../components/organisms/Header";
-import { ApolloProviderWrapper } from "../../components/providers/ApolloProviderWrapper";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -21,17 +20,11 @@ const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar
 }));
 
-function ProjectPage(props) {
+export const WorkspaceMemberContainer = ({projects, activeIndex, changeActiveIndex}) => {
   const classes = useStyles();
-  const projects = JSON.parse(props.projects);
-  // table に表示されている Project の index を管理する
-  const [activeIndex, setAcitveIndex] = useState(0);
-  const changeActiveIndex = index => {
-    setAcitveIndex(index);
-  };
 
   return (
-    <ApolloProviderWrapper>
+    <>
       <div className={classes.root}>
         <CssBaseline />
         <AppBar position="fixed" className={classes.appBar}>
@@ -49,8 +42,6 @@ function ProjectPage(props) {
           )}
         </main>
       </div>
-    </ApolloProviderWrapper>
+    </>
   );
 }
-
-export default props => <ProjectPage {...props} />;
