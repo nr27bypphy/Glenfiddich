@@ -16,6 +16,7 @@ import FlashContent from "../bundles/components/molecules/FlashContent";
 import Flash from "../bundles/components/organisms/Flash";
 import RegistrationUserPage from "../bundles/containers/pages/RegistrationUserPage";
 import WorkspaceMembersPage from "../bundles/containers/pages/WorkspaceMembersPage";
+import WorkspaceMemberPage from  "../bundles/containers/pages/WorkspaceMemberPage";
 
 ReactOnRails.register({
   DashboardPage,
@@ -24,5 +25,6 @@ ReactOnRails.register({
   FlashContent,
   Flash,
   RegistrationUserPage,
-  WorkspaceMembersPage
+  WorkspaceMembersPage,
+  WorkspaceMemberPage
 });

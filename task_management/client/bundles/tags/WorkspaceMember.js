@@ -71,3 +71,15 @@ export const DESTROY_WORKSPACE_MEMBER = gql`
     }
   }
 `;
+
+export const WORKSPACE_MEMBERS_PROJECTS  = gql`
+  query(
+    $workspaceMemberId: Int
+  ) {
+    projects(workspaceMemberId: $workspaceMemberId) {
+      title
+      description
+      workspaceMemberId
+    }
+  }
+`
