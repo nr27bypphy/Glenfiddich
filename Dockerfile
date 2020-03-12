@@ -11,15 +11,15 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 # 必要なパッケージのインストール（基本的に必要になってくるものだと思うので削らないこと）
 RUN apt-get update -qq && \
     apt-get install -y \
-    build-essential \ 
-    libpq-dev \ 
-    default-mysql-client \ 
-    yarn \ 
-    tzdata \ 
+    build-essential \
+    libpq-dev \
+    default-mysql-client \
+    yarn \
+    tzdata \
     nodejs
 
 # 作業ディレクトリの作成、設定
-RUN mkdir /task_management 
+RUN mkdir /task_management
 ##作業ディレクトリ名をAPP_ROOTに割り当てて、以下$APP_ROOTで参照
 ENV APP_ROOT /task_management
 WORKDIR $APP_ROOT
@@ -32,3 +32,6 @@ ADD ./task_management/Gemfile.lock $APP_ROOT/Gemfile.lock
 RUN bundle install
 ADD ./task_management/ $APP_ROOT
 RUN yarn
+
+EXPOSE 3000
+CMD ["rails", "server", "-b", "0.0.0.0"]
