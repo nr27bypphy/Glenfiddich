@@ -6,10 +6,26 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { ProjectSortTableHead } from "./ProjectSortTableHead"
+import { ProjectSortTableHead } from "./ProjectSortTableHead";
 
-function createData(title, description, member, hurryTaskCount, middleTaskCount, affordTaskCount) {
-  return { title, description, member, hurryTaskCount, middleTaskCount, affordTaskCount };
+function createData(
+  title,
+  description,
+  member,
+  hurryTaskCount,
+  middleTaskCount,
+  affordTaskCount,
+  notApproveTaskCount
+) {
+  return {
+    title,
+    description,
+    member,
+    hurryTaskCount,
+    middleTaskCount,
+    affordTaskCount,
+    notApproveTaskCount
+  };
 }
 
 function desc(a, b, orderBy) {
@@ -26,7 +42,7 @@ function stableSort(array, cmp) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
     const order = cmp(a[0], b[0]);
-    if (order !== 0){
+    if (order !== 0) {
       return order;
     } else {
       return a[1] - b[1];
@@ -77,6 +93,11 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "green",
     padding: 10,
     color: "white"
+  },
+  gray: {
+    backgroundColor: "gray",
+    padding: 10,
+    color: "white"
   }
 }));
 
@@ -90,15 +111,23 @@ ProjectSortTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired
 };
 
-export const ProjectSortTable = ({projects}) => {
+export const ProjectSortTable = ({ projects }) => {
   const classes = useStyles();
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("red");
   const [selected, setSelected] = useState([]);
   const [page] = useState(0);
-  const rowDatas = projects.map(
-    project => createData(project.title, project.description, "", project.hurryTaskCount, project.middleTaskCount, project.affordTaskCount)
-  )
+  const rowDatas = projects.map(project =>
+    createData(
+      project.title,
+      project.description,
+      "",
+      project.hurryTaskCount,
+      project.middleTaskCount,
+      project.affordTaskCount,
+      project.notApproveTaskCount
+    )
+  );
   var [rowsPerPage] = useState(rowDatas.length);
 
   const handleRequestSort = (event, property) => {
@@ -144,52 +173,68 @@ export const ProjectSortTable = ({projects}) => {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-          <Table
-            className={classes.table}
-            aria-labelledby="tableTitle"
-            size={"medium"}
-            aria-label="enhanced table"
-          >
-            <ProjectSortTableHead
-              classes={classes}
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={projects.length}
-            />
-            <TableBody>
-              {stableSort(rowDatas, getSorting(order, orderBy))
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.title);
-                  const labelId = `enhanced-table-checkbox-${index}`;
-                  return (
-                    <TableRow
-                      hover
-                      onClick={event => handleClick(event, row.title)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={index}
-                      selected={isItemSelected}
-                    >
-                      <TableCell align="right">{row.title}</TableCell>
-                      <TableCell align="right">{row.description}</TableCell>
-                      <TableCell align="right">{row.member}</TableCell>
-                      <TableCell align="center" padding= "none" ><span className={classes.red}>{row.hurryTaskCount}</span></TableCell>
-                      <TableCell align="center" padding= "none" ><span className={classes.yellow}>{row.middleTaskCount}</span></TableCell>
-                      <TableCell align="center" padding= "none" ><span className={classes.green}>{row.affordTaskCount}</span></TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={2} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+        <Table
+          className={classes.table}
+          aria-labelledby="tableTitle"
+          size={"medium"}
+          aria-label="enhanced table"
+        >
+          <ProjectSortTableHead
+            classes={classes}
+            numSelected={selected.length}
+            order={order}
+            orderBy={orderBy}
+            onSelectAllClick={handleSelectAllClick}
+            onRequestSort={handleRequestSort}
+            rowCount={projects.length}
+          />
+          <TableBody>
+            {stableSort(rowDatas, getSorting(order, orderBy)).map(
+              (row, index) => {
+                const isItemSelected = isSelected(row.title);
+                const labelId = `enhanced-table-checkbox-${index}`;
+                return (
+                  <TableRow
+                    hover
+                    onClick={event => handleClick(event, row.title)}
+                    role="checkbox"
+                    aria-checked={isItemSelected}
+                    tabIndex={-1}
+                    key={index}
+                    selected={isItemSelected}
+                  >
+                    <TableCell align="right">{row.title}</TableCell>
+                    <TableCell align="right">{row.description}</TableCell>
+                    <TableCell align="right">{row.member}</TableCell>
+                    <TableCell align="center" padding="none">
+                      <span className={classes.red}>{row.hurryTaskCount}</span>
+                    </TableCell>
+                    <TableCell align="center" padding="none">
+                      <span className={classes.yellow}>
+                        {row.middleTaskCount}
+                      </span>
+                    </TableCell>
+                    <TableCell align="center" padding="none">
+                      <span className={classes.green}>
+                        {row.affordTaskCount}
+                      </span>
+                    </TableCell>
+                    <TableCell align="center" padding="none">
+                      <span className={classes.gray}>
+                        {row.notApproveTaskCount}
+                      </span>
+                    </TableCell>
+                  </TableRow>
+                );
+              }
+            )}
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 53 * emptyRows }}>
+                <TableCell colSpan={2} />
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
       </Paper>
     </div>
   );

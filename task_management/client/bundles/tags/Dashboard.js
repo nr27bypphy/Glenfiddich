@@ -7,6 +7,10 @@ export const DASHBOARD_PAGE = gql`
       user {
         name
       }
+      hurryTaskCount
+      middleTaskCount
+      affordTaskCount
+      notApproveTaskCount
     }
     projects {
       title
@@ -15,6 +19,7 @@ export const DASHBOARD_PAGE = gql`
       hurryTaskCount
       middleTaskCount
       affordTaskCount
+      notApproveTaskCount
       workspaceMember {
         id
         user {

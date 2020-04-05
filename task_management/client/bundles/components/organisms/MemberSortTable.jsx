@@ -6,8 +6,8 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { MemberSortTableHead } from "./MemberSortTableHead"
-import { Link } from "../../components/atoms/Link"
+import { MemberSortTableHead } from "./MemberSortTableHead";
+import { Link } from "../../components/atoms/Link";
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -23,7 +23,7 @@ function stableSort(array, cmp) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
     const order = cmp(a[0], b[0]);
-    if (order !== 0){
+    if (order !== 0) {
       return order;
     } else {
       return a[1] - b[1];
@@ -77,6 +77,11 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "green",
     padding: 10,
     color: "white"
+  },
+  gray: {
+    backgroundColor: "gray",
+    padding: 10,
+    color: "white"
   }
 }));
 
@@ -90,17 +95,23 @@ MemberSortTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired
 };
 
-export const MemberSortTable = ({workspaceMembers}) => {
+export const MemberSortTable = ({ workspaceMembers }) => {
   const classes = useStyles();
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("red");
   const [selected, setSelected] = useState([]);
   const [page] = useState(0);
-  const rowDatas = workspaceMembers.map(
-    workspaceMember => {
-      return { id: workspaceMember.id, name: workspaceMember.user.name, role: workspaceMember.role, red: 5, yellow: 5, green: 5 }
-    }
-  )
+  const rowDatas = workspaceMembers.map(workspaceMember => {
+    return {
+      id: workspaceMember.id,
+      name: workspaceMember.user.name,
+      role: workspaceMember.role,
+      red: workspaceMember.hurryTaskCount,
+      yellow: workspaceMember.middleTaskCount,
+      green: workspaceMember.affordTaskCount,
+      gray: workspaceMember.notApproveTaskCount
+    };
+  });
   const [rowsPerPage] = useState(workspaceMembers.length);
 
   const handleRequestSort = (event, property) => {
@@ -146,51 +157,66 @@ export const MemberSortTable = ({workspaceMembers}) => {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-          <Table
-            className={classes.table}
-            aria-labelledby="tableTitle"
-            size={"medium"}
-            aria-label="enhanced table"
-          >
-            <MemberSortTableHead
-              classes={classes}
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rowDatas.length}
-            />
-            <TableBody>
-              {stableSort(rowDatas, getSorting(order, orderBy))
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
-                  const labelId = `enhanced-table-checkbox-${index}`;
-                  return (
-                    <TableRow
-                      hover
-                      onClick={event => handleClick(event, row.name)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.name}
-                      selected={isItemSelected}
-                    >
-                      <TableCell align="center" className={classes.member_td}><Link href={`/workspace_members/${row.id}`} message={row.name} /></TableCell>
-                      <TableCell align="right">{row.roles}</TableCell>
-                      <TableCell align="right"><span className={classes.red}>{row.red}</span></TableCell>
-                      <TableCell align="right"><span className={classes.yellow}>{row.yellow}</span></TableCell>
-                      <TableCell align="right"><span className={classes.green}>{row.green}</span></TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={2} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+        <Table
+          className={classes.table}
+          aria-labelledby="tableTitle"
+          size={"medium"}
+          aria-label="enhanced table"
+        >
+          <MemberSortTableHead
+            classes={classes}
+            numSelected={selected.length}
+            order={order}
+            orderBy={orderBy}
+            onSelectAllClick={handleSelectAllClick}
+            onRequestSort={handleRequestSort}
+            rowCount={rowDatas.length}
+          />
+          <TableBody>
+            {stableSort(rowDatas, getSorting(order, orderBy)).map(
+              (row, index) => {
+                const isItemSelected = isSelected(row.name);
+                const labelId = `enhanced-table-checkbox-${index}`;
+                return (
+                  <TableRow
+                    hover
+                    onClick={event => handleClick(event, row.name)}
+                    role="checkbox"
+                    aria-checked={isItemSelected}
+                    tabIndex={-1}
+                    key={row.name}
+                    selected={isItemSelected}
+                  >
+                    <TableCell align="center" className={classes.member_td}>
+                      <Link
+                        href={`/workspace_members/${row.id}`}
+                        message={row.name}
+                      />
+                    </TableCell>
+                    <TableCell align="right">{row.roles}</TableCell>
+                    <TableCell align="right">
+                      <span className={classes.red}>{row.red}</span>
+                    </TableCell>
+                    <TableCell align="right">
+                      <span className={classes.yellow}>{row.yellow}</span>
+                    </TableCell>
+                    <TableCell align="right">
+                      <span className={classes.green}>{row.green}</span>
+                    </TableCell>
+                    <TableCell align="right">
+                      <span className={classes.gray}>{row.gray}</span>
+                    </TableCell>
+                  </TableRow>
+                );
+              }
+            )}
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 53 * emptyRows }}>
+                <TableCell colSpan={2} />
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
       </Paper>
     </div>
   );
