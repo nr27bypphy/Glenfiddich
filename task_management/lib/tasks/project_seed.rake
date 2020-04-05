@@ -25,7 +25,8 @@ namespace :project_seed do
             title: Faker::Book.title,
             description: Faker::Book.author,
             deadline: Faker::Time.between(from: date_from, to: date_to),
-            workspace_member: workspace_member
+            workspace_member: workspace_member,
+            is_approved: [true, false].sample
           ) 
         end
       end

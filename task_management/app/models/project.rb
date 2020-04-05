@@ -13,6 +13,7 @@ class Project < ApplicationRecord
   def hurry_task_count
     tasks
       .where('deadline <= ?', Time.zone.today)
+      .where(is_approved: true)
       .count
   end
 
@@ -21,6 +22,7 @@ class Project < ApplicationRecord
     tasks
       .where('deadline <= ?', Time.zone.today.since(3.days))
       .where('deadline > ?', Time.zone.today)
+      .where(is_approved: true)
       .count
   end
 
@@ -28,6 +30,14 @@ class Project < ApplicationRecord
   def middle_task_count
     tasks
       .where('deadline > ?', Time.zone.today.since(3.days))
+      .where(is_approved: true)
+      .count
+  end
+
+  # @todo リファクタ
+  def not_approve_task_count
+    tasks
+      .where(is_approved: false)
       .count
   end
 
