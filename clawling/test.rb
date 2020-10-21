@@ -2,7 +2,7 @@ require 'selenium-webdriver'
 require 'csv'
 require 'date'
 
-@wait_time = 3 
+@wait_time = 3
 @timeout = 4
 
 Selenium::WebDriver.logger.output = File.join("./", "selenium.log")
@@ -17,19 +17,26 @@ begin
   head = "会社名,TEL\n"
   category = driver.find_element(:css, 'body > div.wrapper > div.container.clearfix > div.article > section:nth-child(6) > div > section.phonebook-cat.phonebook-cat-M01 > ul > li:nth-child(1) > a')
   category.click
-
+  
   prefecture = driver.find_element(:css, 'body > div.wrapper > div.container.clearfix > div.article > section > table > tbody > tr:nth-child(1) > td > a:nth-child(1)')
   prefecture.click
-
-  city = driver.find_element(:css, 'body > div.wrapper > div.container.clearfix > div.article > section.section.type-a > ul > li:nth-child(1) > a')
-  city.click
-
-  store_name = driver.find_element(:css, 'body > div.wrapper > div.container.clearfix > div.article > section.section.type-a > table > tbody > tr > th > a')
-  tel = driver.find_element(:css, 'body > div.wrapper > div.container.clearfix > div.article > section.section.type-a > table > tbody > tr > td:nth-child(3)')
+  
+  # city = driver.find_elements(:css, 'body > div.wrapper > div.container.clearfix > div.article > section.section.type-a > ul > li:nth-child(1) > a')
+  cities = driver.find_elements(:css, 'body > div.wrapper > div.container.clearfix > div.article > section.section.type-a > ul > li')
+  city_num = cities.length
+  
   csv = CSV.generate(head, headers: true) do |csv|
-    
-    csv.add_row([store_name.text, tel.text])
+    1.upto(city_num) do |i|
+      city = driver.find_element(:css, "body > div.wrapper > div.container.clearfix > div.article > section.section.type-a > ul > li:nth-child(#{i}) > a")
+      city.click
+      store_name = driver.find_element(:css, 'body > div.wrapper > div.container.clearfix > div.article > section.section.type-a > table > tbody > tr > th > a')
+      tel = driver.find_element(:css, 'body > div.wrapper > div.container.clearfix > div.article > section.section.type-a > table > tbody > tr > td:nth-child(3)')
+      csv.add_row([store_name.text, tel.text])
+      driver.navigate.back
+      break if i > 2
+    end
   end
+  
   f = File.new("result_#{Date.today}.csv", "w")
   f.write(csv)
   f.close
